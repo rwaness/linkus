@@ -16,19 +16,19 @@ export default {
   },
   async created() {
     // test stitch
-    this.projects = await this.$mongoDbStitch.login()
-      .then(() => this.$mongoDbStitch.db().collection('projects').updateOne({
-        stitchId: this.$mongoDbStitch.client.auth.user.id,
-      }, {
-        $set: { number: 42 },
-      }, {
-        upsert: true,
-      }))
-      .then(() => this.$mongoDbStitch.db().collection('projects').find({
-        stitchId: this.$mongoDbStitch.client.auth.user.id,
-      }, {
-        limit: 100,
-      }).asArray());
+    const user = await this.$mongoDbStitch.login();
+    await this.$mongoDbStitch.db().collection('projects').updateOne({
+      stitchId: user.id,
+    }, {
+      $set: { number: 42 },
+    }, {
+      upsert: true,
+    });
+    this.projects = await this.$mongoDbStitch.db().collection('projects').find({
+      stitchId: user.id,
+    }, {
+      limit: 100,
+    }).asArray();
   },
   data() {
     return {
