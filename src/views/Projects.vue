@@ -17,6 +17,7 @@ export default {
   async created() {
     // test stitch
     const user = await this.$mongoDbStitch.login();
+
     await this.$mongoDbStitch.db().collection('projects').updateOne({
       stitchId: user.id,
     }, {
@@ -24,6 +25,7 @@ export default {
     }, {
       upsert: true,
     });
+
     this.projects = await this.$mongoDbStitch.db().collection('projects').find({
       stitchId: user.id,
     }, {
