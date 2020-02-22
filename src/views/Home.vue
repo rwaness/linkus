@@ -5,7 +5,6 @@
 </template>
 
 <script>
-// @ is an alias to /src
 import DefaultLayout from '@/layouts/DefaultLayout.vue';
 import HelloWorld from '@/components/HelloWorld.vue';
 
