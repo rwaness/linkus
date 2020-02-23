@@ -1,24 +1,31 @@
 <template>
   <default-layout>
-    PROJECTS
-    <br />
-    <pre>{{ projects }}</pre>
+    <auth-view>
+      PROJECTS
+      <br />
+      <pre>{{ projects }}</pre>
+    </auth-view>
   </default-layout>
 </template>
 
 <script>
 import DefaultLayout from '@/layouts/DefaultLayout.vue';
+import AuthView from '@/lib/stitch/components/AuthView.vue';
 
 export default {
   name: 'Projects',
+
   components: {
     DefaultLayout,
+    AuthView,
   },
+
+  /*
   async created() {
     // test stitch
-    const user = await this.$mongoDbStitch.login();
+    const user = await this.$mongoDbStitch.loginWithCredential();
 
-    await this.$mongoDbStitch.db().collection('projects').updateOne({
+    await this.$mongoDbStitch.db.collection('projects').updateOne({
       stitchId: user.id,
     }, {
       $set: { number: 42 },
@@ -26,12 +33,14 @@ export default {
       upsert: true,
     });
 
-    this.projects = await this.$mongoDbStitch.db().collection('projects').find({
+    this.projects = await this.$mongoDbStitch.db.collection('projects').find({
       stitchId: user.id,
     }, {
       limit: 100,
     }).asArray();
   },
+  */
+
   data() {
     return {
       projects: [],

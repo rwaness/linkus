@@ -4,11 +4,12 @@ import './registerServiceWorker';
 import router from './router';
 import store from './store';
 import vuetify from './plugins/vuetify';
-import MongoDbStitch from './plugins/mongoDbStitch';
+// import MongoDbStitch from './plugins/mongoDbStitch';
+import './plugins/mongoDbStitch';
 
 Vue.config.productionTip = false;
 
-Vue.use(MongoDbStitch);
+// Vue.use(MongoDbStitch);
 
 new Vue({
   router,

@@ -12,13 +12,22 @@
 
       <v-spacer></v-spacer>
 
+      <v-btn
+        v-if="!user"
+        @click="showRegistration = true"
+      >
+        <v-icon>mdi-account-circle</v-icon>
+        SIGN UP
+      </v-btn>
       <v-menu
+        v-else
         left
         bottom
       >
         <template v-slot:activator="{ on }">
           <v-btn icon v-on="on">
-            <v-icon>mdi-dots-vertical</v-icon>
+            <v-icon>mdi-account-circle</v-icon>
+            <template>Username</template>
           </v-btn>
         </template>
 
@@ -68,13 +77,25 @@
 
     <v-content>
       <slot />
+
+      <v-overlay v-model="showRegistration">
+        <registration-form />
+      </v-overlay>
     </v-content>
   </v-container>
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
+import RegistrationForm from '@/lib/stitch/components/RegistrationForm.vue';
+
 export default {
   name: 'CustomLayout',
+
+  components: {
+    RegistrationForm,
+  },
+
   data() {
     return {
       drawer: null,
@@ -84,8 +105,16 @@ export default {
         { title: 'Projects', icon: 'mdi-hexagon-multiple', link: '/projects' },
         { title: 'About', icon: 'mdi-help-circle', link: '/about' },
       ],
+      showRegistration: false,
     };
   },
+
+  computed: {
+    ...mapGetters([
+      'user',
+    ]),
+  },
+
   methods: {
     toggleDrawer() {
       this.drawer = true;
