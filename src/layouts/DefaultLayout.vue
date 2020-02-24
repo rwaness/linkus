@@ -87,7 +87,7 @@
 
 <script>
 import { mapGetters } from 'vuex';
-import RegistrationForm from '@/lib/stitch/components/RegistrationForm.vue';
+import RegistrationForm from '@/lib/vue-mongodb-stitch/components/RegistrationForm.vue';
 
 export default {
   name: 'CustomLayout',

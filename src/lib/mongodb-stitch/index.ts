@@ -6,7 +6,7 @@ import {
   UserPasswordAuthProviderClient,
 } from 'mongodb-stitch-browser-sdk';
 
-export default class MongoDbStitch {
+export default class VueMongodbStitch {
   // default settings
   settings = {
     clientAppId: '<client-app-id>',

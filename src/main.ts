@@ -4,8 +4,7 @@ import './registerServiceWorker';
 import router from './router';
 import store from './store';
 import vuetify from './plugins/vuetify';
-// import MongoDbStitch from './plugins/mongoDbStitch';
-import './plugins/mongoDbStitch';
+import './plugins/mongodbStitch';
 
 Vue.config.productionTip = false;
 

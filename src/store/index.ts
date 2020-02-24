@@ -1,6 +1,6 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
-import stitch from '@/lib/stitch/store.ts';
+import stitch from './stitch';
 
 Vue.use(Vuex);
 

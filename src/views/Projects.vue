@@ -10,7 +10,7 @@
 
 <script>
 import DefaultLayout from '@/layouts/DefaultLayout.vue';
-import AuthView from '@/lib/stitch/components/AuthView.vue';
+import AuthView from '@/lib/vue-mongodb-stitch/components/AuthView.vue';
 
 export default {
   name: 'Projects',
@@ -23,9 +23,9 @@ export default {
   /*
   async created() {
     // test stitch
-    const user = await this.$mongoDbStitch.loginWithCredential();
+    const user = await this.$mongodbStitch.loginWithCredential();
 
-    await this.$mongoDbStitch.db.collection('projects').updateOne({
+    await this.$mongodbStitch.db.collection('projects').updateOne({
       stitchId: user.id,
     }, {
       $set: { number: 42 },
@@ -33,7 +33,7 @@ export default {
       upsert: true,
     });
 
-    this.projects = await this.$mongoDbStitch.db.collection('projects').find({
+    this.projects = await this.$mongodbStitch.db.collection('projects').find({
       stitchId: user.id,
     }, {
       limit: 100,

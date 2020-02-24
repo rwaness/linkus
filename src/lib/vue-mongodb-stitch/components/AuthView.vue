@@ -14,8 +14,8 @@
 
 <script>
 import { mapGetters, mapActions } from 'vuex';
-import LoginForm from '@/lib/stitch/components/LoginForm.vue';
-import ForgetPwdForm from '@/lib/stitch/components/ForgetPwdForm.vue';
+import LoginForm from './LoginForm.vue';
+import ForgetPwdForm from './ForgetPwdForm.vue';
 
 export default {
   name: 'AuthView',
