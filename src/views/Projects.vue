@@ -9,6 +9,7 @@
 </template>
 
 <script>
+import { mapGetters, mapActions } from 'vuex';
 import DefaultLayout from '@/layouts/DefaultLayout.vue';
 import AuthView from '@/lib/vue-mongodb-stitch/components/AuthView.vue';
 
@@ -20,13 +21,24 @@ export default {
     AuthView,
   },
 
-  /*
-  async created() {
-    // test stitch
-    const user = await this.$mongodbStitch.loginWithCredential();
+  data() {
+    return {
+      projects: [],
+    };
+  },
 
+  computed: {
+    ...mapGetters('stitch', [
+      'user',
+    ]),
+  },
+
+  async created() {
+    await this.loginAnonymous();
+
+    // test stitch
     await this.$mongodbStitch.db.collection('projects').updateOne({
-      stitchId: user.id,
+      stitchId: this.user.id,
     }, {
       $set: { number: 42 },
     }, {
@@ -34,17 +46,16 @@ export default {
     });
 
     this.projects = await this.$mongodbStitch.db.collection('projects').find({
-      stitchId: user.id,
+      stitchId: this.user.id,
     }, {
       limit: 100,
     }).asArray();
   },
-  */
 
-  data() {
-    return {
-      projects: [],
-    };
+  methods: {
+    ...mapActions('stitch', [
+      'loginAnonymous',
+    ]),
   },
 };
 </script>

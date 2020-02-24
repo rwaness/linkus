@@ -13,12 +13,17 @@ export default function createStore(mongodbStitch) {
         commit('setUser', user);
         return user;
       },
+      async loginAnonymous({ commit }) {
+        const user = await mongodbStitch.loginAnonymous();
+        commit('setUser', user);
+        return user;
+      },
       async loginWithEmailAndPassword({ commit }, { email, password }) {
         const user = await mongodbStitch.loginWithEmailAndPassword(email, password);
         commit('setUser', user);
         return user;
       },
-      registerWithEmail(email, password) {
+      registerWithEmail(_, { email, password }) {
         return mongodbStitch.registerWithEmail(email, password);
       },
       sendResetPasswordEmail(_, { email }) {

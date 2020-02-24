@@ -24,15 +24,10 @@ export default class VueMongodbStitch {
 
   constructor(settings = {}) {
     // set settings
-    if (settings.clientAppId) {
-      this.settings.clientAppId = settings.clientAppId;
-    }
-    if (settings.mongoServiceName) {
-      this.settings.mongoServiceName = settings.mongoServiceName;
-    }
-    if (settings.defaultDb) {
-      this.settings.defaultDb = settings.defaultDb;
-    }
+    this.settings = {
+      ...this.settings,
+      ...settings,
+    };
 
     // init stitch app
     this.stitchApp = Stitch.initializeDefaultAppClient(this.settings.clientAppId);
@@ -43,7 +38,7 @@ export default class VueMongodbStitch {
       this.settings.mongoServiceName,
     );
 
-    // set to default db
+    // set default db
     this.setDb(this.settings.defaultDb);
   }
 
@@ -61,8 +56,12 @@ export default class VueMongodbStitch {
     return this.user || this.setUser(this.stitchApp.auth.user);
   }
 
-  async loginWithCredential(credential = new AnonymousCredential()) {
+  async loginWithCredential(credential) {
     return this.setUser(await this.stitchApp.auth.loginWithCredential(credential));
+  }
+
+  loginAnonymous() {
+    return this.loginWithCredential(new AnonymousCredential());
   }
 
   loginWithEmailAndPassword(email, password) {
