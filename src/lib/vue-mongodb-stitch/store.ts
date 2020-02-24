@@ -8,8 +8,8 @@ export default function createStore(mongodbStitch) {
       user: (state) => state.user,
     },
     actions: {
-      async tryAuth({ commit }) {
-        const user = mongodbStitch.tryAuth();
+      async auth({ commit }) {
+        const user = mongodbStitch.auth();
         commit('setUser', user);
         return user;
       },

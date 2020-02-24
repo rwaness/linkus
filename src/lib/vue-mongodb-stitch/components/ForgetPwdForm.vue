@@ -48,8 +48,6 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex';
-
 export default {
   name: 'ForgetPwdForm',
 
@@ -72,10 +70,16 @@ export default {
     };
   },
 
+  computed: {
+    storeName() {
+      return this.$mongodbStitch.get('storeName');
+    },
+  },
+
   methods: {
-    ...mapActions('stitch', [
-      'forgetPwd',
-    ]),
+    forgetPwd(payload) {
+      return this.$store.dispatch(`${this.storeName}/forgetPwd`, payload);
+    },
     validate() {
       if (this.$refs.form.validate()) {
         const proceeded = this.forgetPwd({

@@ -4,15 +4,14 @@ import './registerServiceWorker';
 import router from './router';
 import store from './store';
 import vuetify from './plugins/vuetify';
-import './plugins/mongodbStitch';
+import mongodbStitch from './plugins/mongodbStitch';
 
 Vue.config.productionTip = false;
-
-// Vue.use(MongoDbStitch);
 
 new Vue({
   router,
   store,
   vuetify,
+  mongodbStitch,
   render: (h) => h(App),
 }).$mount('#app');

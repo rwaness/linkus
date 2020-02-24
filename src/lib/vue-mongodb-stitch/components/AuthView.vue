@@ -13,7 +13,6 @@
 </template>
 
 <script>
-import { mapGetters, mapActions } from 'vuex';
 import LoginForm from './LoginForm.vue';
 import ForgetPwdForm from './ForgetPwdForm.vue';
 
@@ -31,22 +30,25 @@ export default {
     };
   },
 
+  computed: {
+    storeName() {
+      return this.$mongodbStitch.get('storeName');
+    },
+    user() {
+      return this.$store.getters[`${this.storeName}/user`];
+    },
+  },
+
   created() {
     if (!this.user) {
-      this.tryAuth();
+      this.auth();
     }
   },
 
-  computed: {
-    ...mapGetters('stitch', [
-      'user',
-    ]),
-  },
-
   methods: {
-    ...mapActions('stitch', [
-      'tryAuth',
-    ]),
+    auth(payload) {
+      return this.$store.dispatch(`${this.storeName}/auth`, payload);
+    },
   },
 };
 </script>

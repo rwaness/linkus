@@ -56,8 +56,6 @@
 </template>
 
 <script>
-import { mapGetters, mapActions } from 'vuex';
-
 export default {
   name: 'LoginForm',
 
@@ -84,6 +82,18 @@ export default {
     };
   },
 
+  computed: {
+    storeName() {
+      return this.$mongodbStitch.get('storeName');
+    },
+    user() {
+      return this.$store.getters[`${this.storeName}/user`];
+    },
+    pwdType() {
+      return this.showPwd ? 'text' : 'password';
+    },
+  },
+
   created() {
     if (this.user) {
       this.onUserConnect();
@@ -98,19 +108,10 @@ export default {
     },
   },
 
-  computed: {
-    ...mapGetters('stitch', [
-      'user',
-    ]),
-    pwdType() {
-      return this.showPwd ? 'text' : 'password';
-    },
-  },
-
   methods: {
-    ...mapActions('stitch', [
-      'loginWithEmailAndPassword',
-    ]),
+    loginWithEmailAndPassword(payload) {
+      return this.$store.dispatch(`${this.storeName}/loginWithEmailAndPassword`, payload);
+    },
     onUserConnect() {
       // this.$router.push(this.redirect);
     },

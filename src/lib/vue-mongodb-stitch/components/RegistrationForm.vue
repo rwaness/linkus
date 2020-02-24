@@ -68,8 +68,6 @@
 </template>
 
 <script>
-import { mapGetters, mapActions } from 'vuex';
-
 export default {
   name: 'RegistrationForm',
 
@@ -102,6 +100,21 @@ export default {
     };
   },
 
+  computed: {
+    storeName() {
+      return this.$mongodbStitch.get('storeName');
+    },
+    user() {
+      return this.$store.getters[`${this.storeName}/user`];
+    },
+    pwdType() {
+      return this.showPwd ? 'text' : 'password';
+    },
+    confPwdType() {
+      return this.showConfPwd ? 'text' : 'password';
+    },
+  },
+
   created() {
     if (this.user) {
       this.onUserConnect();
@@ -116,22 +129,10 @@ export default {
     },
   },
 
-  computed: {
-    ...mapGetters('stitch', [
-      'user',
-    ]),
-    pwdType() {
-      return this.showPwd ? 'text' : 'password';
-    },
-    confPwdType() {
-      return this.showConfPwd ? 'text' : 'password';
-    },
-  },
-
   methods: {
-    ...mapActions('stitch', [
-      'registerWithEmail',
-    ]),
+    registerWithEmail(payload) {
+      return this.$store.dispatch(`${this.storeName}/registerWithEmail`, payload);
+    },
     onUserConnect() {
       // this.$router.push(this.redirect);
     },

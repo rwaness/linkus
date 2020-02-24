@@ -30,20 +30,24 @@ export default class VueMongodbStitch {
     };
 
     // init stitch app
-    this.stitchApp = Stitch.initializeDefaultAppClient(this.settings.clientAppId);
+    this.stitchApp = Stitch.initializeDefaultAppClient(this.get('clientAppId'));
 
     // init mon service
     this.mongoService = this.stitchApp.getServiceClient(
       RemoteMongoClient.factory,
-      this.settings.mongoServiceName,
+      this.get('mongoServiceName'),
     );
 
     // set default db
-    this.setDb(this.settings.defaultDb);
+    this.setDb(this.get('defaultDb'));
+  }
+
+  get(settingName) {
+    return this.settings[settingName];
   }
 
   setDb(name) {
-    this.db = this.mongoService.db(name || this.settings.defaultDb);
+    this.db = this.mongoService.db(name || this.get('defaultDb'));
     return this.db;
   }
 
@@ -52,7 +56,7 @@ export default class VueMongodbStitch {
     return this.user;
   }
 
-  tryAuth() {
+  auth() {
     return this.user || this.setUser(this.stitchApp.auth.user);
   }
 
