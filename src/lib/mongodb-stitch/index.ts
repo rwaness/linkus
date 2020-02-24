@@ -5,6 +5,8 @@ import {
   UserPasswordCredential,
   UserPasswordAuthProviderClient,
 } from 'mongodb-stitch-browser-sdk';
+import { ApolloClient, HttpLink, InMemoryCache } from 'apollo-boost';
+import { setContext } from 'apollo-link-context';
 
 export default class VueMongodbStitch {
   // default settings
@@ -22,6 +24,8 @@ export default class VueMongodbStitch {
 
   user = null
 
+  graphqlClient = null
+
   constructor(settings = {}) {
     // set settings
     this.settings = {
@@ -32,7 +36,7 @@ export default class VueMongodbStitch {
     // init stitch app
     this.stitchApp = Stitch.initializeDefaultAppClient(this.get('clientAppId'));
 
-    // init mon service
+    // init mongo service
     this.mongoService = this.stitchApp.getServiceClient(
       RemoteMongoClient.factory,
       this.get('mongoServiceName'),
@@ -40,6 +44,26 @@ export default class VueMongodbStitch {
 
     // set default db
     this.setDb(this.get('defaultDb'));
+  }
+
+  get graphql() {
+    if (!this.user) throw new Error('GraphQL query need to be authenticated');
+
+    if (!this.graphqlClient) {
+      const authorizationHeaderLink = setContext(async (_, { headers }) => ({
+        headers: {
+          ...headers,
+          Authorization: `Bearer ${this.user.authInfo.accessToken}`,
+        },
+      }));
+      this.graphqlClient = new ApolloClient({
+        link: authorizationHeaderLink.concat(new HttpLink({
+          uri: `https://stitch.mongodb.com/api/client/v2.0/app/${this.get('clientAppId')}/graphql`,
+        })),
+        cache: new InMemoryCache(),
+      });
+    }
+    return this.graphqlClient;
   }
 
   get(settingName) {
@@ -90,5 +114,11 @@ export default class VueMongodbStitch {
 
   resetPassword(token, tokenId, newPassword) {
     return this.getEmailPwdClient().resetPassword(token, tokenId, newPassword);
+  }
+
+  logout() {
+    this.user = null;
+    this.graphqlClient = null;
+    this.stitchApp.auth.logout();
   }
 }
