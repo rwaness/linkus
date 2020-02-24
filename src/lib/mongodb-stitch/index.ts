@@ -22,16 +22,16 @@ export default class VueMongodbStitch {
 
   user = null
 
-  constructor(options = {}) {
-    // set options
-    if (options.clientAppId) {
-      this.settings.clientAppId = options.clientAppId;
+  constructor(settings = {}) {
+    // set settings
+    if (settings.clientAppId) {
+      this.settings.clientAppId = settings.clientAppId;
     }
-    if (options.mongoServiceName) {
-      this.settings.mongoServiceName = options.mongoServiceName;
+    if (settings.mongoServiceName) {
+      this.settings.mongoServiceName = settings.mongoServiceName;
     }
-    if (options.defaultDb) {
-      this.settings.defaultDb = options.defaultDb;
+    if (settings.defaultDb) {
+      this.settings.defaultDb = settings.defaultDb;
     }
 
     // init stitch app
