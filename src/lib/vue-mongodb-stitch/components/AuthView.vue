@@ -40,14 +40,25 @@ export default {
   },
 
   created() {
-    if (!this.user) {
-      this.auth();
-    }
+    this.onUserUpdate(this.user);
+  },
+
+  watch: {
+    user(user) {
+      this.onUserUpdate(user);
+    },
   },
 
   methods: {
     auth(payload) {
       return this.$store.dispatch(`${this.storeName}/auth`, payload);
+    },
+    onUserUpdate(user) {
+      if (user) {
+        this.$emit('auhtenticated', user);
+      } else {
+        this.auth();
+      }
     },
   },
 };

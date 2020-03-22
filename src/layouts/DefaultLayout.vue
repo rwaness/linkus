@@ -79,7 +79,9 @@
       <slot />
 
       <v-overlay v-model="showRegistration">
-        <registration-form />
+        <registration-form
+          @close="showRegistration = false"
+        />
       </v-overlay>
     </v-content>
   </v-container>

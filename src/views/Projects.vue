@@ -1,6 +1,6 @@
 <template>
   <default-layout>
-    <auth-view>
+    <auth-view @auhtenticated="onAuthenticate">
       PROJECTS
       <br />
       <pre>{{ projects }}</pre>
@@ -33,29 +33,30 @@ export default {
     ]),
   },
 
-  async created() {
-    await this.loginAnonymous();
-
-    // test stitch
-    await this.$mongodbStitch.db.collection('projects').updateOne({
-      stitchId: this.user.id,
-    }, {
-      $set: { number: 42 },
-    }, {
-      upsert: true,
-    });
-
-    this.projects = await this.$mongodbStitch.db.collection('projects').find({
-      stitchId: this.user.id,
-    }, {
-      limit: 100,
-    }).asArray();
-  },
+  // created() {
+  //   this.loginAnonymous();
+  // },
 
   methods: {
     ...mapActions('stitch', [
       'loginAnonymous',
     ]),
+    async onAuthenticate() {
+      // test stitch
+      await this.$mongodbStitch.db.collection('projects').updateOne({
+        stitchId: this.user.id,
+      }, {
+        $set: { number: 42 },
+      }, {
+        upsert: true,
+      });
+
+      this.projects = await this.$mongodbStitch.db.collection('projects').find({
+        stitchId: this.user.id,
+      }, {
+        limit: 100,
+      }).asArray();
+    },
   },
 };
 </script>
