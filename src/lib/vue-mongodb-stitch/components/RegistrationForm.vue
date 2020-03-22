@@ -21,29 +21,19 @@
           required
         ></v-text-field>
 
-        <v-text-field
-          ref="pwd"
+        <password-field
           v-model="password"
           :rules="pwdRules"
-          :type="pwdType"
           label="Password"
           required
-          append-icon="mdi-eye"
-          @click:append="togglePwd"
-          @blur="showPwd = false"
-        ></v-text-field>
+        ></password-field>
 
-        <v-text-field
-          ref="confPwd"
+        <password-field
           v-model="confirmPassword"
           :rules="confPwdRules"
-          :type="confPwdType"
           label="Confirm Password"
           required
-          append-icon="mdi-eye"
-          @click:append="toggleConfPwd"
-          @blur="showConfPwd = false"
-        ></v-text-field>
+        ></password-field>
       </v-form>
     </v-card-text>
 
@@ -68,8 +58,14 @@
 </template>
 
 <script>
+import PasswordField from './PasswordField.vue';
+
 export default {
   name: 'RegistrationForm',
+
+  components: {
+    PasswordField,
+  },
 
   props: {
     redirect: {
@@ -90,13 +86,11 @@ export default {
       pwdRules: [
         (v) => !!v || 'Password is required',
       ],
-      showPwd: false,
       confirmPassword: '',
       confPwdRules: [
         (v) => !!v || 'Confirm Password is required',
         (v) => v === this.password || 'Confirm Password does not match password',
       ],
-      showConfPwd: false,
     };
   },
 
@@ -107,25 +101,15 @@ export default {
     user() {
       return this.$store.getters[`${this.storeName}/user`];
     },
-    pwdType() {
-      return this.showPwd ? 'text' : 'password';
-    },
-    confPwdType() {
-      return this.showConfPwd ? 'text' : 'password';
-    },
   },
 
   created() {
-    if (this.user) {
-      this.onUserConnect();
-    }
+    this.onUserUpdate(this.user);
   },
 
   watch: {
     user(user) {
-      if (user) {
-        this.onUserConnect();
-      }
+      this.onUserUpdate(user);
     },
   },
 
@@ -133,18 +117,14 @@ export default {
     registerWithEmail(payload) {
       return this.$store.dispatch(`${this.storeName}/registerWithEmail`, payload);
     },
+    onUserUpdate(user) {
+      if (user) {
+        // TODO uncomment
+        // this.onUserConnect();
+      }
+    },
     onUserConnect() {
-      // this.$router.push(this.redirect);
-    },
-    togglePwd() {
-      // force focus to enable "blur" event hidding pwd again
-      this.$refs.pwd.focus();
-      this.showPwd = !this.showPwd;
-    },
-    toggleConfPwd() {
-      // force focus to enable "blur" event hidding pwd again
-      this.$refs.confPwd.focus();
-      this.showConfPwd = !this.showConfPwd;
+      this.$router.push(this.redirect);
     },
     validate() {
       if (this.$refs.form.validate()) {

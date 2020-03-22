@@ -21,17 +21,12 @@
           required
         ></v-text-field>
 
-        <v-text-field
-          ref="pwd"
+        <password-field
           v-model="password"
           :rules="pwdRules"
-          :type="pwdType"
           label="Password"
           required
-          append-icon="mdi-eye"
-          @click:append="togglePwd"
-          @blur="showPwd = false"
-        ></v-text-field>
+        ></password-field>
       </v-form>
     </v-card-text>
 
@@ -56,8 +51,14 @@
 </template>
 
 <script>
+import PasswordField from './PasswordField.vue';
+
 export default {
   name: 'LoginForm',
+
+  components: {
+    PasswordField,
+  },
 
   props: {
     redirect: {
@@ -78,7 +79,6 @@ export default {
       pwdRules: [
         (v) => !!v || 'Password is required',
       ],
-      showPwd: false,
     };
   },
 
@@ -89,22 +89,15 @@ export default {
     user() {
       return this.$store.getters[`${this.storeName}/user`];
     },
-    pwdType() {
-      return this.showPwd ? 'text' : 'password';
-    },
   },
 
   created() {
-    if (this.user) {
-      this.onUserConnect();
-    }
+    this.onUserUpdate(this.user);
   },
 
   watch: {
     user(user) {
-      if (user) {
-        this.onUserConnect();
-      }
+      this.onUserUpdate(user);
     },
   },
 
@@ -112,13 +105,14 @@ export default {
     loginWithEmailAndPassword(payload) {
       return this.$store.dispatch(`${this.storeName}/loginWithEmailAndPassword`, payload);
     },
-    onUserConnect() {
-      // this.$router.push(this.redirect);
+    onUserUpdate(user) {
+      if (user) {
+        // TODO uncomment
+        // this.onUserConnect();
+      }
     },
-    togglePwd() {
-      // force focus to enable "blur" event hidding pwd again
-      this.$refs.pwd.focus();
-      this.showPwd = !this.showPwd;
+    onUserConnect() {
+      this.$router.push(this.redirect);
     },
     validate() {
       if (this.$refs.form.validate()) {
