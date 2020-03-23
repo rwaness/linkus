@@ -12,13 +12,13 @@ export default class VueMongodbStitch {
   // default settings
   settings = {
     clientAppId: '<client-app-id>',
-    mongoServiceName: 'mongodb-atlas',
+    mongoClientName: 'mongodb-atlas',
     defaultDb: '<default-database>',
   }
 
   stitchApp = null
 
-  mongoService = null
+  mongoClient = null
 
   db = null
 
@@ -36,34 +36,14 @@ export default class VueMongodbStitch {
     // init stitch app
     this.stitchApp = Stitch.initializeDefaultAppClient(this.get('clientAppId'));
 
-    // init mongo service
-    this.mongoService = this.stitchApp.getServiceClient(
+    // init mongo client
+    this.mongoClient = this.stitchApp.getServiceClient(
       RemoteMongoClient.factory,
-      this.get('mongoServiceName'),
+      this.get('mongoClientName'),
     );
 
     // set default db
     this.setDb(this.get('defaultDb'));
-  }
-
-  get graphql() {
-    if (!this.user) throw new Error('GraphQL query need to be authenticated');
-
-    if (!this.graphqlClient) {
-      const authorizationHeaderLink = setContext(async (_, { headers }) => ({
-        headers: {
-          ...headers,
-          Authorization: `Bearer ${this.user.authInfo.accessToken}`,
-        },
-      }));
-      this.graphqlClient = new ApolloClient({
-        link: authorizationHeaderLink.concat(new HttpLink({
-          uri: `https://stitch.mongodb.com/api/client/v2.0/app/${this.get('clientAppId')}/graphql`,
-        })),
-        cache: new InMemoryCache(),
-      });
-    }
-    return this.graphqlClient;
   }
 
   get(settingName) {
@@ -71,7 +51,7 @@ export default class VueMongodbStitch {
   }
 
   setDb(name) {
-    this.db = this.mongoService.db(name || this.get('defaultDb'));
+    this.db = this.mongoClient.db(name);
     return this.db;
   }
 
@@ -96,24 +76,32 @@ export default class VueMongodbStitch {
     return this.loginWithCredential(new UserPasswordCredential(email, password));
   }
 
-  getEmailPwdClient() {
+  get userPasswordAuthProviderClient() {
     return this.stitchApp.auth.getProviderClient(UserPasswordAuthProviderClient.factory);
   }
 
   registerWithEmail(email, password) {
-    return this.getEmailPwdClient().registerWithEmail(email, password);
+    return this.userPasswordAuthProviderClient.registerWithEmail(email, password);
   }
 
-  confirmeUser(token, tokenId) {
-    return this.getEmailPwdClient().confirmeUser(token, tokenId);
-  }
+  get graphql() {
+    if (!this.user) throw new Error('GraphQL query need to be authenticated');
 
-  sendResetPasswordEmail(email) {
-    return this.getEmailPwdClient().sendResetPasswordEmail(email);
-  }
-
-  resetPassword(token, tokenId, newPassword) {
-    return this.getEmailPwdClient().resetPassword(token, tokenId, newPassword);
+    if (!this.graphqlClient) {
+      const authorizationHeaderLink = setContext(async (_, { headers }) => ({
+        headers: {
+          ...headers,
+          Authorization: `Bearer ${this.user.authInfo.accessToken}`,
+        },
+      }));
+      this.graphqlClient = new ApolloClient({
+        link: authorizationHeaderLink.concat(new HttpLink({
+          uri: `https://stitch.mongodb.com/api/client/v2.0/app/${this.get('clientAppId')}/graphql`,
+        })),
+        cache: new InMemoryCache(),
+      });
+    }
+    return this.graphqlClient;
   }
 
   logout() {
