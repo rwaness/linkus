@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 import Home from '@/views/Home.vue';
+import Locales from '@/views/Locales.vue';
 import Projects from '@/views/Projects.vue';
 
 Vue.use(VueRouter);
@@ -10,6 +11,11 @@ const routes = [
     path: '/',
     name: 'Home',
     component: Home,
+  },
+  {
+    path: '/locales',
+    name: 'Locales',
+    component: Locales,
   },
   {
     path: '/projects',
