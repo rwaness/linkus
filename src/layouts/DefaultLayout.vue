@@ -107,6 +107,7 @@ export default {
       drawerMini: true,
       items: [
         { title: 'Home', icon: 'mdi-home', link: '/' },
+        { title: 'Locales', icon: 'mdi-translate', link: '/locales' },
         { title: 'Projects', icon: 'mdi-hexagon-multiple', link: '/projects' },
         { title: 'About', icon: 'mdi-help-circle', link: '/about' },
       ],
