@@ -8,7 +8,7 @@ import {
 import { ApolloClient, HttpLink, InMemoryCache } from 'apollo-boost';
 import { setContext } from 'apollo-link-context';
 
-export default class VueMongodbStitch {
+export default class MongodbStitch {
   // default settings
   settings = {
     clientAppId: '<client-app-id>',
