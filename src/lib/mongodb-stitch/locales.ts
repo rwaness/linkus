@@ -1,9 +1,7 @@
-import { LocaleMessages } from 'vue-i18n';
-
-export default function loadI18nMessages(localeMessages: LocaleMessages, options: any = {}) {
+export default function loadI18nMessages(localeMessages, options = {}) {
   const prefix = options.prefix || 'mongodbStitch';
 
-  let messages: LocaleMessages = { ...localeMessages };
+  let messages = { ...localeMessages };
 
   const locales = require.context('./locales', true, /[A-Za-z0-9-_,\s]+\.json$/i);
   locales.keys().forEach((key) => {

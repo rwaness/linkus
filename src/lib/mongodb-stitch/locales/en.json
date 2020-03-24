@@ -1,5 +1,8 @@
 {
   "error": {
-    "46": "Name alreadyin use"
+    "unknown": "Unknown error! Please retry.",
+    "code": {
+      "Unknown": "Unknown error"
+    }
   }
 }
