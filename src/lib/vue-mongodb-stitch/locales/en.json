@@ -1,0 +1,42 @@
+{
+  "registration": {
+    "cardTitle": "Registration",
+    "form": {
+      "email": {
+        "field": "Email",
+        "rules": {
+          "required": "E-mail is required",
+          "format": "E-mail must be valid"
+        }
+      },
+      "password": {
+        "field": "Password",
+        "rules": {
+          "required": "Password is required",
+          "format": "E-mail must be valid"
+        }
+      },
+      "confPwd": {
+        "field": "Confirm Password",
+        "rules": {
+          "required": "Confirm Password is required",
+          "format": "Confirm Password does not match password"
+        }
+      }
+    },
+    "actions": {
+      "alreadyHaveAccount": "Already have an account ? Login...",
+      "submit": "Sign Up"
+    },
+    "success": {
+      "message": "You have been successfuly registered!",
+      "actionBtn": "Close"
+    }
+  },
+  "stitchError": {
+    "unknown": "Unknown error! Please retry.",
+    "code": {
+      "Unknown": "Unknown error"
+    }
+  }
+}
