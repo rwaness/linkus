@@ -11,4 +11,10 @@ module.exports = {
       enableInSFC: false,
     },
   },
+
+  devServer: {
+    watchOptions: {
+      poll: true,
+    },
+  },
 };
