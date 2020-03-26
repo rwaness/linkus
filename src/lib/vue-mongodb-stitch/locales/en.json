@@ -1,6 +1,12 @@
 {
   "registration": {
-    "cardTitle": "Registration",
+    "card": {
+      "title": "Registration",
+      "actions": {
+        "alreadyHaveAccount": "Already have an account ? Login...",
+        "submit": "Sign Up"
+      }
+    },
     "form": {
       "email": {
         "field": "Email",
@@ -12,8 +18,7 @@
       "password": {
         "field": "Password",
         "rules": {
-          "required": "Password is required",
-          "format": "E-mail must be valid"
+          "required": "Password is required"
         }
       },
       "confPwd": {
@@ -24,13 +29,32 @@
         }
       }
     },
-    "actions": {
-      "alreadyHaveAccount": "Already have an account ? Login...",
-      "submit": "Sign Up"
-    },
     "success": {
       "message": "You have been successfuly registered!",
       "actionBtn": "Close"
+    }
+  },
+  "login": {
+    "card": {
+      "title": "Login",
+      "actions": {
+        "submit": "Login"
+      }
+    },
+    "form": {
+      "email": {
+        "field": "E-mail",
+        "rules": {
+          "required": "E-mail is required",
+          "format": "E-mail must be valid"
+        }
+      },
+      "password": {
+        "field": "Password",
+        "rules": {
+          "required": "Password is required"
+        }
+      }
     }
   },
   "stitchError": {

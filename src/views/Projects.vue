@@ -9,9 +9,9 @@
 </template>
 
 <script>
-import { mapGetters, mapActions } from 'vuex';
+import { mapGetters } from 'vuex';
 import DefaultLayout from '@/layouts/DefaultLayout.vue';
-import AuthView from '@/lib/vue-mongodb-stitch/components/AuthView.vue';
+import AuthView from '@/lib/vue-mongodb-stitch/components/views/AuthView.vue';
 
 export default {
   name: 'Projects',
@@ -33,16 +33,8 @@ export default {
     ]),
   },
 
-  // created() {
-  //   this.loginAnonymous();
-  // },
-
   methods: {
-    ...mapActions('stitch', [
-      'loginAnonymous',
-    ]),
     async onAuthenticate() {
-      // test stitch
       await this.$mongodbStitch.db.collection('projects').updateOne({
         stitchId: this.user.id,
       }, {

@@ -82,7 +82,8 @@
         v-model="showRegistration"
         :dark="false"
       >
-        <registration-form
+        <registration-card
+          @goto:signin="$router.push({ name: 'Login' })"
           @close="showRegistration = false"
         />
       </v-overlay>
@@ -92,13 +93,13 @@
 
 <script>
 import { mapGetters } from 'vuex';
-import RegistrationForm from '@/lib/vue-mongodb-stitch/components/RegistrationForm.vue';
+import RegistrationCard from '@/lib/vue-mongodb-stitch/components/RegistrationCard.vue';
 
 export default {
   name: 'CustomLayout',
 
   components: {
-    RegistrationForm,
+    RegistrationCard,
   },
 
   data() {
