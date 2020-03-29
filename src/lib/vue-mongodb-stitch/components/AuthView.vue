@@ -1,14 +1,27 @@
 <template>
   <div class="auth-view">
-    <slot v-if="user" />
+    <template v-if="user">
+      <slot
+        v-if="$slots.authenticated"
+        name="authenticated"
+        :user="user"
+      />
+      <slot v-else />
+    </template>
 
-    <login-card v-else />
+    <template v-else>
+      <slot
+        v-if="$slots.unauthenticated"
+        name="unauthenticated"
+      />
+      <login-card v-else-if="enableLogin" />
+    </template>
   </div>
 </template>
 
 <script>
-import mixin from '../../mixin';
-import LoginCard from '../LoginCard.vue';
+import mixin from '../mixin';
+import LoginCard from './LoginCard.vue';
 
 export default {
   name: 'AuthView',
@@ -17,6 +30,13 @@ export default {
 
   components: {
     LoginCard,
+  },
+
+  props: {
+    enableLogin: {
+      type: Boolean,
+      default: false,
+    },
   },
 
   created() {

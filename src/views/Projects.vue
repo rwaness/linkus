@@ -1,6 +1,9 @@
 <template>
   <default-layout>
-    <auth-view @auhtenticated="onAuthenticate">
+    <auth-view
+      enable-login
+      @auhtenticated="onAuthenticate"
+    >
       PROJECTS
       <br />
       <pre>{{ projects }}</pre>
@@ -11,7 +14,7 @@
 <script>
 import { mapGetters } from 'vuex';
 import DefaultLayout from '@/layouts/DefaultLayout.vue';
-import AuthView from '@/lib/vue-mongodb-stitch/components/views/AuthView.vue';
+import AuthView from '@/lib/vue-mongodb-stitch/components/AuthView.vue';
 
 export default {
   name: 'Projects',

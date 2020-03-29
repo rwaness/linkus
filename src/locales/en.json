@@ -1,3 +1,14 @@
 {
-  "message": "hello i18n !!"
+  "message": "hello i18n !!",
+  "nav": {
+    "items": {
+      "home": "Home",
+      "locales": "Locales",
+      "projects": "Projects",
+      "about": "About"
+    }
+  },
+  "mongodbStitch": {
+    "test": "test"
+  }
 }

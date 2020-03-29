@@ -1,79 +1,14 @@
 <template>
   <v-container>
-    <v-app-bar
-      app
-      color="primary"
-      dark
-      clipped-left
-    >
-      <v-app-bar-nav-icon @click="toggleDrawer"></v-app-bar-nav-icon>
+    <app-bar
+      @click:nav="toggleDrawer"
+      @click:signup="showRegistration = true"
+    />
 
-      <v-toolbar-title>Page title</v-toolbar-title>
-
-      <v-spacer></v-spacer>
-
-      <v-btn
-        v-if="!user"
-        @click="showRegistration = true"
-      >
-        <v-icon>mdi-account-circle</v-icon>
-        SIGN UP
-      </v-btn>
-      <v-menu
-        v-else
-        left
-        bottom
-      >
-        <template v-slot:activator="{ on }">
-          <v-btn icon v-on="on">
-            <v-icon>mdi-account-circle</v-icon>
-            <template>Username</template>
-          </v-btn>
-        </template>
-
-        <v-list>
-          <v-list-item>
-            <v-list-item-content>
-              <v-list-item-title class="title">
-                User
-              </v-list-item-title>
-              <v-list-item-subtitle>
-                role
-              </v-list-item-subtitle>
-            </v-list-item-content>
-          </v-list-item>
-        </v-list>
-      </v-menu>
-    </v-app-bar>
-
-    <v-navigation-drawer
-      v-model="drawer"
-      app
-      clipped
-      :mini-variant="drawerMini"
-      :expand-on-hover="drawerMini"
-      dark
-    >
-      <v-list
-        dense
-        nav
-      >
-        <v-list-item
-          v-for="item in items"
-          :key="item.title"
-          link
-          :to="item.link"
-        >
-          <v-list-item-icon>
-            <v-icon>{{ item.icon }}</v-icon>
-          </v-list-item-icon>
-
-          <v-list-item-content>
-            <v-list-item-title>{{ item.title }}</v-list-item-title>
-          </v-list-item-content>
-        </v-list-item>
-      </v-list>
-    </v-navigation-drawer>
+    <nav-drawer
+      v-model="drawerEnable"
+      :mini="drawerMini"
+    />
 
     <v-content>
       <slot />
@@ -93,38 +28,30 @@
 
 <script>
 import { mapGetters } from 'vuex';
+import AppBar from '@/components/layout/AppBar.vue';
+import NavDrawer from '@/components/layout/NavDrawer.vue';
 import RegistrationCard from '@/lib/vue-mongodb-stitch/components/RegistrationCard.vue';
 
 export default {
   name: 'CustomLayout',
 
   components: {
+    AppBar,
+    NavDrawer,
     RegistrationCard,
   },
 
   data() {
     return {
-      drawer: null,
-      drawerMini: true,
-      items: [
-        { title: 'Home', icon: 'mdi-home', link: '/' },
-        { title: 'Locales', icon: 'mdi-translate', link: '/locales' },
-        { title: 'Projects', icon: 'mdi-hexagon-multiple', link: '/projects' },
-        { title: 'About', icon: 'mdi-help-circle', link: '/about' },
-      ],
+      drawerEnable: null,
+      drawerMini: false,
       showRegistration: false,
     };
   },
 
-  computed: {
-    ...mapGetters([
-      'user',
-    ]),
-  },
-
   methods: {
     toggleDrawer() {
-      this.drawer = true;
+      this.drawerEnable = true;
       this.drawerMini = !this.drawerMini;
     },
   },
