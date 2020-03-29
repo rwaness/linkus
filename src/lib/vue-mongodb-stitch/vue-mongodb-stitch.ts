@@ -25,9 +25,10 @@ export default class VueMongodbStitch extends MongodbStitch {
         if (matched && matched.length > 1) {
           const locale = matched[1];
           const i18nPrefix = this.get('i18nPrefix');
-          const previousMessages = (this.i18n.messages[locale] || {})[i18nPrefix] || {};
+          const previousLocaleMessages = this.i18n.messages[locale] || {};
           this.i18n.setLocaleMessage(locale, {
-            [i18nPrefix]: deepmerge(localesFiles(key), previousMessages),
+            ...previousLocaleMessages,
+            [i18nPrefix]: deepmerge(localesFiles(key), previousLocaleMessages[i18nPrefix] || {}),
           });
         }
       });
