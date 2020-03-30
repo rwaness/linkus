@@ -1,12 +1,12 @@
 <template>
-  <default-layout class="preferences">
+  <default-layout class="my-preferences">
     <auth-view enable-login>
-      <h1>{{ $t('pages.preferences.title') }}</h1>
+      <h1>{{ $t('pages.myPreferences.title') }}</h1>
 
       <!-- language -->
       <h2 class="title">
         <v-icon>mdi-translate</v-icon>
-        {{ $t('pages.preferences.language.subtitle') }}
+        {{ $t('pages.myPreferences.language.subtitle') }}
       </h2>
 
       <v-divider></v-divider>
@@ -14,7 +14,7 @@
       <!-- theme -->
       <h2 class="title">
         <v-icon>mdi-brightness-6</v-icon>
-        {{ $t('pages.preferences.theme.subtitle') }}
+        {{ $t('pages.myPreferences.theme.subtitle') }}
       </h2>
     </auth-view>
   </default-layout>

@@ -1,10 +1,10 @@
 <template>
-  <default-layout>
+  <default-layout class="my-groups">
     <auth-view
       enable-login
       @authenticated="onAuthenticate"
     >
-      GROUPS
+      <h1>{{ $t('pages.myGroups.title') }}</h1>
       <br />
       <pre>{{ myGroups }}</pre>
     </auth-view>

@@ -31,7 +31,7 @@
                <v-icon>mdi-account-cog</v-icon>
             </v-list-item-icon>
             <v-list-item-content>
-              <v-list-item-title>{{ $t('appbar.account.preferences') }}</v-list-item-title>
+              <v-list-item-title>{{ $t('appbar.account.myPreferences') }}</v-list-item-title>
             </v-list-item-content>
           </v-list-item>
 
