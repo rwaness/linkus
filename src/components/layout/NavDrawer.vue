@@ -62,9 +62,9 @@ export default {
           link: { name: 'Home' },
         },
         {
-          title: this.$t('nav.items.groups'),
+          title: this.$t('nav.items.myGroups'),
           icon: 'mdi-hexagon-multiple',
-          link: { name: 'Groups' },
+          link: { name: 'MyGroups' },
         },
         {
           title: this.$t('nav.items.about'),

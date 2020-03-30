@@ -6,7 +6,7 @@
     >
       GROUPS
       <br />
-      <pre>{{ groups }}</pre>
+      <pre>{{ myGroups }}</pre>
     </auth-view>
   </default-layout>
 </template>
@@ -17,7 +17,7 @@ import DefaultLayout from '@/layouts/DefaultLayout.vue';
 import AuthView from '@/lib/vue-mongodb-stitch/components/AuthView.vue';
 
 export default {
-  name: 'Groups',
+  name: 'MyGroups',
 
   components: {
     DefaultLayout,
@@ -26,22 +26,22 @@ export default {
 
   data() {
     return {
-      groups: [],
+      myGroups: [],
     };
   },
 
   methods: {
     async onAuthenticate(user) {
       await this.$mongodbStitch.db.collection('groups').updateOne({
-        stitchId: user.id,
+        owner: user.id,
       }, {
         $set: { number: 42 },
       }, {
         upsert: true,
       });
 
-      this.groups = await this.$mongodbStitch.db.collection('groups').find({
-        stitchId: user.id,
+      this.myGroups = await this.$mongodbStitch.db.collection('groups').find({
+        owner: user.id,
       }, {
         limit: 100,
       }).asArray();

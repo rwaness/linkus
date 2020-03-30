@@ -2,8 +2,8 @@ import Vue from 'vue';
 import VueRouter from 'vue-router';
 import Home from '@/views/Home.vue';
 import Login from '@/views/Login.vue';
-import Preferences from '@/views/Preferences.vue';
-import Groups from '@/views/Groups.vue';
+import MyPreferences from '@/views/MyPreferences.vue';
+import MyGroups from '@/views/MyGroups.vue';
 
 Vue.use(VueRouter);
 
@@ -19,14 +19,14 @@ const routes = [
     component: Login,
   },
   {
-    path: '/preferences',
-    name: 'Preferences',
-    component: Preferences,
+    path: '/my-preferences',
+    name: 'MyPreferences',
+    component: MyPreferences,
   },
   {
-    path: '/groups',
-    name: 'Groups',
-    component: Groups,
+    path: '/my-groups',
+    name: 'MyGroups',
+    component: MyGroups,
   },
   {
     path: '/about',

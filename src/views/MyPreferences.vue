@@ -25,7 +25,7 @@ import AuthView from '@/lib/vue-mongodb-stitch/components/AuthView.vue';
 import DefaultLayout from '@/layouts/DefaultLayout.vue';
 
 export default {
-  name: 'Preferences',
+  name: 'MyPreferences',
 
   components: {
     AuthView,

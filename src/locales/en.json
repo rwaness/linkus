@@ -8,19 +8,22 @@
   "nav": {
     "items": {
       "home": "Home",
-      "groups": "Groups",
+      "myGroups": "My Groups",
       "about": "About"
     }
   },
   "pages": {
     "preferences": {
-      "title": "Preferences",
+      "title": "My Preferences",
       "language": {
         "subtitle": "Language"
       },
       "theme": {
         "subtitle": "Theme"
       }
+    },
+    "myGroups": {
+      "title": "My Groups"
     }
   },
   "mongodbStitch": {
