@@ -30,16 +30,10 @@ export default {
     };
   },
 
-  computed: {
-    ...mapGetters('stitch', [
-      'user',
-    ]),
-  },
-
   methods: {
-    async onAuthenticate() {
+    async onAuthenticate(user) {
       await this.$mongodbStitch.db.collection('projects').updateOne({
-        stitchId: this.user.id,
+        stitchId: user.id,
       }, {
         $set: { number: 42 },
       }, {
@@ -47,7 +41,7 @@ export default {
       });
 
       this.projects = await this.$mongodbStitch.db.collection('projects').find({
-        stitchId: this.user.id,
+        stitchId: user.id,
       }, {
         limit: 100,
       }).asArray();
