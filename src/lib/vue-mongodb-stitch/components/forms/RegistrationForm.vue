@@ -32,13 +32,10 @@
 </template>
 
 <script>
-import mixin from '../../mixin';
 import PasswordField from './fields/PasswordField.vue';
 
 export default {
   name: 'RegistrationForm',
-
-  mixins: [mixin],
 
   components: {
     PasswordField,
@@ -55,7 +52,7 @@ export default {
       ],
       password: '',
       pwdRules: [
-        (v) => !!v || this.$t('mongodbStitch.registration.form.password.rules.format'),
+        (v) => !!v || this.$t('mongodbStitch.registration.form.password.rules.required'),
       ],
       confirmPassword: '',
       confPwdRules: [
@@ -65,14 +62,20 @@ export default {
     };
   },
 
+  computed: {
+    user() {
+      return this.$mongodbStitch.user;
+    },
+  },
+
   methods: {
-    async validate() {
+    async submit() {
       if (this.$refs.form.validate()) {
         try {
-          await this.$store.dispatch(`${this.mongodbStitchStoreName}/registerWithEmail`, {
-            email: this.email,
-            password: this.password,
-          });
+          await this.$mongodbStitch.registerWithEmail(
+            this.email,
+            this.password,
+          );
           this.$emit('registered');
         } catch (error) {
           this.errorMessage = this.$mongodbStitch.getErrorMessage(error);

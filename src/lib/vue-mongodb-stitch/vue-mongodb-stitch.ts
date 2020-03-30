@@ -1,8 +1,13 @@
+import Vue from 'vue';
 import deepmerge from 'deepmerge';
 import { StitchServiceError } from 'mongodb-stitch-browser-sdk';
 import MongodbStitch from '@/lib/mongodb-stitch';
 
 export default class VueMongodbStitch extends MongodbStitch {
+  private state = {
+    user: null,
+  };
+
   constructor(settings = {}) {
     super({
       storeName: 'stitch',
@@ -10,7 +15,29 @@ export default class VueMongodbStitch extends MongodbStitch {
       ...settings,
     });
 
+    this.state = Vue.observable(this.state);
+
     this.loadI18nMessages();
+  }
+
+  get user() {
+    return this.state.user;
+  }
+
+  auth() {
+    this.state.user = super.user;
+    return this.user;
+  }
+
+  async loginWithCredential(credential) {
+    await super.loginWithCredential(credential);
+    return this.auth();
+  }
+
+  async logout() {
+    const loggedout = await super.logout();
+    this.state.user = null;
+    return loggedout;
   }
 
   get i18n() {

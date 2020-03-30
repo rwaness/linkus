@@ -38,7 +38,7 @@
 
         <v-btn
           color="primary"
-          @click="validate"
+          @click="submit"
         >
           {{ $t('mongodbStitch.registration.card.actions.submit') }}
         </v-btn>
@@ -79,9 +79,9 @@ export default {
   },
 
   methods: {
-    async validate() {
+    async submit() {
       this.registering = true;
-      await this.$refs.form.validate();
+      await this.$refs.form.submit();
       this.registering = false;
     },
   },

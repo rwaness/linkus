@@ -18,8 +18,8 @@
         :dark="false"
       >
         <registration-card
-          @goto:signin="$router.push({ name: 'Login' })"
-          @close="showRegistration = false"
+          @goto:signin="goToLogin"
+          @close="closeRegistration"
         />
       </v-overlay>
     </v-content>
@@ -53,6 +53,16 @@ export default {
     toggleDrawer() {
       this.drawerEnable = true;
       this.drawerMini = !this.drawerMini;
+    },
+    closeRegistration() {
+      this.showRegistration = false;
+    },
+    goToLogin() {
+      if (this.$router.currentRoute && this.$router.currentRoute.name === 'Login') {
+        this.closeRegistration();
+      } else {
+        this.$router.push({ name: 'Login' });
+      }
     },
   },
 };

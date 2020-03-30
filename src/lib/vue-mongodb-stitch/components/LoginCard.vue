@@ -9,10 +9,7 @@
     </v-toolbar>
 
     <v-card-text>
-      <login-form
-        ref="form"
-        @loggedin="onLoggedIn"
-      ></login-form>
+      <login-form ref="form" />
     </v-card-text>
 
     <v-card-actions>
@@ -20,7 +17,7 @@
 
       <v-btn
         color="primary"
-        @click="validate"
+        @click="submit"
       >
         {{ $t('mongodbStitch.login.card.actions.submit') }}
       </v-btn>
@@ -49,13 +46,10 @@ export default {
   },
 
   methods: {
-    async validate() {
+    async submit() {
       this.logging = true;
-      await this.$refs.form.validate();
+      await this.$refs.form.submit();
       this.logging = false;
-    },
-    onLoggedIn(user) {
-      // TODO
     },
   },
 };

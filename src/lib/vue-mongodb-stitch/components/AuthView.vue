@@ -2,7 +2,7 @@
   <div class="auth-view">
     <template v-if="user">
       <slot
-        v-if="$slots.authenticated"
+        v-if="$slots.authenticated || $scopedSlots.authenticated"
         name="authenticated"
         :user="user"
       />
@@ -11,7 +11,7 @@
 
     <template v-else>
       <slot
-        v-if="$slots.unauthenticated"
+        v-if="$slots.unauthenticated || $scopedSlots.unauthenticated"
         name="unauthenticated"
       />
       <login-card v-else-if="enableLogin" />
@@ -20,13 +20,10 @@
 </template>
 
 <script>
-import mixin from '../mixin';
 import LoginCard from './LoginCard.vue';
 
 export default {
   name: 'AuthView',
-
-  mixins: [mixin],
 
   components: {
     LoginCard,
@@ -36,6 +33,12 @@ export default {
     enableLogin: {
       type: Boolean,
       default: false,
+    },
+  },
+
+  computed: {
+    user() {
+      return this.$mongodbStitch.user;
     },
   },
 
@@ -50,14 +53,11 @@ export default {
   },
 
   methods: {
-    auth(payload) {
-      return this.$store.dispatch(`${this.mongodbStitchStoreName}/auth`, payload);
-    },
     onUserUpdate(user) {
       if (user) {
-        this.$emit('auhtenticated', user);
+        this.$emit('authenticated', user);
       } else {
-        this.auth();
+        this.$mongodbStitch.auth();
       }
     },
   },

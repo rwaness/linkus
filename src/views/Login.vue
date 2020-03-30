@@ -1,19 +1,28 @@
 <template>
   <default-layout>
-    <login-card />
+    <auth-view
+      enable-login
+      @authenticated="onAuthenticate"
+    />
   </default-layout>
 </template>
 
 <script>
 import DefaultLayout from '@/layouts/DefaultLayout.vue';
-import LoginCard from '@/lib/vue-mongodb-stitch/components/LoginCard.vue';
+import AuthView from '@/lib/vue-mongodb-stitch/components/AuthView.vue';
 
 export default {
   name: 'Locales',
 
   components: {
+    AuthView,
     DefaultLayout,
-    LoginCard,
+  },
+
+  methods: {
+    onAuthenticate() {
+      this.$router.push({ name: 'Home' });
+    },
   },
 };
 </script>

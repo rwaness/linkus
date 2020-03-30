@@ -22,8 +22,6 @@ export default class MongodbStitch {
 
   db = null
 
-  user = null
-
   graphqlClient = null
 
   constructor(settings = {}) {
@@ -55,17 +53,12 @@ export default class MongodbStitch {
     return this.db;
   }
 
-  setUser(user) {
-    this.user = user || null;
-    return this.user;
+  get user() {
+    return this.stitchApp.auth.user;
   }
 
-  auth() {
-    return this.user || this.setUser(this.stitchApp.auth.user);
-  }
-
-  async loginWithCredential(credential) {
-    return this.setUser(await this.stitchApp.auth.loginWithCredential(credential));
+  loginWithCredential(credential) {
+    return this.stitchApp.auth.loginWithCredential(credential);
   }
 
   loginAnonymous() {
@@ -105,8 +98,6 @@ export default class MongodbStitch {
   }
 
   logout() {
-    this.user = null;
-    this.graphqlClient = null;
-    this.stitchApp.auth.logout();
+    return this.stitchApp.auth.logout();
   }
 }

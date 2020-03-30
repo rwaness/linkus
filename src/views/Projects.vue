@@ -2,7 +2,7 @@
   <default-layout>
     <auth-view
       enable-login
-      @auhtenticated="onAuthenticate"
+      @authenticated="onAuthenticate"
     >
       PROJECTS
       <br />

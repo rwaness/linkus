@@ -25,13 +25,10 @@
 </template>
 
 <script>
-import mixin from '../../mixin';
 import PasswordField from './fields/PasswordField.vue';
 
 export default {
   name: 'LoginForm',
-
-  mixins: [mixin],
 
   components: {
     PasswordField,
@@ -53,15 +50,21 @@ export default {
     };
   },
 
+  computed: {
+    user() {
+      return this.$mongodbStitch.user;
+    },
+  },
+
   methods: {
-    async validate() {
+    async submit() {
       if (this.$refs.form.validate()) {
         try {
-          const user = await this.$store.dispatch(`${this.mongodbStitchStoreName}/loginWithEmailAndPassword`, {
-            email: this.email,
-            password: this.password,
-          });
-          this.$emit('loggedin', user);
+          const user = await this.$mongodbStitch.loginWithEmailAndPassword(
+            this.email,
+            this.password,
+          );
+          this.$emit('authenticated', user);
         } catch (error) {
           this.errorMessage = this.$mongodbStitch.getErrorMessage(error);
         }
