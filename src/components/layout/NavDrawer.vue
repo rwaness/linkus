@@ -62,14 +62,9 @@ export default {
           link: { name: 'Home' },
         },
         {
-          title: this.$t('nav.items.locales'),
-          icon: 'mdi-translate',
-          link: { name: 'Locales' },
-        },
-        {
-          title: this.$t('nav.items.projects'),
+          title: this.$t('nav.items.groups'),
           icon: 'mdi-hexagon-multiple',
-          link: { name: 'Projects' },
+          link: { name: 'Groups' },
         },
         {
           title: this.$t('nav.items.about'),

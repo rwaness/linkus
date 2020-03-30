@@ -4,9 +4,9 @@
       enable-login
       @authenticated="onAuthenticate"
     >
-      PROJECTS
+      GROUPS
       <br />
-      <pre>{{ projects }}</pre>
+      <pre>{{ groups }}</pre>
     </auth-view>
   </default-layout>
 </template>
@@ -17,7 +17,7 @@ import DefaultLayout from '@/layouts/DefaultLayout.vue';
 import AuthView from '@/lib/vue-mongodb-stitch/components/AuthView.vue';
 
 export default {
-  name: 'Projects',
+  name: 'Groups',
 
   components: {
     DefaultLayout,
@@ -26,13 +26,13 @@ export default {
 
   data() {
     return {
-      projects: [],
+      groups: [],
     };
   },
 
   methods: {
     async onAuthenticate(user) {
-      await this.$mongodbStitch.db.collection('projects').updateOne({
+      await this.$mongodbStitch.db.collection('groups').updateOne({
         stitchId: user.id,
       }, {
         $set: { number: 42 },
@@ -40,7 +40,7 @@ export default {
         upsert: true,
       });
 
-      this.projects = await this.$mongodbStitch.db.collection('projects').find({
+      this.groups = await this.$mongodbStitch.db.collection('groups').find({
         stitchId: user.id,
       }, {
         limit: 100,

@@ -1,7 +1,11 @@
 <template>
   <auth-view :enable-login="false">
     <template v-slot:authenticated="{ user }">
-      <v-menu offset-y right>
+      <v-menu
+        v-model="open"
+        offset-y
+        right
+      >
         <template v-slot:activator="{ on }">
           <v-btn icon dark v-on="on">
             <v-icon>mdi-account</v-icon>
@@ -22,12 +26,23 @@
 
           <v-divider></v-divider>
 
+          <v-list-item @click="goTo('Preferences')">
+            <v-list-item-icon>
+               <v-icon>mdi-account-cog</v-icon>
+            </v-list-item-icon>
+            <v-list-item-content>
+              <v-list-item-title>{{ $t('appbar.account.preferences') }}</v-list-item-title>
+            </v-list-item-content>
+          </v-list-item>
+
+          <v-divider></v-divider>
+
           <v-list-item @click="logout">
             <v-list-item-icon>
                <v-icon>mdi-logout</v-icon>
             </v-list-item-icon>
             <v-list-item-content>
-              <v-list-item-title>Logout</v-list-item-title>
+              <v-list-item-title>{{ $t('appbar.account.logout') }}</v-list-item-title>
             </v-list-item-content>
           </v-list-item>
         </v-list>
@@ -46,7 +61,20 @@ export default {
     AuthView,
   },
 
+  data() {
+    return {
+      open: false,
+    };
+  },
+
   methods: {
+    goTo(routeName) {
+      if (this.$router.currentRoute.name === routeName) {
+        this.open = false;
+      } else {
+        this.$router.push({ name: routeName });
+      }
+    },
     logout() {
       return this.$mongodbStitch.logout();
     },

@@ -1,11 +1,26 @@
 {
-  "message": "hello i18n !!",
+  "appbar": {
+    "account": {
+      "preferences": "Preferences",
+      "logout": "Logout"
+    }
+  },
   "nav": {
     "items": {
       "home": "Home",
-      "locales": "Locales",
-      "projects": "Projects",
+      "groups": "Groups",
       "about": "About"
+    }
+  },
+  "pages": {
+    "preferences": {
+      "title": "Preferences",
+      "language": {
+        "subtitle": "Language"
+      },
+      "theme": {
+        "subtitle": "Theme"
+      }
     }
   },
   "mongodbStitch": {

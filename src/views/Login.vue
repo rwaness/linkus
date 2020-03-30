@@ -12,7 +12,7 @@ import DefaultLayout from '@/layouts/DefaultLayout.vue';
 import AuthView from '@/lib/vue-mongodb-stitch/components/AuthView.vue';
 
 export default {
-  name: 'Locales',
+  name: 'Login',
 
   components: {
     AuthView,
