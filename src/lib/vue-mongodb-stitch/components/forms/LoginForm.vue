@@ -50,12 +50,6 @@ export default {
     };
   },
 
-  computed: {
-    user() {
-      return this.$mongodbStitch.user;
-    },
-  },
-
   methods: {
     async submit() {
       if (this.$refs.form.validate()) {
