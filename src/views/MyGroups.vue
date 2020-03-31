@@ -93,7 +93,7 @@ export default {
       }).asArray();
     },
     onCreate({ _id: id }) {
-      this.$router.push({ name: 'Group', params: { id } });
+      this.$router.push({ name: 'MyGroup', params: { id } });
     },
   },
 };
