@@ -1,5 +1,5 @@
 <template>
-  <v-container>
+  <v-container fluid class="fill-height">
     <app-bar
       @click:nav="toggleDrawer"
       @click:signup="showRegistration = true"
@@ -10,7 +10,7 @@
       :mini="drawerMini"
     />
 
-    <v-content>
+    <v-content class="fill-height">
       <slot />
 
       <v-overlay

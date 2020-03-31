@@ -23,7 +23,12 @@
       }
     },
     "myGroups": {
-      "title": "My Groups"
+      "title": "My Groups",
+      "noResults": {
+        "label": "You don't have any groups yet!",
+        "message": "Create one now to invite your friends",
+        "action": "Create My First Group"
+      }
     }
   },
   "mongodbStitch": {

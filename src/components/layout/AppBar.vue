@@ -9,7 +9,7 @@
       <v-app-bar-nav-icon @click="$emit('click:nav')" />
 
       <v-toolbar-title class="title linkus">
-          L<span class="i">i</span><span class="trslt"><span class="txt-miror">N</span>Kus</span>
+        L<span class="i">i</span><span class="trslt"><span class="txt-miror">N</span>Kus</span>
       </v-toolbar-title>
 
       <v-spacer></v-spacer>

@@ -63,7 +63,7 @@ export default {
         },
         {
           title: this.$t('nav.items.myGroups'),
-          icon: 'mdi-hexagon-multiple',
+          icon: 'mdi-account-group',
           link: { name: 'MyGroups' },
         },
         {
