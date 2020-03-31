@@ -11,7 +11,7 @@
       </h1>
 
       <no-results
-        v-if="!myGroups.length"
+        v-if="!groups.length"
         class="flex-grow-1"
         icon="mdi-account-group"
         :label="$t('pages.myGroups.noResults.label')"
@@ -21,7 +21,31 @@
       />
 
       <template v-else>
-        <pre>{{ myGroups }}</pre>
+        <v-list>
+          <v-list-item
+            v-for="group in groups"
+            :key="`${group._id}`"
+            :to="{ name: 'MyGroup', params: { id: `${group._id}` } }"
+          >
+            <v-list-item-content>
+              <v-list-item-title>{{ group.name }}</v-list-item-title>
+            </v-list-item-content>
+            <v-list-item-icon>
+              <v-icon>mdi-chevron-right</v-icon>
+            </v-list-item-icon>
+          </v-list-item>
+        </v-list>
+
+        <v-btn
+          fab
+          fixed
+          bottom
+          right
+          color="primary"
+          @click="createFormOpened = true"
+        >
+          <v-icon>mdi-plus</v-icon>
+        </v-btn>
       </template>
 
       <v-overlay
@@ -56,13 +80,13 @@ export default {
   data() {
     return {
       createFormOpened: false,
-      myGroups: [],
+      groups: [],
     };
   },
 
   methods: {
     async onAuthenticate(user) {
-      this.myGroups = await this.$mongodbStitch.db.collection('groups').find({
+      this.groups = await this.$mongodbStitch.db.collection('groups').find({
         owner: user.id,
       }, {
         limit: 100,
