@@ -17,21 +17,31 @@
         :label="$t('pages.myGroups.noResults.label')"
         :message="$t('pages.myGroups.noResults.message')"
         :action-label="$t('pages.myGroups.noResults.action')"
-        @click:action="createGroup"
+        @click:action="createFormOpened = true"
       />
 
       <template v-else>
         <pre>{{ myGroups }}</pre>
       </template>
+
+      <v-overlay
+        v-model="createFormOpened"
+        :dark="false"
+      >
+        <group-creation-card
+          @group:created="onCreate"
+          @close="createFormOpened = false"
+        />
+      </v-overlay>
     </auth-view>
   </default-layout>
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
 import AuthView from '@/lib/vue-mongodb-stitch/components/AuthView.vue';
 import DefaultLayout from '@/layouts/DefaultLayout.vue';
 import NoResults from '@/components/list/NoResults.vue';
+import GroupCreationCard from '@/components/groups/GroupCreationCard.vue';
 
 export default {
   name: 'MyGroups',
@@ -40,32 +50,26 @@ export default {
     AuthView,
     DefaultLayout,
     NoResults,
+    GroupCreationCard,
   },
 
   data() {
     return {
+      createFormOpened: false,
       myGroups: [],
     };
   },
 
   methods: {
     async onAuthenticate(user) {
-    //   await this.$mongodbStitch.db.collection('groups').updateOne({
-    //     owner: user.id,
-    //   }, {
-    //     $set: { number: 42 },
-    //   }, {
-    //     upsert: true,
-    //   });
-
-    //   this.myGroups = await this.$mongodbStitch.db.collection('groups').find({
-    //     owner: user.id,
-    //   }, {
-    //     limit: 100,
-    //   }).asArray();
+      this.myGroups = await this.$mongodbStitch.db.collection('groups').find({
+        owner: user.id,
+      }, {
+        limit: 100,
+      }).asArray();
     },
-    createGroup() {
-      alert('create group');
+    onCreate({ _id: id }) {
+      this.$router.push({ name: 'Group', params: { id } });
     },
   },
 };

@@ -28,6 +28,22 @@
         "label": "You don't have any groups yet!",
         "message": "Create one now to invite your friends",
         "action": "Create My First Group"
+      },
+      "creation": {
+        "form": {
+          "name": {
+            "field": "Name",
+            "rules": {
+              "required": " A name is required"
+            }
+          }
+        },
+        "card": {
+          "title": "Create a group",
+          "actions": {
+            "submit": "Create"
+          }
+        }
       }
     }
   },
