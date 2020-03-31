@@ -4,6 +4,7 @@ import Home from '@/views/Home.vue';
 import Login from '@/views/Login.vue';
 import MyPreferences from '@/views/MyPreferences.vue';
 import MyGroups from '@/views/MyGroups.vue';
+import MyGroup from '@/views/MyGroup.vue';
 import NotFound from '@/views/NotFound.vue';
 
 Vue.use(VueRouter);
@@ -28,6 +29,12 @@ const routes = [
     path: '/my-groups',
     name: 'MyGroups',
     component: MyGroups,
+  },
+  {
+    path: '/my-groups/:id',
+    name: 'MyGroup',
+    component: MyGroup,
+    props: true,
   },
   {
     path: '/about',
