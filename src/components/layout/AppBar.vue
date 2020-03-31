@@ -15,7 +15,7 @@
       <v-spacer></v-spacer>
 
       <auth-view>
-        <contextual-menu slot="authenticated" />
+        <contextual-menu />
         <v-btn
           slot="unauthenticated"
           @click="$emit('click:signup')"

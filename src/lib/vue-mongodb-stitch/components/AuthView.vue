@@ -1,21 +1,9 @@
 <template>
   <div class="auth-view">
-    <template v-if="user">
-      <slot
-        v-if="$slots.authenticated || $scopedSlots.authenticated"
-        name="authenticated"
-        :user="user"
-      />
-      <slot v-else />
-    </template>
-
-    <template v-else>
-      <slot
-        v-if="$slots.unauthenticated || $scopedSlots.unauthenticated"
-        name="unauthenticated"
-      />
-      <login-card v-else-if="enableLogin" />
-    </template>
+    <slot v-if="user" :user="user" />
+    <slot v-else name="unauthenticated">
+      <login-card v-if="enableLogin" />
+    </slot>
   </div>
 </template>
 

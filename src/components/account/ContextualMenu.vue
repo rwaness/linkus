@@ -1,6 +1,6 @@
 <template>
   <auth-view :enable-login="false">
-    <template v-slot:authenticated="{ user }">
+    <template v-slot="{ user }">
       <v-menu
         v-model="open"
         offset-y
