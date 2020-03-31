@@ -2,11 +2,11 @@
   <v-container fluid class="fill-height">
     <app-bar
       @click:nav="toggleDrawer"
-      @click:signup="showRegistration = true"
+      @click:signup="registrationFormOpened = true"
     />
 
     <nav-drawer
-      v-model="drawerEnable"
+      v-model="drawerOpened"
       :mini="drawerMini"
     />
 
@@ -14,7 +14,7 @@
       <slot />
 
       <v-overlay
-        v-model="showRegistration"
+        v-model="registrationFormOpened"
         :dark="false"
       >
         <registration-card
@@ -43,19 +43,19 @@ export default {
 
   data() {
     return {
-      drawerEnable: null,
+      drawerOpened: null,
       drawerMini: false,
-      showRegistration: false,
+      registrationFormOpened: false,
     };
   },
 
   methods: {
     toggleDrawer() {
-      this.drawerEnable = true;
+      this.drawerOpened = true;
       this.drawerMini = !this.drawerMini;
     },
     closeRegistration() {
-      this.showRegistration = false;
+      this.registrationFormOpened = false;
     },
     goToLogin() {
       if (this.$router.currentRoute && this.$router.currentRoute.name === 'Login') {
