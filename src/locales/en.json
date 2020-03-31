@@ -13,6 +13,13 @@
     }
   },
   "pages": {
+    "notFound": {
+      "noResults": {
+        "label": "404",
+        "message": "Not Found!",
+        "action": "Go back Home"
+      }
+    },
     "myPreferences": {
       "title": "My Preferences",
       "language": {
