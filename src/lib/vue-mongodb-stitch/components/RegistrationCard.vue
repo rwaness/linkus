@@ -31,7 +31,7 @@
           text
           @click="$emit('goto:signin')"
         >
-          {{ $t('mongodbStitch.registration.card.actions.alreadyHaveAccount') }}
+          {{ $t('mongodbStitch.registration.card.actions.alreadyRegistered') }}
         </v-btn>
 
         <v-spacer />

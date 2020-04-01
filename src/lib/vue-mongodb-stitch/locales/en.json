@@ -3,7 +3,7 @@
     "card": {
       "title": "Registration",
       "actions": {
-        "alreadyHaveAccount": "Already have an account ? Login...",
+        "alreadyRegistered": "I'm already registered",
         "submit": "Sign Up"
       }
     },
