@@ -33,15 +33,24 @@
       </v-btn>
     </template>
 
-    <v-overlay
-      v-model="createFormOpened"
-      :dark="false"
-    >
+    <v-dialog v-model="createFormOpened">
+      <template v-slot:activator="{ on }">
+        <v-btn
+          fab
+          fixed
+          bottom
+          right
+          color="primary"
+          v-on="on"
+        >
+          <v-icon>mdi-plus</v-icon>
+        </v-btn>
+      </template>
       <group-creation-card
-        @group:created="onCreate"
+        @group:created="goToMyGroup"
         @close="createFormOpened = false"
       />
-    </v-overlay>
+    </v-dialog>
   </div>
 </template>
 
@@ -94,7 +103,7 @@ export default {
     ...mapActions('api/groups/myGroups', [
       'fetch',
     ]),
-    onCreate({ _id: id }) {
+    goToMyGroup({ _id: id }) {
       this.$router.push({ name: 'MyGroup', params: { id } });
     },
   },

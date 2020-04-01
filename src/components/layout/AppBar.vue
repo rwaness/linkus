@@ -16,12 +16,20 @@
 
       <auth-view>
         <contextual-menu />
-        <v-btn
-          slot="unauthenticated"
-          @click="$emit('click:signup')"
-        >
-          <v-icon>mdi-account-circle</v-icon> SIGN UP
-        </v-btn>
+        <template v-slot:unauthenticated>
+          <v-dialog v-model="registrationFormOpened">
+            <template v-slot:activator="{ on }">
+              <v-btn v-on="on">
+                <v-icon>mdi-account-circle</v-icon> SIGN UP
+              </v-btn>
+            </template>
+
+            <registration-card
+              @goto:signin="goToLogin"
+              @close="registrationFormOpened = false"
+            />
+          </v-dialog>
+        </template>
       </auth-view>
     </v-app-bar>
 
@@ -31,6 +39,7 @@
 <script>
 import AuthView from '@/lib/vue-mongodb-stitch/components/AuthView.vue';
 import ContextualMenu from '@/components/account/ContextualMenu.vue';
+import RegistrationCard from '@/lib/vue-mongodb-stitch/components/RegistrationCard.vue';
 
 export default {
   name: 'AppBar',
@@ -38,6 +47,23 @@ export default {
   components: {
     AuthView,
     ContextualMenu,
+    RegistrationCard,
+  },
+
+  data() {
+    return {
+      registrationFormOpened: false,
+    };
+  },
+
+  methods: {
+    goToLogin() {
+      if (this.$router.currentRoute && this.$router.currentRoute.name === 'Login') {
+        this.registrationFormOpened = false;
+      } else {
+        this.$router.push({ name: 'Login' });
+      }
+    },
   },
 };
 </script>
