@@ -1,6 +1,30 @@
 <template>
   <div class="my-groups fill-height">
-    <breadcrumbs :items="breadcrumbs" />
+    <v-toolbar flat>
+      <breadcrumbs :items="breadcrumbs" />
+
+      <v-spacer></v-spacer>
+
+      <v-dialog
+        v-if="invitations.length"
+        v-model="invitationsListOpened"
+      >
+        <template v-slot:activator="{ on }">
+          <v-btn
+            icon
+            v-on="on"
+          >
+            <v-icon>mdi-account-multiple-plus</v-icon>
+          </v-btn>
+        </template>
+
+        <invitations-card
+          :invitations="invitations"
+          @invitation:accepted="goToMyGroup"
+          @close="invitationsListOpened = false"
+        />
+      </v-dialog>
+    </v-toolbar>
 
     <no-results
       v-if="!groups.length"
@@ -58,6 +82,7 @@
 import { mapGetters, mapActions } from 'vuex';
 import Breadcrumbs from '@/components/layout/Breadcrumbs.vue';
 import NoResults from '@/components/list/NoResults.vue';
+import InvitationsCard from '@/components/groups/InvitationsCard.vue';
 import GroupCreationCard from '@/components/groups/GroupCreationCard.vue';
 import GroupListItem from '@/components/groups/list/GroupListItem.vue';
 
@@ -69,6 +94,7 @@ export default {
     NoResults,
     GroupCreationCard,
     GroupListItem,
+    InvitationsCard,
   },
 
   props: {
@@ -83,6 +109,7 @@ export default {
       breadcrumbs: [{
         text: this.$t('pages.myGroups.title'),
       }],
+      invitationsListOpened: false,
       createFormOpened: false,
     };
   },
@@ -93,16 +120,23 @@ export default {
       fetching: 'fetching',
       error: 'error',
     }),
+    ...mapGetters('api/groups/myInvitations', {
+      invitations: 'data',
+    }),
   },
 
   created() {
-    this.fetch();
+    this.fetchInvitations();
+    this.fetchGroups();
   },
 
   methods: {
-    ...mapActions('api/groups/myGroups', [
-      'fetch',
-    ]),
+    ...mapActions('api/groups/myInvitations', {
+      fetchInvitations: 'fetch',
+    }),
+    ...mapActions('api/groups/myGroups', {
+      fetchGroups: 'fetch',
+    }),
     goToMyGroup({ _id: id }) {
       this.$router.push({ name: 'MyGroup', params: { id } });
     },
