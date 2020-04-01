@@ -1,4 +1,5 @@
 <template>
+  <!-- TODO 404 -->
   <div v-if="group" class="my-group fill-height" >
     <breadcrumbs :items="breadcrumbs" />
 
@@ -7,7 +8,7 @@
 </template>
 
 <script>
-import { BSON } from 'mongodb-stitch-browser-sdk';
+import { mapGetters, mapActions } from 'vuex';
 import Breadcrumbs from '@/components/layout/Breadcrumbs.vue';
 
 export default {
@@ -28,13 +29,12 @@ export default {
     },
   },
 
-  data() {
-    return {
-      group: null,
-    };
-  },
-
   computed: {
+    ...mapGetters('api/groups/myGroup', {
+      group: 'data',
+      fetching: 'fetching',
+      error: 'error',
+    }),
     breadcrumbs() {
       return [{
         text: this.$t('pages.myGroups.title'),
@@ -45,11 +45,14 @@ export default {
     },
   },
 
-  async created() {
-    this.group = await this.$mongodbStitch.db.collection('groups').findOne({
-      owner: this.user.id,
-      _id: new BSON.ObjectId(this.id),
-    });
+  created() {
+    this.fetch({ _id: this.id });
+  },
+
+  methods: {
+    ...mapActions('api/groups/myGroup', [
+      'fetch',
+    ]),
   },
 };
 </script>

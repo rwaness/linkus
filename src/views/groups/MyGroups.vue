@@ -46,6 +46,7 @@
 </template>
 
 <script>
+import { mapGetters, mapActions } from 'vuex';
 import Breadcrumbs from '@/components/layout/Breadcrumbs.vue';
 import NoResults from '@/components/list/NoResults.vue';
 import GroupCreationCard from '@/components/groups/GroupCreationCard.vue';
@@ -73,20 +74,26 @@ export default {
       breadcrumbs: [{
         text: this.$t('pages.myGroups.title'),
       }],
-      groups: [],
       createFormOpened: false,
     };
   },
 
-  async created() {
-    this.groups = await this.$mongodbStitch.db.collection('groups').find({
-      owner: this.user.id,
-    }, {
-      limit: 100,
-    }).asArray();
+  computed: {
+    ...mapGetters('api/groups/myGroups', {
+      groups: 'data',
+      fetching: 'fetching',
+      error: 'error',
+    }),
+  },
+
+  created() {
+    this.fetch();
   },
 
   methods: {
+    ...mapActions('api/groups/myGroups', [
+      'fetch',
+    ]),
     onCreate({ _id: id }) {
       this.$router.push({ name: 'MyGroup', params: { id } });
     },
