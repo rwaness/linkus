@@ -17,18 +17,11 @@
 
     <template v-else>
       <v-list>
-        <v-list-item
+        <group-list-item
           v-for="group in groups"
           :key="`${group._id}`"
-          :to="{ name: 'MyGroup', params: { id: `${group._id}` } }"
-        >
-          <v-list-item-content>
-            <v-list-item-title>{{ group.name }}</v-list-item-title>
-          </v-list-item-content>
-          <v-list-item-icon>
-            <v-icon>mdi-chevron-right</v-icon>
-          </v-list-item-icon>
-        </v-list-item>
+          :group="group"
+        />
       </v-list>
 
       <v-btn
@@ -58,6 +51,7 @@
 <script>
 import NoResults from '@/components/list/NoResults.vue';
 import GroupCreationCard from '@/components/groups/GroupCreationCard.vue';
+import GroupListItem from '@/components/groups/list/GroupListItem.vue';
 
 export default {
   name: 'MyGroups',
@@ -65,6 +59,7 @@ export default {
   components: {
     NoResults,
     GroupCreationCard,
+    GroupListItem,
   },
 
   props: {
