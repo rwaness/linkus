@@ -1,9 +1,6 @@
 <template>
   <div class="my-groups fill-height">
-    <h1 class="display-1">
-      <!-- <v-icon color="amber darken-2">mdi-account-group</v-icon> -->
-      {{ $t('pages.myGroups.title') }}
-    </h1>
+    <breadcrumbs :items="breadcrumbs" />
 
     <no-results
       v-if="!groups.length"
@@ -49,6 +46,7 @@
 </template>
 
 <script>
+import Breadcrumbs from '@/components/layout/Breadcrumbs.vue';
 import NoResults from '@/components/list/NoResults.vue';
 import GroupCreationCard from '@/components/groups/GroupCreationCard.vue';
 import GroupListItem from '@/components/groups/list/GroupListItem.vue';
@@ -57,6 +55,7 @@ export default {
   name: 'MyGroups',
 
   components: {
+    Breadcrumbs,
     NoResults,
     GroupCreationCard,
     GroupListItem,
@@ -71,8 +70,11 @@ export default {
 
   data() {
     return {
-      createFormOpened: false,
+      breadcrumbs: [{
+        text: this.$t('pages.myGroups.title'),
+      }],
       groups: [],
+      createFormOpened: false,
     };
   },
 

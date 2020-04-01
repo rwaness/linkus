@@ -1,19 +1,21 @@
 <template>
-  <div v-if="myGroup" class="my-group fill-height" >
-    <h1 class="display-1">
-      <!-- <v-icon color="amber darken-2">mdi-account-group</v-icon> -->
-      {{ myGroup.name }}
-    </h1>
+  <div v-if="group" class="my-group fill-height" >
+    <breadcrumbs :items="breadcrumbs" />
 
-    <pre>{{ myGroup }}</pre>
+    <pre>{{ group }}</pre>
   </div>
 </template>
 
 <script>
 import { BSON } from 'mongodb-stitch-browser-sdk';
+import Breadcrumbs from '@/components/layout/Breadcrumbs.vue';
 
 export default {
   name: 'MyGroup',
+
+  components: {
+    Breadcrumbs,
+  },
 
   props: {
     user: {
@@ -28,12 +30,23 @@ export default {
 
   data() {
     return {
-      myGroup: null,
+      group: null,
     };
   },
 
+  computed: {
+    breadcrumbs() {
+      return [{
+        text: this.$t('pages.myGroups.title'),
+        to: { name: 'MyGroups' },
+      }, {
+        text: this.group.name,
+      }];
+    },
+  },
+
   async created() {
-    this.myGroup = await this.$mongodbStitch.db.collection('groups').findOne({
+    this.group = await this.$mongodbStitch.db.collection('groups').findOne({
       owner: this.user.id,
       _id: new BSON.ObjectId(this.id),
     });
