@@ -76,7 +76,8 @@ export default {
       }
     },
     logout() {
-      return this.$mongodbStitch.logout();
+      this.goTo('Home');
+      this.$mongodbStitch.logout();
     },
   },
 };
