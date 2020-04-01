@@ -22,13 +22,19 @@ export default {
       type: Array,
       required: true,
     },
+    withHomeIcon: {
+      type: Boolean,
+      default: false,
+    },
   },
 
   computed: {
     allItems() {
       const allItems = [...this.items];
       const lastItem = allItems.pop();
-      allItems.unshift({ icon: 'mdi-home', to: { name: 'Home' } });
+      if (this.withHomeIcon) {
+        allItems.unshift({ icon: 'mdi-home', to: { name: 'Home' } });
+      }
       return [...allItems.map((item) => ({
         disabled: false,
         exact: true,
