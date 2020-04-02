@@ -38,10 +38,10 @@ export default ({ mongodbStitch }) => {
     },
     myGroup: {
       single: true,
-      doQuery({ _id }) {
+      doQuery({ id }) {
         return collection.findOne({
           owner: mongodbStitch.user.id,
-          _id: new BSON.ObjectId(_id),
+          _id: new BSON.ObjectId(id),
         });
       },
     },
