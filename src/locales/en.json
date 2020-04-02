@@ -47,31 +47,28 @@
         "action": "Create My First Group"
       },
       "creation": {
+        "card": {
+          "title": "New group",
+          "actions": {
+            "submit": "Create"
+          }
+        },
         "form": {
           "name": {
-            "field": "Name",
+            "field": "Group name",
             "rules": {
               "required": "A name is required"
             }
           },
           "email": {
-            "field": "Email",
+            "field": "Contact email",
             "rules": {
               "required": "An email is required",
-              "format": "Email must be valid"
+              "format": "Contact email must be valid"
             }
-          }
-        },
-        "card": {
-          "title": "Create a group",
-          "actions": {
-            "submit": "Create"
           }
         }
       }
     }
-  },
-  "mongodbStitch": {
-    "test": "test"
   }
 }

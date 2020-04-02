@@ -1,3 +1,5 @@
+import { mapGetters } from 'vuex';
+
 export const dataViewStoreFactory = (ns, name, { single }) => ({
   namespaced: true,
   state: {
@@ -15,7 +17,7 @@ export const dataViewStoreFactory = (ns, name, { single }) => ({
     error: (state) => state.error,
   },
   actions: {
-    async fetch({ commit, dispatch }, params) {
+    async fetch({ commit, dispatch, getters }, params) {
       try {
         commit('startFetching');
         const key = await dispatch(`${ns}/fetch`, { name, single, params }, { root: true });
@@ -23,6 +25,7 @@ export const dataViewStoreFactory = (ns, name, { single }) => ({
       } catch (error) {
         commit('catchError', { error });
       }
+      return getters.data;
     },
   },
   mutations: {

@@ -18,20 +18,20 @@
       required
     ></v-text-field>
 
-    <v-alert v-if="errorMessage" type="error">
-      {{ errorMessage }}
+    <v-alert v-if="error" type="error">
+      {{ error }}
     </v-alert>
   </v-form>
 </template>
 
 <script>
+import { mapGetters, mapActions } from 'vuex';
 
 export default {
-  name: 'LoginForm',
+  name: 'GroupCreationForm',
 
   data() {
     return {
-      errorMessage: null,
       valid: true,
       name: '',
       nameRules: [
@@ -46,34 +46,31 @@ export default {
   },
 
   computed: {
-    user() {
-      return this.$mongodbStitch.user;
+    ...mapGetters('vuapix/groups/newGroup', {
+      newGroup: 'data',
+      fetching: 'fetching',
+      error: 'error',
+    }),
+  },
+
+  watch: {
+    fetching(fetching) {
+      if (!fetching && !this.error) {
+        this.$emit('created', this.newGroup);
+      }
     },
   },
 
-  created() {
-    // TODO to try
-    if (!this.user) {
-      this.valid = false;
-    }
-  },
-
   methods: {
+    ...mapActions('vuapix/groups/newGroup', [
+      'fetch',
+    ]),
     async submit() {
       if (this.$refs.form.validate()) {
-        try {
-          const myGroup = {
-            owner: this.user.id,
-            name: this.name,
-          };
-          const { insertedId } = await this.$mongodbStitch.db.collection('groups').insertOne(myGroup);
-          this.$emit('created', {
-            _id: insertedId,
-            ...myGroup,
-          });
-        } catch (error) {
-          this.errorMessage = `${error}`;
-        }
+        this.fetch({
+          name: this.name,
+          emails: [this.email],
+        });
       }
     },
   },

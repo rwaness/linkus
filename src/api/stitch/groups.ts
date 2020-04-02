@@ -21,6 +21,21 @@ export default ({ mongodbStitch }) => {
         }).asArray();
       },
     },
+    newGroup: {
+      single: true,
+      async fetch({ name, emails }) {
+        const newGroup = {
+          owner: mongodbStitch.user.id,
+          name,
+          emails,
+        };
+        const { insertedId } = await collection.insertOne(newGroup);
+        return {
+          _id: insertedId,
+          ...newGroup,
+        };
+      },
+    },
     myGroup: {
       single: true,
       fetch({ _id }) {
