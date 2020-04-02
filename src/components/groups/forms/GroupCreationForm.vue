@@ -11,6 +11,13 @@
       required
     ></v-text-field>
 
+    <v-text-field
+      v-model="email"
+      :rules="emailRules"
+      :label="$t('pages.myGroups.creation.form.email.field')"
+      required
+    ></v-text-field>
+
     <v-alert v-if="errorMessage" type="error">
       {{ errorMessage }}
     </v-alert>
@@ -29,6 +36,11 @@ export default {
       name: '',
       nameRules: [
         (v) => !!v || this.$t('pages.myGroups.creation.form.name.rules.required'),
+      ],
+      email: '',
+      emailRules: [
+        (v) => !!v || this.$t('pages.myGroups.creation.form.email.rules.required'),
+        (v) => /.+@.+\..+/.test(v) || this.$t('pages.myGroups.creation.form.email.rules.format'),
       ],
     };
   },

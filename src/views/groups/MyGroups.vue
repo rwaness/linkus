@@ -1,5 +1,9 @@
 <template>
-  <div class="my-groups fill-height">
+  <page-content
+    class="my-groups"
+    :loading="fetching"
+    @initialize="initialize"
+  >
     <v-toolbar flat>
       <breadcrumbs :items="breadcrumbs" />
 
@@ -75,11 +79,12 @@
         @close="createFormOpened = false"
       />
     </v-dialog>
-  </div>
+  </page-content>
 </template>
 
 <script>
 import { mapGetters, mapActions } from 'vuex';
+import PageContent from '@/components/wrapper/PageContent.vue';
 import Breadcrumbs from '@/components/layout/Breadcrumbs.vue';
 import NoResults from '@/components/list/NoResults.vue';
 import InvitationsCard from '@/components/groups/InvitationsCard.vue';
@@ -90,6 +95,7 @@ export default {
   name: 'MyGroups',
 
   components: {
+    PageContent,
     Breadcrumbs,
     NoResults,
     GroupCreationCard,
@@ -125,11 +131,6 @@ export default {
     }),
   },
 
-  created() {
-    this.fetchInvitations();
-    this.fetchGroups();
-  },
-
   methods: {
     ...mapActions('api/groups/myInvitations', {
       fetchInvitations: 'fetch',
@@ -137,6 +138,10 @@ export default {
     ...mapActions('api/groups/myGroups', {
       fetchGroups: 'fetch',
     }),
+    initialize() {
+      this.fetchInvitations();
+      this.fetchGroups();
+    },
     goToMyGroup({ _id: id }) {
       this.$router.push({ name: 'MyGroup', params: { id } });
     },

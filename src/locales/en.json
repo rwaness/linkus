@@ -46,7 +46,14 @@
           "name": {
             "field": "Name",
             "rules": {
-              "required": " A name is required"
+              "required": "A name is required"
+            }
+          },
+          "email": {
+            "field": "Email",
+            "rules": {
+              "required": "An email is required",
+              "format": "Email must be valid"
             }
           }
         },
