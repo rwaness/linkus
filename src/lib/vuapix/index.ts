@@ -20,7 +20,9 @@ export const dataViewStoreFactory = (ns, name, { single }) => ({
     async doQuery({ commit, dispatch, getters }, params) {
       try {
         commit('startFetching');
-        const key = await dispatch(`${ns}/doQuery`, { name, single, params }, { root: true });
+        const dataByKey = await dispatch(`${ns}/doQuery`, { name, single, params }, { root: true });
+        const keys = Object.keys(dataByKey);
+        const key = single ? keys[0] : keys;
         commit('endFetching', { key });
       } catch (error) {
         commit('catchError', { error });
@@ -59,8 +61,7 @@ export const dataTypeStoreFactory = (ns, dataType, { api, itemToKey }) => ({
       const items = api[name].single ? [data] : data;
       const itemsByKey = Object.fromEntries(items.map((item) => ([itemToKey(item), item])));
       commit('addItems', { itemsByKey });
-      const keys = Object.keys(itemsByKey);
-      return api[name].single ? keys[0] : keys;
+      return itemsByKey;
     },
   },
   mutations: {
