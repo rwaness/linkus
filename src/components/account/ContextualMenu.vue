@@ -7,7 +7,7 @@
         right
       >
         <template v-slot:activator="{ on }">
-          <v-btn icon dark v-on="on">
+          <v-btn icon small outlined dark v-on="on">
             <v-icon>mdi-account</v-icon>
           </v-btn>
         </template>

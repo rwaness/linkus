@@ -42,11 +42,10 @@
 
     <template v-else>
       <v-list>
-        <group-list-item
-          v-for="group in groups"
-          :key="`${group._id}`"
-          :group="group"
-        />
+        <template v-for="(group, index) in groups">
+          <v-divider v-if="index" :key="`divider-${index}`"></v-divider>
+          <group-list-item :group="group" :key="`item-${group._id}`" />
+        </template>
       </v-list>
 
       <v-btn

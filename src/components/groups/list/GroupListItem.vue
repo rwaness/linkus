@@ -6,9 +6,12 @@
     <v-list-item-content>
       <v-list-item-title>{{ group.name }}</v-list-item-title>
     </v-list-item-content>
-    <v-list-item-icon>
-      <v-icon>mdi-chevron-right</v-icon>
-    </v-list-item-icon>
+
+    <slot name="icon">
+      <v-list-item-icon>
+        <v-icon>mdi-chevron-right</v-icon>
+      </v-list-item-icon>
+    </slot>
   </v-list-item>
 </template>
 

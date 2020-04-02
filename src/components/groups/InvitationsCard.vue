@@ -14,26 +14,23 @@
       </v-btn>
     </v-toolbar>
 
-    <v-card-text>
-      <v-list>
-        <group-list-item
-          v-for="group in invitations"
-          :key="`${group._id}`"
-          :group="group"
-        />
-      </v-list>
-    </v-card-text>
+    <v-list>
+      <template v-for="(group, index) in invitations">
+        <v-divider v-if="index" :key="`divider-${index}`"></v-divider>
+        <invitation-list-item :group="group" :key="`item-${group._id}`" />
+      </template>
+    </v-list>
   </v-card>
 </template>
 
 <script>
-import GroupListItem from './list/GroupListItem.vue';
+import InvitationListItem from './list/InvitationListItem.vue';
 
 export default {
   name: 'InvitationsCard',
 
   components: {
-    GroupListItem,
+    InvitationListItem,
   },
 
   props: {
