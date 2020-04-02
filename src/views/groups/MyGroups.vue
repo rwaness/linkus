@@ -120,21 +120,21 @@ export default {
   },
 
   computed: {
-    ...mapGetters('api/groups/myGroups', {
+    ...mapGetters('vuapix/groups/myGroups', {
       groups: 'data',
       fetching: 'fetching',
       error: 'error',
     }),
-    ...mapGetters('api/groups/myInvitations', {
+    ...mapGetters('vuapix/groups/myInvitations', {
       invitations: 'data',
     }),
   },
 
   methods: {
-    ...mapActions('api/groups/myInvitations', {
+    ...mapActions('vuapix/groups/myInvitations', {
       fetchInvitations: 'fetch',
     }),
-    ...mapActions('api/groups/myGroups', {
+    ...mapActions('vuapix/groups/myGroups', {
       fetchGroups: 'fetch',
     }),
     initialize() {

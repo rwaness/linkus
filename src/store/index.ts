@@ -1,6 +1,6 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
-import apiStoreFactory from './api';
+import vuapixStore from './vuapix';
 
 Vue.use(Vuex);
 
@@ -14,6 +14,6 @@ export default new Vuex.Store({
   mutations: {
   },
   modules: {
-    ...apiStoreFactory('api'),
+    ...vuapixStore,
   },
 });

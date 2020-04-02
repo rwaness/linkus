@@ -5,3 +5,4 @@
 - limit items storage
 - cache / check existing data before querying
 - allow array params
+- allow custom store namespace

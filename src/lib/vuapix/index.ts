@@ -90,8 +90,6 @@ export const apiStoreFactory = (ns, apis) => ({
   }), {}),
 });
 
-export default {
-  dataViewStoreFactory,
-  dataTypeStoreFactory,
-  apiStoreFactory,
-};
+export default (apis) => ({
+  vuapix: apiStoreFactory('vuapix', apis),
+});

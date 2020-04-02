@@ -30,7 +30,7 @@ export default {
   },
 
   computed: {
-    ...mapGetters('api/groups/myGroup', {
+    ...mapGetters('vuapix/groups/myGroup', {
       group: 'data',
       fetching: 'fetching',
       error: 'error',
@@ -50,7 +50,7 @@ export default {
   },
 
   methods: {
-    ...mapActions('api/groups/myGroup', [
+    ...mapActions('vuapix/groups/myGroup', [
       'fetch',
     ]),
   },
