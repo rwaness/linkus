@@ -3,9 +3,7 @@
     class="group-list-item"
     :to="link"
   >
-    <v-list-item-content>
-      <v-list-item-title>{{ group.name }}</v-list-item-title>
-    </v-list-item-content>
+    <group-list-item-content :group="group" />
 
     <slot name="icon">
       <v-list-item-icon>
@@ -16,8 +14,14 @@
 </template>
 
 <script>
+import GroupListItemContent from './GroupListItemContent.vue';
+
 export default {
   name: 'GroupListItem',
+
+  components: {
+    GroupListItemContent,
+  },
 
   props: {
     group: {

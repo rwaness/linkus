@@ -33,7 +33,12 @@
       "title": "My Groups",
       "invitations": {
         "card": {
-          "title": "Invitations"
+          "title": "Invitations",
+          "subheader": "Accept invitation ?",
+          "listItem": {
+            "subtitle": "Invited by ...",
+            "action": "Accept ?"
+          }
         }
       },
       "noResults": {

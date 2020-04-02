@@ -14,7 +14,8 @@
       </v-btn>
     </v-toolbar>
 
-    <v-list>
+    <v-subheader>{{ $t('pages.myGroups.invitations.card.subheader') }}</v-subheader>
+    <v-list subheader dense>
       <template v-for="(group, index) in invitations">
         <v-divider v-if="index" :key="`divider-${index}`"></v-divider>
         <invitation-list-item :group="group" :key="`item-${group._id}`" />
