@@ -1,4 +1,4 @@
-import apiStoreFactory from '@/lib/apiStoreFactory';
+import { apiStoreFactory } from '@/lib/vuapix';
 import mongodbStitch from '@/services/mongodbStitch';
 import createApi from '@/api/stitch/groups';
 

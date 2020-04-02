@@ -1,11 +1,4 @@
-/**
- * TODO:
- * - lock while updating $items
- * - limit $items
- * - check existing data before query
- */
-
-export const createDataViewStore = (ns, name, { single }) => ({
+export const dataViewStoreFactory = (ns, name, { single }) => ({
   namespaced: true,
   state: {
     key: single ? null : [],
@@ -48,7 +41,7 @@ export const createDataViewStore = (ns, name, { single }) => ({
   },
 });
 
-export const createDataTypeStore = (ns, dataType, { api, itemToKey }) => ({
+export const dataTypeStoreFactory = (ns, dataType, { api, itemToKey }) => ({
   namespaced: true,
   state: {
     $items: {},
@@ -77,11 +70,11 @@ export const createDataTypeStore = (ns, dataType, { api, itemToKey }) => ({
   },
   modules: Object.keys(api).reduce((acc, name) => ({
     ...acc,
-    [name]: createDataViewStore(`${ns}/${dataType}`, name, api[name]),
+    [name]: dataViewStoreFactory(`${ns}/${dataType}`, name, api[name]),
   }), {}),
 });
 
-export const createApiStore = (ns, apis) => ({
+export const apiStoreFactory = (ns, apis) => ({
   namespaced: true,
   state: {
   },
@@ -93,8 +86,12 @@ export const createApiStore = (ns, apis) => ({
   },
   modules: Object.keys(apis).reduce((acc, dataType) => ({
     ...acc,
-    [dataType]: createDataTypeStore(ns, dataType, apis[dataType]),
+    [dataType]: dataTypeStoreFactory(ns, dataType, apis[dataType]),
   }), {}),
 });
 
-export default createApiStore;
+export default {
+  dataViewStoreFactory,
+  dataTypeStoreFactory,
+  apiStoreFactory,
+};
