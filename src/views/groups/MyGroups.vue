@@ -16,6 +16,8 @@
         <template v-slot:activator="{ on }">
           <v-btn
             icon
+            outlined
+            color="accent"
             v-on="on"
           >
             <v-icon>mdi-account-multiple-plus</v-icon>
