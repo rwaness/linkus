@@ -32,19 +32,19 @@
       </v-btn>
     </v-card-actions>
 
-    <v-overlay :value="processing">
-      <v-progress-circular indeterminate size="64"></v-progress-circular>
-    </v-overlay>
+    <loading-overlay :loading="processing" />
   </v-card>
 </template>
 
 <script>
+import LoadingOverlay from '@/components/util/LoadingOverlay.vue';
 import GroupCreationForm from './forms/GroupCreationForm.vue';
 
 export default {
   name: 'GroupCreationCard',
 
   components: {
+    LoadingOverlay,
     GroupCreationForm,
   },
 
