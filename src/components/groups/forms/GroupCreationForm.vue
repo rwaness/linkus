@@ -48,14 +48,14 @@ export default {
   computed: {
     ...mapGetters('vuapix/groups/newGroup', {
       newGroup: 'data',
-      fetching: 'fetching',
+      querying: 'querying',
       error: 'error',
     }),
   },
 
   watch: {
-    fetching(fetching) {
-      if (!fetching && !this.error) {
+    querying(querying) {
+      if (!querying && !this.error) {
         this.$emit('created', this.newGroup);
       }
     },
@@ -63,11 +63,11 @@ export default {
 
   methods: {
     ...mapActions('vuapix/groups/newGroup', [
-      'fetch',
+      'doQuery',
     ]),
     async submit() {
       if (this.$refs.form.validate()) {
-        this.fetch({
+        this.doQuery({
           name: this.name,
           emails: [this.email],
         });

@@ -1,7 +1,7 @@
 <template>
   <page-content
     class="my-groups"
-    :loading="fetching"
+    :loading="querying"
     @initialize="initialize"
   >
     <v-toolbar flat>
@@ -124,7 +124,7 @@ export default {
   computed: {
     ...mapGetters('vuapix/groups/myGroups', {
       groups: 'data',
-      fetching: 'fetching',
+      querying: 'querying',
       error: 'error',
     }),
     ...mapGetters('vuapix/groups/myInvitations', {
@@ -134,10 +134,10 @@ export default {
 
   methods: {
     ...mapActions('vuapix/groups/myInvitations', {
-      fetchInvitations: 'fetch',
+      fetchInvitations: 'doQuery',
     }),
     ...mapActions('vuapix/groups/myGroups', {
-      fetchGroups: 'fetch',
+      fetchGroups: 'doQuery',
     }),
     initialize() {
       this.fetchInvitations();

@@ -4,7 +4,7 @@ export default ({ mongodbStitch }) => {
   const collection = mongodbStitch.db.collection('groups');
   return {
     myInvitations: {
-      fetch() {
+      doQuery() {
         return collection.find({
           owner: mongodbStitch.user.id,
         }, {
@@ -13,7 +13,7 @@ export default ({ mongodbStitch }) => {
       },
     },
     myGroups: {
-      fetch() {
+      doQuery() {
         return collection.find({
           owner: mongodbStitch.user.id,
         }, {
@@ -23,7 +23,7 @@ export default ({ mongodbStitch }) => {
     },
     newGroup: {
       single: true,
-      async fetch({ name, emails }) {
+      async doQuery({ name, emails }) {
         const newGroup = {
           owner: mongodbStitch.user.id,
           name,
@@ -38,7 +38,7 @@ export default ({ mongodbStitch }) => {
     },
     myGroup: {
       single: true,
-      fetch({ _id }) {
+      doQuery({ _id }) {
         return collection.findOne({
           owner: mongodbStitch.user.id,
           _id: new BSON.ObjectId(_id),

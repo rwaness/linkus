@@ -4,7 +4,7 @@ export const dataViewStoreFactory = (ns, name, { single }) => ({
   namespaced: true,
   state: {
     key: single ? null : [],
-    fetching: false,
+    querying: false,
     error: null,
   },
   getters: {
@@ -13,14 +13,14 @@ export const dataViewStoreFactory = (ns, name, { single }) => ({
         ? rootGetters[`${ns}/item`](state.key) || null
         : state.key.map(rootGetters[`${ns}/item`]);
     },
-    fetching: (state) => state.fetching,
+    querying: (state) => state.querying,
     error: (state) => state.error,
   },
   actions: {
-    async fetch({ commit, dispatch, getters }, params) {
+    async doQuery({ commit, dispatch, getters }, params) {
       try {
         commit('startFetching');
-        const key = await dispatch(`${ns}/fetch`, { name, single, params }, { root: true });
+        const key = await dispatch(`${ns}/doQuery`, { name, single, params }, { root: true });
         commit('endFetching', { key });
       } catch (error) {
         commit('catchError', { error });
@@ -30,16 +30,16 @@ export const dataViewStoreFactory = (ns, name, { single }) => ({
   },
   mutations: {
     startFetching(state) {
-      state.fetching = true;
+      state.querying = true;
       state.error = null;
     },
     endFetching(state, { key }) {
       state.key = key;
-      state.fetching = false;
+      state.querying = false;
     },
     catchError(state, { error }) {
       state.error = error;
-      state.fetching = false;
+      state.querying = false;
     },
   },
 });
@@ -54,8 +54,8 @@ export const dataTypeStoreFactory = (ns, dataType, { api, itemToKey }) => ({
     item: (_, getters) => (key) => getters.items[key],
   },
   actions: {
-    async fetch({ commit }, { name, params }) {
-      const data = await api[name].fetch(params);
+    async doQuery({ commit }, { name, params }) {
+      const data = await api[name].doQuery(params);
       const items = api[name].single ? [data] : data;
       const itemsByKey = Object.fromEntries(items.map((item) => ([itemToKey(item), item])));
       commit('addItems', { itemsByKey });

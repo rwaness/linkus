@@ -32,7 +32,7 @@ export default {
   computed: {
     ...mapGetters('vuapix/groups/myGroup', {
       group: 'data',
-      fetching: 'fetching',
+      querying: 'querying',
       error: 'error',
     }),
     breadcrumbs() {
@@ -50,9 +50,9 @@ export default {
   },
 
   methods: {
-    ...mapActions('vuapix/groups/myGroup', [
-      'fetch',
-    ]),
+    ...mapActions('vuapix/groups/myGroup', {
+      fetch: 'doQuery',
+    }),
   },
 };
 </script>
