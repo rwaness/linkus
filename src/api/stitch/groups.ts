@@ -1,6 +1,8 @@
 import { BSON } from 'mongodb-stitch-browser-sdk';
 
-export default ({ mongodbStitch }) => {
+export const itemToKey = ({ _id: id } = {}) => (id ? `${id}` : null);
+
+export const createApi = ({ mongodbStitch }) => {
   const collection = mongodbStitch.db.collection('groups');
   return {
     myInvitations: {
@@ -38,11 +40,15 @@ export default ({ mongodbStitch }) => {
     },
     myGroup: {
       single: true,
-      doQuery({ id }) {
-        return collection.findOne({
-          owner: mongodbStitch.user.id,
-          _id: new BSON.ObjectId(id),
-        });
+      async doQuery({ id }, { getters }) {
+        let myGroup = getters.$item(id);
+        if (itemToKey(myGroup) !== id) {
+          myGroup = await collection.findOne({
+            owner: mongodbStitch.user.id,
+            _id: new BSON.ObjectId(id),
+          });
+        }
+        return myGroup;
       },
     },
   };

@@ -1,6 +1,4 @@
-import { mapGetters } from 'vuex';
-
-export const dataViewStoreFactory = (ns, name, { single }) => ({
+export const dataEntryStoreFactory = (ns, entryName, { single }) => ({
   namespaced: true,
   state: {
     key: single ? null : [],
@@ -8,11 +6,7 @@ export const dataViewStoreFactory = (ns, name, { single }) => ({
     error: null,
   },
   getters: {
-    data(state, getters, rootState, rootGetters) {
-      return single
-        ? rootGetters[`${ns}/item`](state.key) || null
-        : state.key.map(rootGetters[`${ns}/item`]);
-    },
+    data: (_, __, ___, rootGetters) => rootGetters[`${ns}/${entryName}`],
     querying: (state) => state.querying,
     error: (state) => state.error,
   },
@@ -20,8 +14,11 @@ export const dataViewStoreFactory = (ns, name, { single }) => ({
     async doQuery({ commit, dispatch, getters }, params) {
       try {
         commit('startFetching');
-        const dataByKey = await dispatch(`${ns}/doQuery`, { name, single, params }, { root: true });
-        const keys = Object.keys(dataByKey);
+        const keys = Object.keys(await dispatch(`${ns}/doQuery`, {
+          entryName,
+          params,
+          returnMap: true,
+        }, { root: true }));
         const key = single ? keys[0] : keys;
         commit('endFetching', { key });
       } catch (error) {
@@ -49,32 +46,43 @@ export const dataViewStoreFactory = (ns, name, { single }) => ({
 export const dataTypeStoreFactory = (ns, dataType, { api, itemToKey }) => ({
   namespaced: true,
   state: {
-    $items: {},
+    items: {},
   },
   getters: {
-    items: (state) => state.$items,
-    item: (_, getters) => (key) => getters.items[key],
+    $items: (state) => state.items,
+    $item: (_, getters) => (key) => getters.$items[key],
+    ...(
+      Object.keys(api).reduce((acc, entryName) => ({
+        ...acc,
+        [entryName]: (state, getters) => (api[entryName].single
+          ? getters.$item(state[entryName].key) || null
+          : state[entryName].key.map(getters.$item)
+        ),
+      }), {})
+    ),
   },
   actions: {
-    async doQuery({ commit }, { name, params }) {
-      const data = await api[name].doQuery(params);
-      const items = api[name].single ? [data] : data;
-      const itemsByKey = Object.fromEntries(items.map((item) => ([itemToKey(item), item])));
-      commit('addItems', { itemsByKey });
-      return itemsByKey;
+    async doQuery(storeCtx, { entryName, params, returnMap }) {
+      const response = await api[entryName].doQuery(params, storeCtx);
+      const itemsMap = (api[entryName].single ? [response] : response).reduce((acc, item) => ({
+        ...acc,
+        [itemToKey(item)]: item,
+      }), {});
+      storeCtx.commit('addItems', { itemsMap });
+      return returnMap ? itemsMap : response;
     },
   },
   mutations: {
-    addItems(state, { itemsByKey }) {
-      state.$items = {
-        ...state.$items,
-        ...itemsByKey,
+    addItems(state, { itemsMap }) {
+      state.items = {
+        ...state.items,
+        ...itemsMap,
       };
     },
   },
-  modules: Object.keys(api).reduce((acc, name) => ({
+  modules: Object.keys(api).reduce((acc, entryName) => ({
     ...acc,
-    [name]: dataViewStoreFactory(`${ns}/${dataType}`, name, api[name]),
+    [entryName]: dataEntryStoreFactory(`${ns}/${dataType}`, entryName, api[entryName]),
   }), {}),
 });
 
