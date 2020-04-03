@@ -37,7 +37,6 @@ export default {
 
   async created() {
     if (this.autoload) {
-      // this.$emit('autoload');
       await this.autoload();
     }
     this.loaded = true;
