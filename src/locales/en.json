@@ -61,10 +61,10 @@
             }
           },
           "email": {
-            "field": "Contact email",
+            "field": "Guest email",
             "rules": {
               "required": "An email is required",
-              "format": "Contact email must be valid"
+              "format": "Guest email must be valid"
             }
           }
         }

@@ -69,7 +69,7 @@ export default {
       if (this.$refs.form.validate()) {
         this.doQuery({
           name: this.name,
-          emails: [this.email],
+          guests: [this.email],
         });
       }
     },
