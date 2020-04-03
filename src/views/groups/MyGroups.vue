@@ -1,8 +1,8 @@
 <template>
   <page-content
     class="my-groups"
+    :autoload="autoload"
     :loading="querying"
-    @initialize="initialize"
   >
     <v-toolbar flat>
       <breadcrumbs :items="breadcrumbs" />
@@ -139,9 +139,11 @@ export default {
     ...mapActions('vuapix/groups/myGroups', {
       fetchGroups: 'doQuery',
     }),
-    initialize() {
-      this.fetchInvitations();
-      this.fetchGroups();
+    autoload() {
+      return Promise.all([
+        this.fetchInvitations(),
+        this.fetchGroups(),
+      ]);
     },
     goToMyGroup({ _id: id }) {
       this.$router.push({ name: 'MyGroup', params: { id } });

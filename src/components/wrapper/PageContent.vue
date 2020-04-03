@@ -1,8 +1,10 @@
 <template>
   <div class="page-content fill-height">
-    <loading-overlay :loading="loading" />
+    <loading-overlay :loading="!loaded || loading" />
 
-    <slot></slot>
+    <template v-if="loaded">
+      <slot></slot>
+    </template>
   </div>
 </template>
 
@@ -21,10 +23,24 @@ export default {
       type: Boolean,
       default: false,
     },
+    autoload: {
+      type: Function,
+      default: null,
+    },
   },
 
-  created() {
-    this.$emit('initialize');
+  data() {
+    return {
+      loaded: false,
+    };
+  },
+
+  async created() {
+    if (this.autoload) {
+      // this.$emit('autoload');
+      await this.autoload();
+    }
+    this.loaded = true;
   },
 };
 </script>

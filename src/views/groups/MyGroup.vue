@@ -1,8 +1,8 @@
 <template>
   <page-content
     class="my-group"
+    :autoload="autoload"
     :loading="querying"
-    @initialize="initialize"
   >
     <no-results
       v-if="!group"
@@ -64,8 +64,8 @@ export default {
     ...mapActions('vuapix/groups/myGroup', {
       fetch: 'doQuery',
     }),
-    initialize() {
-      this.fetch({ id: this.id });
+    autoload() {
+      return this.fetch({ id: this.id });
     },
   },
 };
