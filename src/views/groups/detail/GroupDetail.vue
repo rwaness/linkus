@@ -1,6 +1,5 @@
 <template>
   <div>
-    DETAIL
     <pre>{{ group }}</pre>
     <br>
     <br>
@@ -12,10 +11,6 @@ import { mapGetters } from 'vuex';
 
 export default {
   name: 'GroupDetail',
-
-  props: {
-    id: String,
-  },
 
   computed: {
     ...mapGetters('vuapix/groups', {

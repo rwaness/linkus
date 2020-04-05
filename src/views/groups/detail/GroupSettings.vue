@@ -10,10 +10,6 @@ import { mapGetters } from 'vuex';
 export default {
   name: 'GroupSettings',
 
-  props: {
-    id: String,
-  },
-
   computed: {
     ...mapGetters('vuapix/groups', {
       group: 'groupDetail',
