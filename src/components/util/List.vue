@@ -1,7 +1,7 @@
 <template>
   <div class="list">
     <no-results
-      v-if="!items.length"
+      v-if="!items.length && shouldDisplayNoResults"
       class="fill-height"
       :icon="noResultsIcon"
       :label="noResultsLabel"
@@ -13,7 +13,7 @@
     <template v-else>
       <v-list>
         <template>
-          <div v-for="item in items" :key="`item-${item._id}`">
+          <div v-for="item in items" :key="`item-${item.id || item._id}`">
             <v-divider></v-divider>
             <slot name="list-item" :item="item" />
           </div>
@@ -42,19 +42,25 @@ export default {
     },
     noResultsIcon: {
       type: String,
-      required: true,
+      default: '',
     },
     noResultsLabel: {
       type: String,
-      required: true,
+      default: '',
     },
     noResultsMessage: {
       type: String,
-      required: true,
+      default: '',
     },
     noResultsActionLabel: {
       type: String,
       default: '',
+    },
+  },
+
+  computed: {
+    shouldDisplayNoResults() {
+      return this.noResultsLabel || this.noResultsMessage;
     },
   },
 };

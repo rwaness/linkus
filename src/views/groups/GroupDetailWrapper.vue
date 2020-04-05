@@ -93,7 +93,6 @@ export default {
         text: this.group.name,
         to: { name: 'GroupDetail', params: { groupId: this.groupId } },
       }];
-      console.log(this.$route);
       const {
         icon,
         ...activRoute

@@ -1,7 +1,5 @@
 <template>
-  <v-list-item
-    :to="{ name: 'MemberProfile', params: { memberId: user.id } }"
-  >
+  <v-list-item :to="{ name: 'MemberProfile', params: { memberId: user.id } }">
     <v-list-item-avatar>
       <v-icon>mdi-account</v-icon>
     </v-list-item-avatar>
