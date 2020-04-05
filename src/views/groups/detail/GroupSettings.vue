@@ -1,6 +1,5 @@
 <template>
   <div>
-    SETTINGS
     <pre>{{ group }}</pre>
   </div>
 </template>

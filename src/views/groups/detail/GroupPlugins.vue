@@ -1,6 +1,5 @@
 <template>
   <div>
-    PLUGINS
     <pre>{{ group }}</pre>
   </div>
 </template>

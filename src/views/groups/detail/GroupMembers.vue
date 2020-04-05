@@ -1,6 +1,5 @@
 <template>
   <div>
-    MEMBERS
     <pre>{{ group }}</pre>
   </div>
 </template>

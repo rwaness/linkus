@@ -2,6 +2,8 @@
   <div>
     DETAIL
     <pre>{{ group }}</pre>
+    <br>
+    <br>
   </div>
 </template>
 
