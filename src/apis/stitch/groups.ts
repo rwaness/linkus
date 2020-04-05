@@ -52,6 +52,32 @@ export const groupsApiFactory = ({ dataType, itemToKey }) => ({
       return joinedGroup;
     },
   },
+  rejectInvitation: {
+    single: true,
+    async doQuery({ group }, storeCtx) {
+      const guest = mongodbStitch.user.profile.email;
+      const rejectedGroup = await collection.findOneAndUpdate({
+        _id: getGroupId(group, false),
+        guests: guest,
+        'invitations.guest': guest,
+        memberIds: { $nin: [mongodbStitch.user.id] },
+      }, {
+        $pull: {
+          guests: guest,
+          invitations: { guest },
+        },
+      }, {
+        returnNewDocument: true,
+      });
+      if (rejectedGroup) {
+        storeCtx.commit('myInvitations/removeKey', { key: itemToKey(rejectedGroup) });
+      } else {
+        // TODO
+        alert('no group updated!');
+      }
+      return rejectedGroup;
+    },
+  },
   myGroups: {
     doQuery() {
       return collection.find({
