@@ -31,7 +31,7 @@
           bottom
           right
           color="primary"
-          @click:action="createFormOpened = true"
+          @click="createFormOpened = true"
         >
           <v-icon>mdi-account-multiple-plus</v-icon>
         </v-btn>
