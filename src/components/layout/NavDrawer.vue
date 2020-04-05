@@ -64,9 +64,9 @@ export default {
           exact: true,
         },
         {
-          title: this.$t('nav.items.myGroups'),
+          title: this.$t('nav.items.groupsList'),
           icon: 'mdi-account-group',
-          link: { name: 'MyGroups' },
+          link: { name: 'GroupsList' },
         },
         {
           title: this.$t('nav.items.about'),

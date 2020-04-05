@@ -54,7 +54,7 @@ export default {
     },
     noResultsActionLabel: {
       type: String,
-      required: true,
+      default: '',
     },
   },
 };

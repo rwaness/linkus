@@ -11,9 +11,9 @@
         class="flex-grow-1"
         :items="groups"
         no-results-icon="mdi-account-group"
-        :no-results-label="$t('pages.myGroups.noResults.label')"
-        :no-results-message="$t('pages.myGroups.noResults.message')"
-        :no-results-action-label="$t('pages.myGroups.noResults.action')"
+        :no-results-label="$t('pages.groupsList.noResults.label')"
+        :no-results-message="$t('pages.groupsList.noResults.message')"
+        :no-results-action-label="$t('pages.groupsList.noResults.action')"
         @no-results-action:click="createFormOpened = true">
 
         <template v-slot:list-item="{ item: group }">
@@ -52,7 +52,7 @@ import GroupCreationCard from '@/components/groups/GroupCreationCard.vue';
 import GroupListItem from '@/components/groups/list/GroupListItem.vue';
 
 export default {
-  name: 'MyGroups',
+  name: 'GroupsList',
 
   components: {
     PageContent,
@@ -72,14 +72,14 @@ export default {
   data() {
     return {
       breadcrumbs: [{
-        text: this.$t('pages.myGroups.title'),
+        text: this.$t('pages.groupsList.title'),
       }],
       createFormOpened: false,
     };
   },
 
   computed: {
-    ...mapGetters('vuapix/groups/myGroups', {
+    ...mapGetters('vuapix/groups/groupsList', {
       groups: 'data',
       querying: 'querying',
       error: 'error',
@@ -87,14 +87,14 @@ export default {
   },
 
   methods: {
-    ...mapActions('vuapix/groups/myGroups', {
+    ...mapActions('vuapix/groups/groupsList', {
       fetchGroups: 'doQuery',
     }),
     autoload() {
       return this.fetchGroups();
     },
     goToMyGroup({ _id: id }) {
-      this.$router.push({ name: 'MyGroup', params: { id: `${id}` } });
+      this.$router.push({ name: 'GroupDetail', params: { id: `${id}` } });
     },
   },
 };

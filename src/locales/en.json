@@ -9,7 +9,7 @@
   "nav": {
     "items": {
       "home": "Home",
-      "myGroups": "My Groups",
+      "groupsList": "My Groups",
       "about": "About"
     }
   },
@@ -30,7 +30,7 @@
         "subtitle": "Theme"
       }
     },
-    "myGroups": {
+    "groupsList": {
       "title": "My Groups",
       "noResults": {
         "label": "You don't have any groups yet!",
@@ -61,7 +61,7 @@
         }
       }
     },
-    "myGroup": {
+    "groupDetail": {
       "noResults": {
         "label": "Group not found",
         "message": "Don't stay lost. You should explore your own groups",
@@ -75,7 +75,8 @@
         "title": "Invitations",
         "noResults": {
           "label": "No invitation received",
-          "message": "Come back later"
+          "message": "Come back later",
+          "action": "Close"
         },
         "listItem": {
           "subtitle": "Invited by {owner}",

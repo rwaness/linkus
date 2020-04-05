@@ -5,7 +5,7 @@
       dark
       flat
     >
-      <v-toolbar-title>{{ $t('pages.myGroups.creation.card.title') }}</v-toolbar-title>
+      <v-toolbar-title>{{ $t('pages.groupsList.creation.card.title') }}</v-toolbar-title>
 
       <v-spacer></v-spacer>
 
@@ -28,7 +28,7 @@
         color="primary"
         @click="submit"
       >
-        {{ $t('pages.myGroups.creation.card.actions.submit') }}
+        {{ $t('pages.groupsList.creation.card.actions.submit') }}
       </v-btn>
     </v-card-actions>
 

@@ -36,7 +36,7 @@ export default {
       return `${id}`;
     },
     link() {
-      return { name: 'MyGroup', params: { id: this.id } };
+      return { name: 'GroupDetail', params: { id: this.id } };
     },
   },
 };

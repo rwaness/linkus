@@ -8,10 +8,10 @@
       v-if="!group"
       class="fill-height"
       icon="mdi-account-group"
-      :label="$t('pages.myGroup.noResults.label')"
-      :message="$t('pages.myGroup.noResults.message')"
-      :action-label="$t('pages.myGroup.noResults.action')"
-      @action:click="$router.push({ name: 'MyGroups' })"
+      :label="$t('pages.groupDetail.noResults.label')"
+      :message="$t('pages.groupDetail.noResults.message')"
+      :action-label="$t('pages.groupDetail.noResults.action')"
+      @action:click="$router.push({ name: 'GroupsList' })"
     />
 
     <template v-else>
@@ -29,7 +29,7 @@ import Breadcrumbs from '@/components/layout/Breadcrumbs.vue';
 import NoResults from '@/components/util/NoResults.vue';
 
 export default {
-  name: 'MyGroup',
+  name: 'GroupDetail',
 
   components: {
     PageContent,
@@ -45,15 +45,15 @@ export default {
   },
 
   computed: {
-    ...mapGetters('vuapix/groups/myGroup', {
+    ...mapGetters('vuapix/groups/groupDetail', {
       group: 'data',
       querying: 'querying',
       error: 'error',
     }),
     breadcrumbs() {
       return [{
-        text: this.$t('pages.myGroups.title'),
-        to: { name: 'MyGroups' },
+        text: this.$t('pages.groupsList.title'),
+        to: { name: 'GroupsList' },
       }, {
         text: this.group.name,
       }];
@@ -61,7 +61,7 @@ export default {
   },
 
   methods: {
-    ...mapActions('vuapix/groups/myGroup', {
+    ...mapActions('vuapix/groups/groupDetail', {
       fetch: 'doQuery',
     }),
     autoload() {

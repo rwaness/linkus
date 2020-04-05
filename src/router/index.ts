@@ -4,8 +4,8 @@ import Home from '@/views/Home.vue';
 import Login from '@/views/Login.vue';
 import MyPreferences from '@/views/MyPreferences.vue';
 import GroupsWrapper from '@/views/groups/GroupsWrapper.vue';
-import MyGroups from '@/views/groups/MyGroups.vue';
-import MyGroup from '@/views/groups/MyGroup.vue';
+import GroupsList from '@/views/groups/GroupsList.vue';
+import GroupDetail from '@/views/groups/GroupDetail.vue';
 import NotFound from '@/views/NotFound.vue';
 
 Vue.use(VueRouter);
@@ -27,12 +27,12 @@ const routes = [{
   component: GroupsWrapper,
   children: [{
     path: '',
-    name: 'MyGroups',
-    component: MyGroups,
+    name: 'GroupsList',
+    component: GroupsList,
   }, {
     path: ':id',
-    name: 'MyGroup',
-    component: MyGroup,
+    name: 'GroupDetail',
+    component: GroupDetail,
     props: true,
   }],
 }, {

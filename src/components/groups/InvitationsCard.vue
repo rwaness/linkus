@@ -9,7 +9,7 @@
 
       <v-spacer></v-spacer>
 
-      <v-btn icon @click="$emit('close')">
+      <v-btn icon @click="close">
         <v-icon>mdi-close</v-icon>
       </v-btn>
     </v-toolbar>
@@ -19,6 +19,8 @@
       no-results-icon="mdi-account-question"
       :no-results-label="$t('dialog.myInvitations.card.noResults.label')"
       :no-results-message="$t('dialog.myInvitations.card.noResults.message')"
+      :no-results-action-label="$t('dialog.myInvitations.card.noResults.action')"
+      @no-results-action:click="close"
     >
       <template v-slot:list-item="{ item: group }">
         <invitation-list-item :group="group" />
@@ -43,6 +45,12 @@ export default {
     invitations: {
       type: Array,
       required: true,
+    },
+  },
+
+  methods: {
+    close() {
+      this.$emit('close');
     },
   },
 };

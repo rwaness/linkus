@@ -40,7 +40,7 @@
 
             <invitations-card
               :invitations="invitations"
-              @invitation:accepted="goTo('MyGroup', { id: $event._id })"
+              @invitation:accepted="goTo('GroupDetail', { id: $event._id })"
               @close="invitationsListOpened = false"
             />
           </v-dialog>

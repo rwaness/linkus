@@ -45,7 +45,7 @@ export const groupsApiFactory = ({ itemToKey }) => {
         });
         if (joinedGroup) {
           commit('myInvitations/removeKey', { key: itemToKey(joinedGroup) });
-          commit('myGroups/addKey', { key: itemToKey(joinedGroup) });
+          commit('groupsList/addKey', { key: itemToKey(joinedGroup) });
         } else {
           // TODO
           alert('no group updated!');
@@ -79,7 +79,7 @@ export const groupsApiFactory = ({ itemToKey }) => {
         return rejectedGroup;
       },
     },
-    myGroups: {
+    groupsList: {
       doQuery() {
         return collection.find({
           memberIds: mongodbStitch.user.id,
@@ -112,14 +112,14 @@ export const groupsApiFactory = ({ itemToKey }) => {
         };
       },
     },
-    myGroup: {
+    groupDetail: {
       single: true,
       async doQuery({ id }, { getters }) {
-        let myGroup = getters.$item(id);
-        if (getGroupId(myGroup) !== id) {
-          myGroup = await collection.findOne({ _id: new BSON.ObjectId(id) });
+        let groupDetail = getters.$item(id);
+        if (getGroupId(groupDetail) !== id) {
+          groupDetail = await collection.findOne({ _id: new BSON.ObjectId(id) });
         }
-        return myGroup;
+        return groupDetail;
       },
     },
   };

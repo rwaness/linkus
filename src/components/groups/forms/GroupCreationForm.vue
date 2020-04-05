@@ -7,14 +7,14 @@
     <v-text-field
       v-model="name"
       :rules="nameRules"
-      :label="$t('pages.myGroups.creation.form.name.field')"
+      :label="$t('pages.groupsList.creation.form.name.field')"
       required
     ></v-text-field>
 
     <v-text-field
       v-model="email"
       :rules="emailRules"
-      :label="$t('pages.myGroups.creation.form.email.field')"
+      :label="$t('pages.groupsList.creation.form.email.field')"
       required
     ></v-text-field>
 
@@ -35,12 +35,12 @@ export default {
       valid: true,
       name: '',
       nameRules: [
-        (v) => !!v || this.$t('pages.myGroups.creation.form.name.rules.required'),
+        (v) => !!v || this.$t('pages.groupsList.creation.form.name.rules.required'),
       ],
       email: '',
       emailRules: [
-        (v) => !!v || this.$t('pages.myGroups.creation.form.email.rules.required'),
-        (v) => /.+@.+\..+/.test(v) || this.$t('pages.myGroups.creation.form.email.rules.format'),
+        (v) => !!v || this.$t('pages.groupsList.creation.form.email.rules.required'),
+        (v) => /.+@.+\..+/.test(v) || this.$t('pages.groupsList.creation.form.email.rules.format'),
       ],
     };
   },
