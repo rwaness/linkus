@@ -66,6 +66,12 @@
         "label": "Group not found",
         "message": "Don't stay lost. You should explore your own groups",
         "action": "See my groups"
+      },
+      "nav": {
+        "home": "Overview",
+        "members": "Members",
+        "plugins": "Modules",
+        "settings": "Settings"
       }
     }
   },

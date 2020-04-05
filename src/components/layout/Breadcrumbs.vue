@@ -31,7 +31,7 @@ export default {
   computed: {
     allItems() {
       const allItems = [...this.items];
-      const lastItem = allItems.pop();
+      const { to, ...lastItem } = allItems.pop();
       if (this.withHomeIcon) {
         allItems.unshift({ icon: 'mdi-home', to: { name: 'Home' } });
       }
