@@ -77,7 +77,6 @@
           "label": "No invitation received",
           "message": "Come back later"
         },
-        "subheader": "Accept invitation ?",
         "listItem": {
           "subtitle": "Invited by {owner}",
           "actions": {

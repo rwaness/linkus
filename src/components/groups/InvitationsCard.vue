@@ -14,33 +14,28 @@
       </v-btn>
     </v-toolbar>
 
-    <no-results
-      v-if="!invitations.length"
-      icon="mdi-account-question"
-      :label="$t('dialog.myInvitations.card.noResults.label')"
-      :message="$t('dialog.myInvitations.card.noResults.message')"
-    />
-    <template v-else>
-      <v-subheader>{{ $t('dialog.myInvitations.card.subheader') }}</v-subheader>
-      <v-list subheader dense>
-        <template v-for="(group, index) in invitations">
-          <v-divider v-if="index" :key="`divider-${index}`"></v-divider>
-          <invitation-list-item :group="group" :key="`item-${group._id}`" />
-        </template>
-      </v-list>
-    </template>
+    <list
+      :items="invitations"
+      no-results-icon="mdi-account-question"
+      :no-results-label="$t('dialog.myInvitations.card.noResults.label')"
+      :no-results-message="$t('dialog.myInvitations.card.noResults.message')"
+    >
+      <template v-slot:list-item="{ item: group }">
+        <invitation-list-item :group="group" />
+      </template>
+    </list>
   </v-card>
 </template>
 
 <script>
-import NoResults from '@/components/list/NoResults.vue';
+import List from '@/components/util/List.vue';
 import InvitationListItem from './list/InvitationListItem.vue';
 
 export default {
   name: 'InvitationsCard',
 
   components: {
-    NoResults,
+    List,
     InvitationListItem,
   },
 

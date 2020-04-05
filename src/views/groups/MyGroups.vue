@@ -7,25 +7,21 @@
     <div class="fill-height flex flex-column flex-nowrap">
       <breadcrumbs :items="breadcrumbs" class="flex-grow-0" />
 
-      <no-results
-        v-if="!groups.length"
+      <list
         class="flex-grow-1"
-        icon="mdi-account-group"
-        :label="$t('pages.myGroups.noResults.label')"
-        :message="$t('pages.myGroups.noResults.message')"
-        :action-label="$t('pages.myGroups.noResults.action')"
-        @click:action="createFormOpened = true"
-      />
+        :items="groups"
+        no-results-icon="mdi-account-group"
+        :no-results-label="$t('pages.myGroups.noResults.label')"
+        :no-results-message="$t('pages.myGroups.noResults.message')"
+        :no-results-action-label="$t('pages.myGroups.noResults.action')"
+        @no-results-action:click="createFormOpened = true">
 
-      <template v-else>
-        <v-list>
-          <template v-for="(group, index) in groups">
-            <v-divider v-if="index" :key="`divider-${index}`"></v-divider>
-            <group-list-item :group="group" :key="`item-${group._id}`" />
-          </template>
-        </v-list>
+        <template v-slot:list-item="{ item: group }">
+          <group-list-item :group="group" />
+        </template>
 
         <v-btn
+          slot="after-list"
           fab
           fixed
           bottom
@@ -35,9 +31,7 @@
         >
           <v-icon>mdi-account-multiple-plus</v-icon>
         </v-btn>
-      </template>
-
-
+      </list>
     </div>
 
     <v-dialog v-model="createFormOpened">
@@ -53,7 +47,7 @@
 import { mapGetters, mapActions } from 'vuex';
 import PageContent from '@/components/wrapper/PageContent.vue';
 import Breadcrumbs from '@/components/layout/Breadcrumbs.vue';
-import NoResults from '@/components/list/NoResults.vue';
+import List from '@/components/util/List.vue';
 import GroupCreationCard from '@/components/groups/GroupCreationCard.vue';
 import GroupListItem from '@/components/groups/list/GroupListItem.vue';
 
@@ -63,7 +57,7 @@ export default {
   components: {
     PageContent,
     Breadcrumbs,
-    NoResults,
+    List,
     GroupCreationCard,
     GroupListItem,
   },

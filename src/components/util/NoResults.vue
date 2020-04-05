@@ -21,7 +21,7 @@
         v-if="actionLabel"
         color="accent"
         v-html="actionLabel"
-        @click="$emit('click:action')"
+        @click="$emit('action:click')"
       />
     </v-row>
   </v-container>

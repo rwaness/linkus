@@ -11,7 +11,7 @@
       :label="$t('pages.myGroup.noResults.label')"
       :message="$t('pages.myGroup.noResults.message')"
       :action-label="$t('pages.myGroup.noResults.action')"
-      @click:action="$router.push({ name: 'MyGroups' })"
+      @action:click="$router.push({ name: 'MyGroups' })"
     />
 
     <template v-else>
@@ -26,7 +26,7 @@
 import { mapGetters, mapActions } from 'vuex';
 import PageContent from '@/components/wrapper/PageContent.vue';
 import Breadcrumbs from '@/components/layout/Breadcrumbs.vue';
-import NoResults from '@/components/list/NoResults.vue';
+import NoResults from '@/components/util/NoResults.vue';
 
 export default {
   name: 'MyGroup',
