@@ -1,6 +1,7 @@
 {
   "appbar": {
     "account": {
+      "myInvitations": "My Invitations",
       "myPreferences": "My Preferences",
       "logout": "Logout"
     }
@@ -31,16 +32,6 @@
     },
     "myGroups": {
       "title": "My Groups",
-      "invitations": {
-        "card": {
-          "title": "Invitations",
-          "subheader": "Accept invitation ?",
-          "listItem": {
-            "subtitle": "Invited by ...",
-            "action": "Accept ?"
-          }
-        }
-      },
       "noResults": {
         "label": "You don't have any groups yet!",
         "message": "Create one now to invite your friends",
@@ -75,6 +66,30 @@
         "label": "Group not found",
         "message": "Don't stay lost. You should explore your own groups",
         "action": "See my groups"
+      }
+    }
+  },
+  "dialog": {
+    "myInvitations": {
+      "card": {
+        "title": "Invitations",
+        "noResults": {
+          "label": "No invitation received",
+          "message": "Come back later"
+        },
+        "subheader": "Accept invitation ?",
+        "listItem": {
+          "subtitle": "Invited by {owner}",
+          "actions": {
+            "label": "Accept ?",
+            "reject": {
+              "title": "Reject invitation ?",
+              "text": "Are you sure to reject this invitation to the group \"{groupName}\" from {owner} ?",
+              "confirm": "Confirm",
+              "cancel": "Cancel"
+            }
+          }
+        }
       }
     }
   }

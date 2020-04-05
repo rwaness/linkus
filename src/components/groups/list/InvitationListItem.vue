@@ -3,27 +3,60 @@
     <template v-slot:activator>
       <group-list-item-content
         :group="group"
-        :subtitle="$t('pages.myGroups.invitations.card.listItem.subtitle')"
+        :subtitle="$t('dialog.myInvitations.card.listItem.subtitle', { owner: group.owner })"
       />
     </template>
 
     <v-list-item>
       <v-list-item-title class="font-weight-regular text-right">
-        {{ $t('pages.myGroups.invitations.card.listItem.action') }}
+        {{ $t('dialog.myInvitations.card.listItem.actions.label') }}
       </v-list-item-title>
       <v-list-item-icon>
-        <v-btn icon small color="green">
+        <v-btn
+          icon
+          small
+          color="green"
+          @click="accept"
+        >
           <v-icon>mdi-check-circle-outline</v-icon>
         </v-btn>
-        <v-btn icon small color="red">
-          <v-icon>mdi-close-circle-outline</v-icon>
-        </v-btn>
+        <v-dialog
+          v-model="confirmRejectionOpened"
+        >
+          <template v-slot:activator="{ on }">
+            <v-btn icon small color="red" v-on="on">
+              <v-icon>mdi-close-circle-outline</v-icon>
+            </v-btn>
+          </template>
+
+          <v-card>
+            <v-card-title>
+              {{ $t('dialog.myInvitations.card.listItem.actions.reject.title') }}
+            </v-card-title>
+            <v-card-text>
+              {{ $t('dialog.myInvitations.card.listItem.actions.reject.text', {
+                groupName: group.name,
+                owner: group.owner,
+              }) }}
+            </v-card-text>
+            <v-card-actions>
+              <v-spacer></v-spacer>
+              <v-btn @click="reject">
+                {{ $t('dialog.myInvitations.card.listItem.actions.reject.confirm') }}
+              </v-btn>
+              <v-btn @click="confirmRejectionOpened = false">
+                {{ $t('dialog.myInvitations.card.listItem.actions.reject.cancel') }}
+              </v-btn>
+            </v-card-actions>
+          </v-card>
+        </v-dialog>
       </v-list-item-icon>
     </v-list-item>
   </v-list-group>
 </template>
 
 <script>
+import { mapActions } from 'vuex';
 import GroupListItemContent from './GroupListItemContent.vue';
 
 export default {
@@ -37,6 +70,24 @@ export default {
     group: {
       type: Object,
       required: true,
+    },
+  },
+
+  data() {
+    return {
+      confirmRejectionOpened: false,
+    };
+  },
+
+  methods: {
+    ...mapActions('vuapix/groups', [
+      'doQuery',
+    ]),
+    accept() {
+      this.doQuery({ entryName: 'acceptInvitation', params: { group: this.group } });
+    },
+    reject() {
+      this.doQuery({ entryName: 'rejectInvitation', params: { group: this.group } });
     },
   },
 };

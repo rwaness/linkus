@@ -1,30 +1,30 @@
-export const dataEntryStoreFactory = (ns, entryName, { single }) => ({
+const dataEntryStoreFactory = (ns, entryName, _, options = {}) => ({
   namespaced: true,
   state: {
-    key: single ? null : [],
+    key: null,
     querying: false,
     error: null,
+    ...(options.overridingState || {}),
   },
   getters: {
-    data: (_, __, ___, rootGetters) => rootGetters[`${ns}/${entryName}`],
+    data: (__, ___, ____, rootGetters) => rootGetters[`${ns}/${entryName}`],
     querying: (state) => state.querying,
     error: (state) => state.error,
   },
   actions: {
-    async doQuery({ commit, dispatch, getters }, params) {
+    async doQuery({ commit, dispatch }, params) {
+      let response;
       try {
         commit('startFetching');
-        const keys = Object.keys(await dispatch(`${ns}/doQuery`, {
+        response = await dispatch(`${ns}/doQuery`, {
           entryName,
           params,
-          returnMap: true,
-        }, { root: true }));
-        const key = single ? keys[0] : keys;
-        commit('endFetching', { key });
+        }, { root: true });
+        commit('endFetching');
       } catch (error) {
         commit('catchError', { error });
       }
-      return getters.data;
+      return response;
     },
   },
   mutations: {
@@ -32,18 +32,39 @@ export const dataEntryStoreFactory = (ns, entryName, { single }) => ({
       state.querying = true;
       state.error = null;
     },
-    endFetching(state, { key }) {
-      state.key = key;
+    endFetching(state) {
       state.querying = false;
     },
     catchError(state, { error }) {
       state.error = error;
       state.querying = false;
     },
+    updateKey(state, { key }) {
+      state.key = key;
+    },
+    ...(options.overridingMuations || {}),
   },
 });
 
-export const dataTypeStoreFactory = (ns, dataType, { api, itemToKey }) => ({
+const singleDataEntryStoreFactory = dataEntryStoreFactory;
+const multipleDataEntryStoreFactory = (ns, entryName, entry) => dataEntryStoreFactory(
+  ns,
+  entryName,
+  entry,
+  {
+    overridingState: { key: [] },
+    overridingMuations: {
+      addKey(state, { key }) {
+        state.key = [key, ...state.key];
+      },
+      removeKey(state, { key }) {
+        state.key = state.key.filter((k) => k !== key);
+      },
+    },
+  },
+);
+
+const dataTypeStoreFactory = (ns, dataType, { api, itemToKey }) => ({
   namespaced: true,
   state: {
     items: {},
@@ -62,14 +83,19 @@ export const dataTypeStoreFactory = (ns, dataType, { api, itemToKey }) => ({
     ),
   },
   actions: {
-    async doQuery(storeCtx, { entryName, params, returnMap }) {
-      const response = await api[entryName].doQuery(params, storeCtx);
-      const itemsMap = (api[entryName].single ? [response] : response).reduce((acc, item) => ({
+    async doQuery(storeCtx, { entryName, params }) {
+      const { doQuery, single } = api[entryName];
+      const response = await doQuery(params, storeCtx);
+      const itemsMap = (single ? [response] : response).reduce((acc, item) => ({
         ...acc,
-        [itemToKey(item)]: item,
+        ...(item ? { [itemToKey(item)]: item } : {}),
       }), {});
       storeCtx.commit('addItems', { itemsMap });
-      return returnMap ? itemsMap : response;
+      const keys = Object.keys(itemsMap);
+      storeCtx.commit(`${entryName}/updateKey`, {
+        key: single ? keys[0] : keys,
+      });
+      return response;
     },
   },
   mutations: {
@@ -82,11 +108,14 @@ export const dataTypeStoreFactory = (ns, dataType, { api, itemToKey }) => ({
   },
   modules: Object.keys(api).reduce((acc, entryName) => ({
     ...acc,
-    [entryName]: dataEntryStoreFactory(`${ns}/${dataType}`, entryName, api[entryName]),
+    [entryName]: (api[entryName].single
+      ? singleDataEntryStoreFactory(`${ns}/${dataType}`, entryName, api[entryName])
+      : multipleDataEntryStoreFactory(`${ns}/${dataType}`, entryName, api[entryName])
+    ),
   }), {}),
 });
 
-export const apiStoreFactory = (ns, apis) => ({
+const apiStoreFactory = (ns, apis) => ({
   namespaced: true,
   state: {
   },
@@ -102,6 +131,18 @@ export const apiStoreFactory = (ns, apis) => ({
   }), {}),
 });
 
-export default (apis) => ({
-  vuapix: apiStoreFactory('vuapix', apis),
-});
+export default (apis, options = {}) => {
+  const ns = options.ns || 'vuapix';
+  return {
+    [ns]: apiStoreFactory(ns, Object.keys(apis).reduce((acc, dataType) => {
+      const { apiFactory, itemToKey } = apis[dataType];
+      return {
+        ...acc,
+        [dataType]: {
+          api: apiFactory({ dataType, itemToKey }),
+          itemToKey,
+        },
+      };
+    }, {})),
+  };
+};

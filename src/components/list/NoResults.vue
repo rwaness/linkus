@@ -18,6 +18,7 @@
         v-html="message"
       />
       <v-btn
+        v-if="actionLabel"
         color="accent"
         v-html="actionLabel"
         @click="$emit('click:action')"

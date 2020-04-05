@@ -3,22 +3,59 @@ import mongodbStitch from '@/services/mongodbStitch';
 
 const collection = mongodbStitch.db.collection('groups');
 
-export const groupIdToString = ({ _id: id } = {}) => (id ? `${id}` : null);
+export const getGroupId = ({ _id: id } = {}, toString = true) => (id
+  ? ((toString && `${id}`) || id)
+  : null
+);
 
-export const groupsApi = {
+export const groupsApiFactory = ({ dataType, itemToKey }) => ({
   myInvitations: {
     doQuery() {
       return collection.find({
         guests: mongodbStitch.user.profile.email,
       }, {
-        limit: 99,
+        limit: 100,
       }).asArray();
+    },
+  },
+  acceptInvitation: {
+    single: true,
+    async doQuery({ group }, storeCtx) {
+      const guest = mongodbStitch.user.profile.email;
+      const joinedGroup = await collection.findOneAndUpdate({
+        _id: getGroupId(group, false),
+        guests: guest,
+        'invitations.guest': guest,
+        memberIds: { $nin: [mongodbStitch.user.id] },
+      }, {
+        $pull: {
+          guests: guest,
+          invitations: { guest },
+        },
+        $addToSet: {
+          memberIds: mongodbStitch.user.id,
+          members: {
+            id: mongodbStitch.user.id,
+            owner: 'invitations.$.owner',
+          },
+        },
+      }, {
+        returnNewDocument: true,
+      });
+      if (joinedGroup) {
+        storeCtx.commit('myInvitations/removeKey', { key: itemToKey(joinedGroup) });
+        storeCtx.commit('myGroups/addKey', { key: itemToKey(joinedGroup) });
+      } else {
+        // TODO
+        alert('no group updated!');
+      }
+      return joinedGroup;
     },
   },
   myGroups: {
     doQuery() {
       return collection.find({
-        owner: mongodbStitch.user.id,
+        memberIds: mongodbStitch.user.id,
       }, {
         limit: 100,
       }).asArray();
@@ -36,6 +73,10 @@ export const groupsApi = {
           guest,
           owner,
         })),
+        memberIds: [owner],
+        members: [{
+          id: owner,
+        }],
       };
       const { insertedId } = await collection.insertOne(newGroup);
       return {
@@ -48,13 +89,10 @@ export const groupsApi = {
     single: true,
     async doQuery({ id }, { getters }) {
       let myGroup = getters.$item(id);
-      if (groupIdToString(myGroup) !== id) {
-        myGroup = await collection.findOne({
-          owner: mongodbStitch.user.id,
-          _id: new BSON.ObjectId(id),
-        });
+      if (getGroupId(myGroup) !== id) {
+        myGroup = await collection.findOne({ _id: new BSON.ObjectId(id) });
       }
       return myGroup;
     },
   },
-};
+});
