@@ -1,9 +1,9 @@
 <template>
-  <div>
+  <v-container fluid>
     <pre>{{ group }}</pre>
     <br>
     <br>
-  </div>
+  </v-container>
 </template>
 
 <script>

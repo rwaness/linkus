@@ -94,7 +94,7 @@ export default {
       return this.fetchGroups();
     },
     goToMyGroup({ _id: id }) {
-      this.$router.push({ name: 'GroupDetail', params: { id: `${id}` } });
+      this.$router.push({ name: 'GroupDetail', params: { groupId: `${id}` } });
     },
   },
 };

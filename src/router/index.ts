@@ -8,6 +8,7 @@ import GroupsList from '@/views/groups/GroupsList.vue';
 import GroupDetailWrapper from '@/views/groups/GroupDetailWrapper.vue';
 import GroupDetail from '@/views/groups/detail/GroupDetail.vue';
 import GroupMembers from '@/views/groups/detail/GroupMembers.vue';
+import MemberProfile from '@/views/MemberProfile.vue';
 import GroupPlugins from '@/views/groups/detail/GroupPlugins.vue';
 import GroupSettings from '@/views/groups/detail/GroupSettings.vue';
 import NotFound from '@/views/NotFound.vue';
@@ -23,18 +24,23 @@ const routes = [{
   name: 'Login',
   component: Login,
 }, {
+  path: '/members/:memberId',
+  name: 'MemberProfile',
+  component: MemberProfile,
+  props: true,
+}, {
   path: '/my-preferences',
   name: 'MyPreferences',
   component: MyPreferences,
 }, {
-  path: '/my-groups',
+  path: '/groups',
   component: GroupsWrapper,
   children: [{
     path: '',
     name: 'GroupsList',
     component: GroupsList,
   }, {
-    path: ':id',
+    path: ':groupId',
     component: GroupDetailWrapper,
     props: true,
     children: [{

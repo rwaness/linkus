@@ -17,9 +17,7 @@
     <template v-else>
       <breadcrumbs :items="breadcrumbs" />
 
-      <v-container fluid>
-        <router-view></router-view>
-      </v-container>
+      <router-view></router-view>
 
       <v-bottom-navigation fixed grow>
         <v-btn
@@ -52,7 +50,7 @@ export default {
   },
 
   props: {
-    id: {
+    groupId: {
       type: String,
       required: true,
     },
@@ -63,20 +61,20 @@ export default {
       navItems: [{
         icon: 'mdi-home-outline',
         text: this.$t('pages.groupDetail.nav.home'),
-        to: { name: 'GroupDetail', params: { id: this.id } },
+        to: { name: 'GroupDetail', params: { groupId: this.groupId } },
         exact: true,
       }, {
         icon: 'mdi-account-multiple-outline',
         text: this.$t('pages.groupDetail.nav.members'),
-        to: { name: 'GroupMembers', params: { id: this.id } },
+        to: { name: 'GroupMembers', params: { groupId: this.groupId } },
       }, {
         icon: 'mdi-puzzle-outline',
         text: this.$t('pages.groupDetail.nav.plugins'),
-        to: { name: 'GroupPlugins', params: { id: this.id } },
+        to: { name: 'GroupPlugins', params: { groupId: this.groupId } },
       }, {
         icon: 'mdi-cog-outline',
         text: this.$t('pages.groupDetail.nav.settings'),
-        to: { name: 'GroupSettings', params: { id: this.id } },
+        to: { name: 'GroupSettings', params: { groupId: this.groupId } },
       }],
     };
   },
@@ -93,9 +91,13 @@ export default {
         to: { name: 'GroupsList' },
       }, {
         text: this.group.name,
-        to: { name: 'GroupDetail', params: { id: this.id } },
+        to: { name: 'GroupDetail', params: { groupId: this.groupId } },
       }];
-      const { icon, ...activRoute } = this.navItems.find(({ to }) => to.name === this.$route.name);
+      console.log(this.$route);
+      const {
+        icon,
+        ...activRoute
+      } = this.navItems.find(({ to }) => this.$route.matched.some(({ name }) => name === to.name));
       if (activRoute.to.name !== 'GroupDetail') {
         breadcrumbs.push(activRoute);
       }
@@ -108,7 +110,7 @@ export default {
       fetch: 'doQuery',
     }),
     autoload() {
-      return this.fetch({ id: this.id });
+      return this.fetch({ id: this.groupId });
     },
   },
 };
