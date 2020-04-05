@@ -1,5 +1,5 @@
 <template>
-  <v-container fluid class="fill-height">
+  <div class="fill-height">
     <app-bar
       @click:nav="toggleDrawer"
       @click:signup="registrationFormOpened = true"
@@ -13,7 +13,7 @@
     <v-content class="fill-height">
       <slot />
     </v-content>
-  </v-container>
+  </div>
 </template>
 
 <script>

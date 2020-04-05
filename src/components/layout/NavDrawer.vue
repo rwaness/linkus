@@ -17,6 +17,7 @@
         :key="item.title"
         link
         :to="item.link"
+        :exact="item.exact"
       >
         <v-list-item-icon>
           <v-icon>{{ item.icon }}</v-icon>
@@ -60,6 +61,7 @@ export default {
           title: this.$t('nav.items.home'),
           icon: 'mdi-home',
           link: { name: 'Home' },
+          exact: true,
         },
         {
           title: this.$t('nav.items.myGroups'),
