@@ -13,7 +13,7 @@
         </template>
 
         <v-list>
-          <v-list-item>
+          <v-list-item :to="{ name: 'UserProfile' }">
             <v-list-item-content>
               <v-list-item-title class="title">
                 User
@@ -47,7 +47,7 @@
 
           <v-divider></v-divider>
 
-          <v-list-item @click="goTo('MyPreferences')">
+          <v-list-item @click="goTo('UserPreferences')">
             <v-list-item-icon>
                <v-icon>mdi-account-cog</v-icon>
             </v-list-item-icon>

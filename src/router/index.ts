@@ -2,7 +2,10 @@ import Vue from 'vue';
 import VueRouter from 'vue-router';
 import Home from '@/pages/Home.vue';
 import Login from '@/pages/Login.vue';
-import MyPreferences from '@/pages/MyPreferences.vue';
+import User from '@/pages/user.vue';
+import UserProfile from '@/pages/user/profile.vue';
+import UserAccount from '@/pages/user/account.vue';
+import UserPreferences from '@/pages/user/preferences.vue';
 import Groups from '@/pages/groups.vue';
 import GroupsList from '@/pages/groups/list/index.vue';
 import Group from '@/pages/groups/_groupId.vue';
@@ -25,9 +28,22 @@ const routes = [{
   name: 'Login',
   component: Login,
 }, {
-  path: '/my-preferences',
-  name: 'MyPreferences',
-  component: MyPreferences,
+  path: '/user',
+  component: User,
+  children: [{
+    path: '',
+    name: 'UserProfile',
+    component: UserProfile,
+
+  }, {
+    path: 'account',
+    name: 'UserAccount',
+    component: UserAccount,
+  }, {
+    path: 'preferences',
+    name: 'UserPreferences',
+    component: UserPreferences,
+  }],
 }, {
   path: '/groups',
   component: Groups,

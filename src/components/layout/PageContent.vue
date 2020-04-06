@@ -19,13 +19,13 @@ export default {
   },
 
   props: {
-    loading: {
-      type: Boolean,
-      default: false,
-    },
     autoload: {
       type: Function,
       default: null,
+    },
+    loading: {
+      type: Boolean,
+      default: false,
     },
   },
 
