@@ -1,6 +1,6 @@
 <template>
   <page-content
-    class="my-groups"
+    class="groups-list"
     :autoload="autoload"
     :loading="querying"
   >
@@ -60,13 +60,6 @@ export default {
     List,
     GroupCreationCard,
     GroupListItem,
-  },
-
-  props: {
-    user: {
-      type: Object,
-      required: true,
-    },
   },
 
   data() {

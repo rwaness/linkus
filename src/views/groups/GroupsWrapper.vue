@@ -4,9 +4,7 @@
       class="fill-height"
       enable-login
     >
-      <template v-slot="{ user }">
-        <router-view :user="user"></router-view>
-      </template>
+      <router-view></router-view>
     </auth-view>
   </default-layout>
 </template>

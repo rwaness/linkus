@@ -7,8 +7,10 @@ export const getGroupId = ({ _id: id } = {}, toString = true) => (id
 );
 
 export const formatGroup = (group) => ({
-  ...group,
   id: getGroupId(group),
+  members: [],
+  plugins: [],
+  ...group,
 });
 
 export const groupsApiFactory = ({ itemToKey }) => {

@@ -1,6 +1,6 @@
 <template>
   <page-content
-    class="my-group"
+    class="group-detail"
     :autoload="autoload"
     :loading="querying"
   >
@@ -17,7 +17,7 @@
     <template v-else>
       <breadcrumbs :items="breadcrumbs" />
 
-      <router-view></router-view>
+      <router-view :group="group"></router-view>
 
       <v-bottom-navigation fixed grow>
         <v-btn

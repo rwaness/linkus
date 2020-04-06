@@ -5,15 +5,14 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
-
 export default {
   name: 'GroupSettings',
 
-  computed: {
-    ...mapGetters('vuapix/groups', {
-      group: 'groupDetail',
-    }),
+  props: {
+    group: {
+      type: Object,
+      required: true,
+    },
   },
 };
 </script>

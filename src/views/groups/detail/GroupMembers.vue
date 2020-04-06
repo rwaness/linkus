@@ -9,7 +9,6 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
 import List from '@/components/util/List.vue';
 import UserListItem from '@/components/users/list/UserListItem.vue';
 
@@ -21,10 +20,11 @@ export default {
     UserListItem,
   },
 
-  computed: {
-    ...mapGetters('vuapix/groups', {
-      group: 'groupDetail',
-    }),
+  props: {
+    group: {
+      type: Object,
+      required: true,
+    },
   },
 };
 </script>
