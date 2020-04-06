@@ -5,7 +5,7 @@
     </v-list-item-avatar>
 
     <v-list-item-content>
-      <v-list-item-title>{{ user.email }}</v-list-item-title>
+      <v-list-item-title>{{ user.id }}</v-list-item-title>
     </v-list-item-content>
 
     <v-list-item-icon>
