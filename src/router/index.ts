@@ -34,7 +34,6 @@ const routes = [{
     path: '',
     name: 'UserProfile',
     component: UserProfile,
-
   }, {
     path: 'account',
     name: 'UserAccount',

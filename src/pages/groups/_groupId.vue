@@ -1,35 +1,40 @@
 <template>
-  <pages-hub
+  <page-content
     class="group-detail"
     :autoload="autoload"
     :loading="querying"
-    :breadcrumbs="breadcrumbs"
-    :nav-items="navItems"
   >
-    <no-results
-      v-if="!group"
-      class="fill-height"
-      icon="mdi-account-group"
-      :label="$t('pages.groupDetail.noResults.label')"
-      :message="$t('pages.groupDetail.noResults.message')"
-      :action-label="$t('pages.groupDetail.noResults.action')"
-      @action:click="$router.push({ name: 'GroupsList' })"
-    />
+    <hub-page
+      :breadcrumbs="breadcrumbs"
+      :nav-items="navItems"
+    >
+      <no-results
+        v-if="!group"
+        class="fill-height"
+        icon="mdi-account-group"
+        :label="$t('pages.groupDetail.noResults.label')"
+        :message="$t('pages.groupDetail.noResults.message')"
+        :action-label="$t('pages.groupDetail.noResults.action')"
+        @action:click="$router.push({ name: 'GroupsList' })"
+      />
 
-    <router-view v-else :group="group"></router-view>
-  </pages-hub>
+      <router-view v-else :group="group"></router-view>
+    </hub-page>
+  </page-content>
 </template>
 
 <script>
 import { mapGetters, mapActions } from 'vuex';
-import PagesHub from '@/components/layout/PagesHub.vue';
+import PageContent from '@/components/layout/PageContent.vue';
+import HubPage from '@/components/layout/HubPage.vue';
 import NoResults from '@/components/util/NoResults.vue';
 
 export default {
   name: 'Group',
 
   components: {
-    PagesHub,
+    PageContent,
+    HubPage,
     NoResults,
   },
 

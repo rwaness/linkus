@@ -2,12 +2,12 @@
   <default-layout class="user-profile">
     <auth-view enable-login>
       <template v-slot="{ user }">
-        <pages-hub
+        <hub-page
           :breadcrumbs="breadcrumbs"
           :nav-items="navItems"
         >
           <router-view :user="user"></router-view>
-        </pages-hub>
+        </hub-page>
       </template>
     </auth-view>
   </default-layout>
@@ -16,15 +16,15 @@
 <script>
 import AuthView from '@/lib/vue-mongodb-stitch/components/AuthView.vue';
 import DefaultLayout from '@/layouts/DefaultLayout.vue';
-import PagesHub from '@/components/layout/PagesHub.vue';
+import HubPage from '@/components/layout/HubPage.vue';
 
 export default {
-  name: 'UserProfile',
+  name: 'User',
 
   components: {
     AuthView,
     DefaultLayout,
-    PagesHub,
+    HubPage,
   },
 
   data() {

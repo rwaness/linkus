@@ -1,9 +1,5 @@
 <template>
-  <page-content
-    class="pages-hub"
-    :autoload="autoload"
-    :loading="loading"
-  >
+  <div class="hub-page fill-height">
     <breadcrumbs :items="fullBreadcrumbs" />
 
     <slot></slot>
@@ -19,30 +15,20 @@
         <v-icon v-text="item.icon"></v-icon>
       </v-btn>
     </v-bottom-navigation>
-  </page-content>
+  </div>
 </template>
 
 <script>
-import PageContent from '@/components/layout/PageContent.vue';
 import Breadcrumbs from './Breadcrumbs.vue';
 
 export default {
-  name: 'PagesHub',
+  name: 'HubPage',
 
   components: {
-    PageContent,
     Breadcrumbs,
   },
 
   props: {
-    autoload: {
-      type: Function,
-      default: null,
-    },
-    loading: {
-      type: Boolean,
-      default: false,
-    },
     breadcrumbs: {
       type: Array,
       required: true,
@@ -55,7 +41,7 @@ export default {
 
   computed: {
     fullBreadcrumbs() {
-      const { breadcrumbs } = this;
+      const breadcrumbs = [...this.breadcrumbs];
 
       const matchedRoutesName = this.$router.getMatchedComponents(this.$route).map((r) => r.name);
       const itemAncestorsCount = this.navItems.map(({ to }) => {
