@@ -48,20 +48,20 @@ export default {
   data() {
     return {
       navItems: [{
-        icon: 'mdi-home-outline',
+        icon: 'mdi-view-dashboard',
         text: this.$t('pages.groupDetail.nav.home'),
         to: { name: 'GroupHome', params: { groupId: this.groupId } },
         exact: true,
       }, {
-        icon: 'mdi-account-multiple-outline',
+        icon: 'mdi-account-multiple',
         text: this.$t('pages.groupDetail.nav.members'),
         to: { name: 'GroupMembersList', params: { groupId: this.groupId } },
       }, {
-        icon: 'mdi-puzzle-outline',
+        icon: 'mdi-puzzle',
         text: this.$t('pages.groupDetail.nav.plugins'),
         to: { name: 'GroupPlugins', params: { groupId: this.groupId } },
       }, {
-        icon: 'mdi-cog-outline',
+        icon: 'mdi-cogs',
         text: this.$t('pages.groupDetail.nav.settings'),
         to: { name: 'GroupSettings', params: { groupId: this.groupId } },
       }],
