@@ -75,16 +75,15 @@ export default {
       error: 'error',
     }),
     breadcrumbs() {
-      if (!this.group) {
-        return [];
-      }
-      return [{
-        text: this.$t('pages.groupsList.title'),
-        to: { name: 'GroupsList' },
-      }, {
-        text: this.group.name,
-        to: { name: 'GroupHome', params: { groupId: this.groupId } },
-      }];
+      return this.group
+        ? [{
+          text: this.$t('pages.groupsList.title'),
+          to: { name: 'GroupsList' },
+        }, {
+          text: this.group.name,
+          to: { name: 'GroupHome', params: { groupId: this.groupId } },
+        }]
+        : [];
     },
   },
 

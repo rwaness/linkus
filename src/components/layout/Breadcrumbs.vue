@@ -1,5 +1,5 @@
 <template>
-  <v-breadcrumbs :items="allItems">
+  <v-breadcrumbs v-if="items.length" :items="allItems">
     <template v-slot:item="{ item }">
       <v-breadcrumbs-item v-bind="item">
         <v-icon v-if="item.icon" v-text="item.icon"></v-icon>

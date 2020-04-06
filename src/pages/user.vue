@@ -3,6 +3,7 @@
     <auth-view enable-login>
       <template v-slot="{ user }">
         <hub-page
+          v-if="user"
           :breadcrumbs="breadcrumbs"
           :nav-items="navItems"
         >
@@ -29,25 +30,35 @@ export default {
 
   data() {
     return {
-      breadcrumbs: [{
-        text: this.$t('pages.userProfile.title'),
-        to: { name: 'UserProfile' },
-      }],
       navItems: [{
-        icon: 'mdi-account',
-        text: this.$t('pages.userProfile.nav.profile'),
+        icon: 'mdi-home-account',
+        text: this.$t('pages.user.nav.profile'),
         to: { name: 'UserProfile' },
         exact: true,
       }, {
-        icon: 'mdi-account',
-        text: this.$t('pages.userProfile.nav.account'),
+        icon: 'mdi-account-key',
+        text: this.$t('pages.user.nav.account'),
         to: { name: 'UserAccount' },
       }, {
         icon: 'mdi-account-cog',
-        text: this.$t('pages.userProfile.nav.preferences'),
+        text: this.$t('pages.user.nav.preferences'),
         to: { name: 'UserPreferences' },
       }],
     };
+  },
+
+  computed: {
+    user() {
+      return this.$mongodbStitch.user;
+    },
+    breadcrumbs() {
+      return this.user
+        ? [{
+          text: this.user.id,
+          to: { name: 'UserProfile' },
+        }]
+        : [];
+    },
   },
 };
 </script>

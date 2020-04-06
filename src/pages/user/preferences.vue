@@ -1,20 +1,26 @@
 <template>
   <v-container>
-    <h1>{{ $t('pages.myPreferences.title') }}</h1>
-
     <!-- language -->
-    <h2 class="title">
-      <v-icon>mdi-translate</v-icon>
-      {{ $t('pages.myPreferences.language.subtitle') }}
-    </h2>
+    <v-row>
+      <v-col cols="12">
+        <h2 class="subtitle-2">
+          <v-icon>mdi-translate</v-icon>
+          {{ $t('pages.user.preferences.language.subtitle') }}
+        </h2>
+      </v-col>
+    </v-row>
 
     <v-divider></v-divider>
 
     <!-- theme -->
-    <h2 class="title">
-      <v-icon>mdi-brightness-6</v-icon>
-      {{ $t('pages.myPreferences.theme.subtitle') }}
-    </h2>
+    <v-row>
+      <v-col cols="12">
+        <h2 class="subtitle-2">
+          <v-icon>mdi-brightness-6</v-icon>
+          {{ $t('pages.user.preferences.theme.subtitle') }}
+        </h2>
+      </v-col>
+    </v-row>
   </v-container>
 </template>
 

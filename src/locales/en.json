@@ -21,13 +21,20 @@
         "action": "Go back Home"
       }
     },
-    "myPreferences": {
-      "title": "My Preferences",
-      "language": {
-        "subtitle": "Language"
+    "user": {
+      "nav": {
+        "profile": "Profile",
+        "account": "Account",
+        "preferences": "Preferences"
       },
-      "theme": {
-        "subtitle": "Theme"
+      "preferences": {
+        "title": "My Preferences",
+        "language": {
+          "subtitle": "Language"
+        },
+        "theme": {
+          "subtitle": "Theme"
+        }
       }
     },
     "groupsList": {
