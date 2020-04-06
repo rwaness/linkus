@@ -135,12 +135,12 @@ export default (apis, options = {}) => {
   const ns = options.ns || 'vuapix';
   return {
     [ns]: apiStoreFactory(ns, Object.keys(apis).reduce((acc, dataType) => {
-      const { apiFactory, itemToKey } = apis[dataType];
+      const { apiFactory, ...apiSettings } = apis[dataType];
       return {
         ...acc,
         [dataType]: {
-          api: apiFactory({ dataType, itemToKey }),
-          itemToKey,
+          ...apiSettings,
+          api: apiFactory({ dataType, ...apiSettings }),
         },
       };
     }, {})),
