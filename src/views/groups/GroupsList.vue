@@ -93,8 +93,8 @@ export default {
     autoload() {
       return this.fetchGroups();
     },
-    goToMyGroup({ _id: id }) {
-      this.$router.push({ name: 'GroupDetail', params: { groupId: `${id}` } });
+    goToMyGroup({ id: groupId }) {
+      this.$router.push({ name: 'GroupDetail', params: { groupId } });
     },
   },
 };

@@ -13,7 +13,7 @@
     <template v-else>
       <v-list>
         <template>
-          <div v-for="item in items" :key="`item-${item.id || item._id}`">
+          <div v-for="item in items" :key="`item-${item.id}`">
             <v-divider></v-divider>
             <slot name="list-item" :item="item" />
           </div>

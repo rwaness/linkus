@@ -6,6 +6,11 @@ export const getGroupId = ({ _id: id } = {}, toString = true) => (id
   : null
 );
 
+export const formatGroup = (group) => ({
+  ...group,
+  id: getGroupId(group),
+});
+
 export const groupsApiFactory = ({ itemToKey }) => {
   const collection = mongodbStitch.db.collection('groups');
 

@@ -64,7 +64,7 @@ const multipleDataEntryStoreFactory = (ns, entryName, entry) => dataEntryStoreFa
   },
 );
 
-const dataTypeStoreFactory = (ns, dataType, { api, itemToKey }) => ({
+const dataTypeStoreFactory = (ns, dataType, { api, itemToKey, formatItem }) => ({
   namespaced: true,
   state: {
     items: {},
@@ -86,9 +86,9 @@ const dataTypeStoreFactory = (ns, dataType, { api, itemToKey }) => ({
     async doQuery(storeCtx, { entryName, params }) {
       const { doQuery, single } = api[entryName];
       const response = await doQuery(params, storeCtx);
-      const itemsMap = (single ? [response] : response).reduce((acc, item) => ({
+      const itemsMap = (single ? [formatItem(response)] : response).reduce((acc, item) => ({
         ...acc,
-        ...(item ? { [itemToKey(item)]: item } : {}),
+        ...(item ? { [itemToKey(item)]: formatItem(item) } : {}),
       }), {});
       storeCtx.commit('addItems', { itemsMap });
       const keys = Object.keys(itemsMap);

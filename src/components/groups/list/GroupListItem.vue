@@ -31,12 +31,8 @@ export default {
   },
 
   computed: {
-    id() {
-      const { _id: id } = this.group;
-      return `${id}`;
-    },
     link() {
-      return { name: 'GroupDetail', params: { groupId: this.id } };
+      return { name: 'GroupDetail', params: { groupId: this.group.id } };
     },
   },
 };

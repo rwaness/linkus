@@ -6,6 +6,11 @@ export const getUserId = ({ _id: id } = {}, toString = true) => (id
   : null
 );
 
+export const formatUser = (user) => ({
+  ...user,
+  id: getUserId(user),
+});
+
 export const usersApiFactory = () => {
   const collection = mongodbStitch.db.collection('users');
 
