@@ -1,14 +1,10 @@
 <template>
-  <v-container fluid>
-    <pre>{{ group }}</pre>
-    <br>
-    <br>
-  </v-container>
+  <router-view :group="group"></router-view>
 </template>
 
 <script>
 export default {
-  name: 'GroupDetail',
+  name: 'GroupMembers',
 
   props: {
     group: {

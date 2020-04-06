@@ -45,11 +45,11 @@
 
 <script>
 import { mapGetters, mapActions } from 'vuex';
-import PageContent from '@/components/wrapper/PageContent.vue';
+import PageContent from '@/components/layout/PageContent.vue';
 import Breadcrumbs from '@/components/layout/Breadcrumbs.vue';
 import List from '@/components/util/List.vue';
-import GroupCreationCard from '@/components/groups/GroupCreationCard.vue';
-import GroupListItem from '@/components/groups/list/GroupListItem.vue';
+import GroupCreationCard from '@/components/card/GroupCreationCard.vue';
+import GroupListItem from '@/components/list-item/GroupListItem.vue';
 
 export default {
   name: 'GroupsList',
@@ -87,7 +87,7 @@ export default {
       return this.fetchGroups();
     },
     goToMyGroup({ id: groupId }) {
-      this.$router.push({ name: 'GroupDetail', params: { groupId } });
+      this.$router.push({ name: 'GroupHome', params: { groupId } });
     },
   },
 };

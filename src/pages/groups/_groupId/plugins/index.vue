@@ -20,7 +20,7 @@
 
 <script>
 import List from '@/components/util/List.vue';
-import PluginListItem from '@/components/plugins/list/PluginListItem.vue';
+import PluginListItem from '@/components/list-item/PluginListItem.vue';
 
 export default {
   name: 'GroupPlugins',

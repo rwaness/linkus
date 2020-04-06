@@ -14,7 +14,7 @@
 </template>
 
 <script>
-import GroupListItemContent from './GroupListItemContent.vue';
+import GroupListItemContent from './content/GroupListItemContent.vue';
 
 export default {
   name: 'GroupListItem',
@@ -32,7 +32,7 @@ export default {
 
   computed: {
     link() {
-      return { name: 'GroupDetail', params: { groupId: this.group.id } };
+      return { name: 'GroupHome', params: { groupId: this.group.id } };
     },
   },
 };

@@ -31,7 +31,7 @@
 
 <script>
 import List from '@/components/util/List.vue';
-import InvitationListItem from './list/InvitationListItem.vue';
+import InvitationListItem from '@/components/list-item/InvitationListItem.vue';
 
 export default {
   name: 'InvitationsCard',

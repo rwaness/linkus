@@ -1,17 +1,18 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
-import Home from '@/views/Home.vue';
-import Login from '@/views/Login.vue';
-import MyPreferences from '@/views/MyPreferences.vue';
-import GroupsWrapper from '@/views/groups/GroupsWrapper.vue';
-import GroupsList from '@/views/groups/GroupsList.vue';
-import GroupDetailWrapper from '@/views/groups/GroupDetailWrapper.vue';
-import GroupDetail from '@/views/groups/detail/GroupDetail.vue';
-import GroupMembers from '@/views/groups/detail/GroupMembers.vue';
-import MemberProfile from '@/views/MemberProfile.vue';
-import GroupPlugins from '@/views/groups/detail/GroupPlugins.vue';
-import GroupSettings from '@/views/groups/detail/GroupSettings.vue';
-import NotFound from '@/views/NotFound.vue';
+import Home from '@/pages/Home.vue';
+import Login from '@/pages/Login.vue';
+import MyPreferences from '@/pages/MyPreferences.vue';
+import Groups from '@/pages/groups.vue';
+import GroupsList from '@/pages/groups/list/index.vue';
+import Group from '@/pages/groups/_groupId.vue';
+import GroupHome from '@/pages/groups/_groupId/home/index.vue';
+import GroupMembers from '@/pages/groups/_groupId/members.vue';
+import GroupMembersList from '@/pages/groups/_groupId/members/index.vue';
+import MemberProfile from '@/pages/groups/_groupId/members/_memberId.vue';
+import GroupPlugins from '@/pages/groups/_groupId/plugins/index.vue';
+import GroupSettings from '@/pages/groups/_groupId/settings/index.vue';
+import NotFound from '@/pages/NotFound.vue';
 
 Vue.use(VueRouter);
 
@@ -24,33 +25,37 @@ const routes = [{
   name: 'Login',
   component: Login,
 }, {
-  path: '/members/:memberId',
-  name: 'MemberProfile',
-  component: MemberProfile,
-  props: true,
-}, {
   path: '/my-preferences',
   name: 'MyPreferences',
   component: MyPreferences,
 }, {
   path: '/groups',
-  component: GroupsWrapper,
+  component: Groups,
   children: [{
     path: '',
     name: 'GroupsList',
     component: GroupsList,
   }, {
     path: ':groupId',
-    component: GroupDetailWrapper,
+    component: Group,
     props: true,
     children: [{
       path: '',
-      name: 'GroupDetail',
-      component: GroupDetail,
+      name: 'GroupHome',
+      component: GroupHome,
     }, {
       path: 'members',
-      name: 'GroupMembers',
       component: GroupMembers,
+      children: [{
+        path: '',
+        name: 'GroupMembersList',
+        component: GroupMembersList,
+      }, {
+        path: ':memberId',
+        name: 'MemberProfile',
+        component: MemberProfile,
+        props: true,
+      }],
     }, {
       path: 'plugins',
       name: 'GroupPlugins',
@@ -67,7 +72,7 @@ const routes = [{
   // route level code-splitting
   // this generates a separate chunk (about.[hash].js) for this route
   // which is lazy-loaded when the route is visited.
-  component: () => import(/* webpackChunkName: "about" */ '@/views/About.vue'),
+  component: () => import(/* webpackChunkName: "about" */ '@/pages/About.vue'),
 }, {
   path: '*',
   name: 'NotFound',

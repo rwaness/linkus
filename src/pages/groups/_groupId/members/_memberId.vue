@@ -20,7 +20,7 @@
 import { mapGetters, mapActions } from 'vuex';
 import AuthView from '@/lib/vue-mongodb-stitch/components/AuthView.vue';
 import DefaultLayout from '@/layouts/DefaultLayout.vue';
-import PageContent from '@/components/wrapper/PageContent.vue';
+import PageContent from '@/components/layout/PageContent.vue';
 
 export default {
   name: 'MemberProfile',

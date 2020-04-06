@@ -36,12 +36,12 @@
 
 <script>
 import { mapGetters, mapActions } from 'vuex';
-import PageContent from '@/components/wrapper/PageContent.vue';
+import PageContent from '@/components/layout/PageContent.vue';
 import Breadcrumbs from '@/components/layout/Breadcrumbs.vue';
 import NoResults from '@/components/util/NoResults.vue';
 
 export default {
-  name: 'GroupDetailWrapper',
+  name: 'Group',
 
   components: {
     PageContent,
@@ -61,12 +61,12 @@ export default {
       navItems: [{
         icon: 'mdi-home-outline',
         text: this.$t('pages.groupDetail.nav.home'),
-        to: { name: 'GroupDetail', params: { groupId: this.groupId } },
+        to: { name: 'GroupHome', params: { groupId: this.groupId } },
         exact: true,
       }, {
         icon: 'mdi-account-multiple-outline',
         text: this.$t('pages.groupDetail.nav.members'),
-        to: { name: 'GroupMembers', params: { groupId: this.groupId } },
+        to: { name: 'GroupMembersList', params: { groupId: this.groupId } },
       }, {
         icon: 'mdi-puzzle-outline',
         text: this.$t('pages.groupDetail.nav.plugins'),
@@ -91,15 +91,22 @@ export default {
         to: { name: 'GroupsList' },
       }, {
         text: this.group.name,
-        to: { name: 'GroupDetail', params: { groupId: this.groupId } },
+        to: { name: 'GroupHome', params: { groupId: this.groupId } },
       }];
+
+      const matchedRoutesName = this.$router.getMatchedComponents(this.$route).map((r) => r.name);
+      const itemAncestorsCount = this.navItems.map(({ to }) => {
+        const matchedRoutes = this.$router.getMatchedComponents(to);
+        return matchedRoutes.filter(({ name }) => matchedRoutesName.includes(name)).length;
+      });
       const {
         icon,
         ...activRoute
-      } = this.navItems.find(({ to }) => this.$route.matched.some(({ name }) => name === to.name));
-      if (activRoute.to.name !== 'GroupDetail') {
+      } = this.navItems[itemAncestorsCount.indexOf(Math.max(...itemAncestorsCount))];
+      if (activRoute.to.name !== 'GroupHome') {
         breadcrumbs.push(activRoute);
       }
+
       return breadcrumbs;
     },
   },

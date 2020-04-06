@@ -10,10 +10,10 @@
 
 <script>
 import List from '@/components/util/List.vue';
-import UserListItem from '@/components/users/list/UserListItem.vue';
+import UserListItem from '@/components/list-item/UserListItem.vue';
 
 export default {
-  name: 'GroupMembers',
+  name: 'GroupMembersList',
 
   components: {
     List,

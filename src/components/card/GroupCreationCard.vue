@@ -38,7 +38,7 @@
 
 <script>
 import LoadingOverlay from '@/components/util/LoadingOverlay.vue';
-import GroupCreationForm from './forms/GroupCreationForm.vue';
+import GroupCreationForm from '@/components/form/GroupCreationForm.vue';
 
 export default {
   name: 'GroupCreationCard',

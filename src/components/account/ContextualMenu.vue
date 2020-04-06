@@ -40,7 +40,7 @@
 
             <invitations-card
               :invitations="invitations"
-              @invitation:accepted="goTo('GroupDetail', { groupId: $event.id })"
+              @invitation:accepted="goTo('GroupHome', { groupId: $event.id })"
               @close="invitationsListOpened = false"
             />
           </v-dialog>
@@ -75,7 +75,7 @@
 <script>
 import { mapGetters, mapActions } from 'vuex';
 import AuthView from '@/lib/vue-mongodb-stitch/components/AuthView.vue';
-import InvitationsCard from '@/components/groups/InvitationsCard.vue';
+import InvitationsCard from '@/components/card/InvitationsCard.vue';
 
 export default {
   name: 'ContextualMenu',
