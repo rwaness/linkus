@@ -2,7 +2,6 @@
   <div class="list">
     <no-results
       v-if="!items.length && shouldDisplayNoResults"
-      class="fill-height"
       :icon="noResultsIcon"
       :label="noResultsLabel"
       :message="noResultsMessage"

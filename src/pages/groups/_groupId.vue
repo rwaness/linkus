@@ -11,7 +11,6 @@
       >
         <no-results
           v-if="!group"
-          class="fill-height"
           icon="mdi-account-group"
           :label="$t('pages.groupDetail.noResults.label')"
           :message="$t('pages.groupDetail.noResults.message')"

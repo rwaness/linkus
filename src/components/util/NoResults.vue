@@ -1,5 +1,5 @@
 <template>
-  <v-container class="no-results">
+  <v-container class="no-results fill-height">
     <v-row
       justify="center"
       align="center"

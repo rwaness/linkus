@@ -9,7 +9,7 @@
         :autoload="autoload"
         :loading="querying"
       >
-        <div class="fill-height flex flex-column flex-nowrap">
+        <div class="fill-height d-flex flex-column flex-nowrap">
           <breadcrumbs :items="breadcrumbs" class="flex-grow-0" />
 
           <list

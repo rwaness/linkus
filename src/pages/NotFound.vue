@@ -1,7 +1,6 @@
 <template>
   <default-layout class="not-found">
     <no-results
-      class="fill-height"
       icon="mdi-cloud-alert"
       :label="$t('pages.notFound.noResults.label')"
       :message="$t('pages.notFound.noResults.message')"
