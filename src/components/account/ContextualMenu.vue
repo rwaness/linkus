@@ -108,6 +108,13 @@ export default {
       this.invitationsListOpened = true;
       this.open = false;
     },
+    goTo(routeName, params) {
+      if (routeName === this.$route.name) {
+        this.open = false;
+      } else {
+        this.$router.push({ name: routeName, params });
+      }
+    },
     logout() {
       this.goTo('Home');
       this.$mongodbStitch.logout();
