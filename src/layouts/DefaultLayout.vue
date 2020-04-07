@@ -1,9 +1,6 @@
 <template>
   <div class="fill-height">
-    <app-bar
-      @click:nav="toggleDrawer"
-      @click:signup="registrationFormOpened = true"
-    />
+    <app-bar @nav:click="toggleDrawer" />
 
     <nav-drawer
       v-model="drawerOpened"

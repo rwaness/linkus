@@ -6,7 +6,7 @@
       dark
       clipped-left
     >
-      <v-app-bar-nav-icon @click="$emit('click:nav')" />
+      <v-app-bar-nav-icon @click="$emit('nav:click')" />
 
       <v-toolbar-title class="title linkus">
         L<span class="i">i</span><span class="trslt"><span class="txt-miror">N</span>Kus</span>

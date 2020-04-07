@@ -6,7 +6,6 @@ import User from '@/pages/user.vue';
 import UserProfile from '@/pages/user/profile.vue';
 import UserAccount from '@/pages/user/account.vue';
 import UserPreferences from '@/pages/user/preferences.vue';
-import Groups from '@/pages/groups.vue';
 import GroupsList from '@/pages/groups/list/index.vue';
 import Group from '@/pages/groups/_groupId.vue';
 import GroupHome from '@/pages/groups/_groupId/home/index.vue';
@@ -45,41 +44,37 @@ const routes = [{
   }],
 }, {
   path: '/groups',
-  component: Groups,
+  name: 'GroupsList',
+  component: GroupsList,
+}, {
+  path: '/groups:groupId',
+  component: Group,
+  props: true,
   children: [{
     path: '',
-    name: 'GroupsList',
-    component: GroupsList,
+    name: 'GroupHome',
+    component: GroupHome,
   }, {
-    path: ':groupId',
-    component: Group,
-    props: true,
+    path: 'members',
+    component: GroupMembers,
     children: [{
       path: '',
-      name: 'GroupHome',
-      component: GroupHome,
+      name: 'GroupMembersList',
+      component: GroupMembersList,
     }, {
-      path: 'members',
-      component: GroupMembers,
-      children: [{
-        path: '',
-        name: 'GroupMembersList',
-        component: GroupMembersList,
-      }, {
-        path: ':memberId',
-        name: 'MemberProfile',
-        component: MemberProfile,
-        props: true,
-      }],
-    }, {
-      path: 'plugins',
-      name: 'GroupPlugins',
-      component: GroupPlugins,
-    }, {
-      path: 'settings',
-      name: 'GroupSettings',
-      component: GroupSettings,
+      path: ':memberId',
+      name: 'MemberProfile',
+      component: MemberProfile,
+      props: true,
     }],
+  }, {
+    path: 'plugins',
+    name: 'GroupPlugins',
+    component: GroupPlugins,
+  }, {
+    path: 'settings',
+    name: 'GroupSettings',
+    component: GroupSettings,
   }],
 }, {
   path: '/about',
