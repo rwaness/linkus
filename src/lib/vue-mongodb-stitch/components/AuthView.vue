@@ -2,7 +2,9 @@
   <div class="auth-view">
     <slot v-if="user" :user="user" />
     <slot v-else name="unauthenticated">
-      <login-card v-if="enableLogin" />
+      <v-container>
+        <login-card v-if="enableLogin" />
+      </v-container>
     </slot>
   </div>
 </template>

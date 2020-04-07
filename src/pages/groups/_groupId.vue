@@ -9,21 +9,21 @@
         :autoload="autoload"
         :loading="querying"
       >
+        <no-results
+          v-if="!group"
+          class="fill-height"
+          icon="mdi-account-group"
+          :label="$t('pages.groupDetail.noResults.label')"
+          :message="$t('pages.groupDetail.noResults.message')"
+          :action-label="$t('pages.groupDetail.noResults.action')"
+          @action:click="$router.push({ name: 'GroupsList' })"
+        />
         <hub-page
+          v-else
           :breadcrumbs="breadcrumbs"
           :nav-items="navItems"
         >
-          <no-results
-            v-if="!group"
-            class="fill-height"
-            icon="mdi-account-group"
-            :label="$t('pages.groupDetail.noResults.label')"
-            :message="$t('pages.groupDetail.noResults.message')"
-            :action-label="$t('pages.groupDetail.noResults.action')"
-            @action:click="$router.push({ name: 'GroupsList' })"
-          />
-
-          <router-view v-else :group="group"></router-view>
+          <router-view :group="group"></router-view>
         </hub-page>
       </page-content>
     </auth-view>
