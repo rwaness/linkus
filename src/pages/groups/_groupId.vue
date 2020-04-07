@@ -59,8 +59,8 @@ export default {
     return {
       navItems: [{
         icon: 'mdi-view-dashboard',
-        text: this.$t('pages.groupDetail.nav.home'),
-        to: { name: 'GroupHome', params: { groupId: this.groupId } },
+        text: this.$t('pages.groupDetail.nav.overview'),
+        to: { name: 'GroupOverview', params: { groupId: this.groupId } },
         exact: true,
       }, {
         icon: 'mdi-account-multiple',
@@ -91,7 +91,7 @@ export default {
           to: { name: 'GroupsList' },
         }, {
           text: this.group.name,
-          to: { name: 'GroupHome', params: { groupId: this.groupId } },
+          to: { name: 'GroupOverview', params: { groupId: this.groupId } },
         }]
         : [];
     },

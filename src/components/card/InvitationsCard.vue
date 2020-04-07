@@ -30,6 +30,7 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
 import List from '@/components/util/List.vue';
 import InvitationListItem from '@/components/list-item/InvitationListItem.vue';
 
@@ -45,6 +46,23 @@ export default {
     invitations: {
       type: Array,
       required: true,
+    },
+  },
+
+  beforeCreate() {
+    this.$store.commit('vuapix/groups/acceptInvitation/reset');
+  },
+
+  computed: {
+    ...mapGetters('vuapix/groups/acceptInvitation', {
+      joinedGroup: 'data',
+    }),
+  },
+
+  watch: {
+    joinedGroup({ id: groupId }) {
+      this.$router.push({ name: 'GroupOverview', params: { groupId } });
+      this.close();
     },
   },
 

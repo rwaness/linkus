@@ -75,7 +75,7 @@
         "action": "See my groups"
       },
       "nav": {
-        "home": "Overview",
+        "overview": "Overview",
         "members": "Members",
         "plugins": "Plugins",
         "settings": "Settings"

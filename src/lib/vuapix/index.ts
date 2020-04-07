@@ -1,37 +1,45 @@
-const dataEntryStoreFactory = (ns, entryName, _, options = {}) => ({
-  namespaced: true,
-  state: {
+const dataEntryStoreFactory = (ns, entryName, _, options = {}) => {
+  const intialState = {
     key: null,
     querying: false,
     error: null,
     ...(options.overridingState || {}),
-  },
-  getters: {
-    data: (__, ___, ____, rootGetters) => rootGetters[`${ns}/${entryName}`],
-    querying: (state) => state.querying,
-    error: (state) => state.error,
-  },
-  actions: {
-    doQuery: ({ dispatch }, params) => dispatch(`${ns}/${entryName}`, params, { root: true }),
-  },
-  mutations: {
-    startFetching(state) {
-      state.querying = true;
-      state.error = null;
+  };
+  return {
+    namespaced: true,
+    state: intialState,
+    getters: {
+      data: (__, ___, ____, rootGetters) => rootGetters[`${ns}/${entryName}`],
+      querying: (state) => state.querying,
+      error: (state) => state.error,
     },
-    endFetching(state) {
-      state.querying = false;
+    actions: {
+      doQuery: ({ dispatch }, params) => dispatch(`${ns}/${entryName}`, params, { root: true }),
     },
-    catchError(state, { error }) {
-      state.error = error;
-      state.querying = false;
+    mutations: {
+      reset(state) {
+        Object.keys(state).forEach((field) => {
+          state[field] = intialState[field];
+        });
+      },
+      startFetching(state) {
+        state.querying = true;
+        state.error = null;
+      },
+      endFetching(state) {
+        state.querying = false;
+      },
+      catchError(state, { error }) {
+        state.error = error;
+        state.querying = false;
+      },
+      updateKey(state, { key }) {
+        state.key = key;
+      },
+      ...(options.overridingMuations || {}),
     },
-    updateKey(state, { key }) {
-      state.key = key;
-    },
-    ...(options.overridingMuations || {}),
-  },
-});
+  };
+};
 
 const singleDataEntryStoreFactory = dataEntryStoreFactory;
 const multipleDataEntryStoreFactory = (ns, entryName, entry) => dataEntryStoreFactory(

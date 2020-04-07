@@ -28,7 +28,6 @@ export const usersApiFactory = () => {
         }, {
           returnNewDocument: true,
         });
-        console.log(user);
         if (user) {
           await mongodbStitch.refreshCustomData();
         }

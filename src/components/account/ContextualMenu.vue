@@ -62,7 +62,7 @@
       <v-dialog v-model="invitationsListOpened">
         <invitations-card
           :invitations="invitations"
-          @invitation:accepted="goTo('GroupHome', { groupId: $event.id })"
+          @invitation:accepted="goTo('GroupOverview', { groupId: $event.id })"
           @close="invitationsListOpened = false"
         />
       </v-dialog>

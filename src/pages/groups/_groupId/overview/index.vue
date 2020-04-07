@@ -8,7 +8,7 @@
 
 <script>
 export default {
-  name: 'GroupHome',
+  name: 'GroupOverview',
 
   props: {
     group: {
