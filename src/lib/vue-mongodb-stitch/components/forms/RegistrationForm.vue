@@ -1,9 +1,5 @@
 <template>
-  <v-form
-    ref="form"
-    v-model="valid"
-    lazy-validation
-  >
+  <v-form ref="form" lazy-validation>
     <v-text-field
       v-model="email"
       :rules="emailRules"
@@ -44,7 +40,6 @@ export default {
   data() {
     return {
       errorMessage: null,
-      valid: true,
       email: '',
       emailRules: [
         (v) => !!v || this.$t('mongodbStitch.registration.form.email.rules.required'),
