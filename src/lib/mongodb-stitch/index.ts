@@ -57,6 +57,10 @@ export default class MongodbStitch {
     return this.stitchApp.auth.user;
   }
 
+  refreshCustomData() {
+    return this.stitchApp.auth.refreshCustomData();
+  }
+
   loginWithCredential(credential) {
     return this.stitchApp.auth.loginWithCredential(credential);
   }

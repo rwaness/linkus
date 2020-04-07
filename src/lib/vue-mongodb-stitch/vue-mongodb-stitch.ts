@@ -24,8 +24,15 @@ export default class VueMongodbStitch extends MongodbStitch {
     return this.state.user;
   }
 
-  auth() {
-    this.state.user = super.user;
+  set user(user) {
+    this.state.user = user;
+  }
+
+  async auth() {
+    if (!this.user && super.user) {
+      await this.refreshCustomData();
+      this.user = super.user;
+    }
     return this.user;
   }
 
@@ -36,7 +43,7 @@ export default class VueMongodbStitch extends MongodbStitch {
 
   async logout() {
     const loggedout = await super.logout();
-    this.state.user = null;
+    this.user = null;
     return loggedout;
   }
 

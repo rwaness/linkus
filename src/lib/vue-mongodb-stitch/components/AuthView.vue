@@ -1,6 +1,7 @@
 <template>
   <div class="auth-view">
-    <slot v-if="user" :user="user" />
+    <slot v-if="authenticating" name="authenticating"></slot>
+    <slot v-else-if="user" :user="user" />
     <slot v-else name="unauthenticated">
       <v-container>
         <login-card v-if="enableLogin" />
@@ -26,6 +27,12 @@ export default {
     },
   },
 
+  data() {
+    return {
+      authenticating: true,
+    };
+  },
+
   computed: {
     user() {
       return this.$mongodbStitch.user;
@@ -43,12 +50,13 @@ export default {
   },
 
   methods: {
-    onUserUpdate(user) {
+    async onUserUpdate(user) {
       if (user) {
         this.$emit('authenticated', user);
       } else {
-        this.$mongodbStitch.auth();
+        await this.$mongodbStitch.auth();
       }
+      this.authenticating = false;
     },
   },
 };

@@ -1,6 +1,6 @@
 <template>
   <v-container>
-    <h1 class="title">{{ user.id }}</h1>
+    <pre>{{ user.customData }}</pre>
   </v-container>
 </template>
 
