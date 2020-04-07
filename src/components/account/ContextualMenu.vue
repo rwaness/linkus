@@ -13,7 +13,7 @@
         </template>
 
         <v-list>
-          <v-list-item :to="{ name: 'UserProfile' }">
+          <v-list-item :to="{ name: 'UserProfile' }" exact>
             <v-list-item-content>
               <v-list-item-title class="title">
                 User
@@ -26,28 +26,18 @@
 
           <v-divider></v-divider>
 
-          <v-dialog v-model="invitationsListOpened">
-            <template v-slot:activator="{ on }">
-              <v-list-item v-on="on">
-                <v-list-item-icon>
-                  <v-icon>mdi-account-question</v-icon>
-                </v-list-item-icon>
-                <v-list-item-content>
-                  <v-list-item-title>{{ $t('appbar.account.myInvitations') }}</v-list-item-title>
-                </v-list-item-content>
-              </v-list-item>
-            </template>
-
-            <invitations-card
-              :invitations="invitations"
-              @invitation:accepted="goTo('GroupHome', { groupId: $event.id })"
-              @close="invitationsListOpened = false"
-            />
-          </v-dialog>
+          <v-list-item @click="showInvitations">
+            <v-list-item-icon>
+              <v-icon>mdi-account-question</v-icon>
+            </v-list-item-icon>
+            <v-list-item-content>
+              <v-list-item-title>{{ $t('appbar.account.myInvitations') }}</v-list-item-title>
+            </v-list-item-content>
+          </v-list-item>
 
           <v-divider></v-divider>
 
-          <v-list-item @click="goTo('UserPreferences')">
+          <v-list-item :to="{ name: 'UserPreferences' }">
             <v-list-item-icon>
                <v-icon>mdi-account-cog</v-icon>
             </v-list-item-icon>
@@ -68,6 +58,14 @@
           </v-list-item>
         </v-list>
       </v-menu>
+
+      <v-dialog v-model="invitationsListOpened">
+        <invitations-card
+          :invitations="invitations"
+          @invitation:accepted="goTo('GroupHome', { groupId: $event.id })"
+          @close="invitationsListOpened = false"
+        />
+      </v-dialog>
     </template>
   </auth-view>
 </template>
@@ -106,12 +104,9 @@ export default {
     ...mapActions('vuapix/groups/myInvitations', {
       fetchInvitations: 'doQuery',
     }),
-    goTo(routeName, params) {
-      if (this.$router.currentRoute.name === routeName) {
-        this.open = false;
-      } else {
-        this.$router.push({ name: routeName, params });
-      }
+    showInvitations() {
+      this.invitationsListOpened = true;
+      this.open = false;
     },
     logout() {
       this.goTo('Home');
