@@ -15,6 +15,26 @@ export const usersApiFactory = () => {
   const collection = mongodbStitch.db.collection('users');
 
   return {
+    profile: {
+      single: true,
+      async doQuery(profile) {
+        const user = await collection.findOneAndUpdate({
+          id: getUserId(mongodbStitch.user.customData),
+        }, {
+          $set: Object.keys(profile).reduce((newProfile, field) => ({
+            ...newProfile,
+            [`profile.${field}`]: profile[field],
+          }), {}),
+        }, {
+          returnNewDocument: true,
+        });
+        console.log(user);
+        if (user) {
+          await mongodbStitch.refreshCustomData();
+        }
+        return user;
+      },
+    },
     userDetail: {
       single: true,
       doQuery({ id }) {

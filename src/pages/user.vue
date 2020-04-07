@@ -54,7 +54,7 @@ export default {
     breadcrumbs() {
       return this.user
         ? [{
-          text: this.user.id,
+          text: this.user.customData.profile.name,
           to: { name: 'UserProfile' },
         }]
         : [];

@@ -105,5 +105,21 @@
         }
       }
     }
+  },
+  "form": {
+    "userProfile": {
+      "name": {
+        "label": "Name",
+        "rules": {
+          "required": "A name is required"
+        }
+      },
+      "bio": {
+        "label": "Bio",
+        "rules": {
+          "format": "The bio must be less than {nbChars} characters"
+        }
+      }
+    }
   }
 }
