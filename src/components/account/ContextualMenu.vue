@@ -101,8 +101,8 @@ export default {
   },
 
   methods: {
-    ...mapActions('vuapix/groups/myInvitations', {
-      fetchInvitations: 'doQuery',
+    ...mapActions('vuapix/groups', {
+      fetchInvitations: 'myInvitations',
     }),
     showInvitations() {
       this.invitationsListOpened = true;

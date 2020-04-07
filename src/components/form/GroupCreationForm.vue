@@ -1,9 +1,5 @@
 <template>
-  <v-form
-    ref="form"
-    v-model="valid"
-    lazy-validation
-  >
+  <v-form ref="form" lazy-validation>
     <v-text-field
       v-model="name"
       :rules="nameRules"
@@ -32,7 +28,6 @@ export default {
 
   data() {
     return {
-      valid: true,
       name: '',
       nameRules: [
         (v) => !!v || this.$t('pages.groupsList.creation.form.name.rules.required'),
@@ -62,16 +57,18 @@ export default {
   },
 
   methods: {
-    ...mapActions('vuapix/groups/newGroup', [
-      'doQuery',
-    ]),
+    ...mapActions('vuapix/groups', {
+      createGroup: 'newGroup',
+    }),
     async submit() {
+      let group;
       if (this.$refs.form.validate()) {
-        this.doQuery({
+        group = await this.createGroup({
           name: this.name,
           guests: [this.email],
         });
       }
+      return group;
     },
   },
 };

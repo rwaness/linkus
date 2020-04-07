@@ -91,8 +91,8 @@ export default {
   },
 
   methods: {
-    ...mapActions('vuapix/groups/groupsList', {
-      fetchGroups: 'doQuery',
+    ...mapActions('vuapix/groups', {
+      fetchGroups: 'groupsList',
     }),
     autoload() {
       return this.fetchGroups();

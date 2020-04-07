@@ -36,8 +36,8 @@ export default {
   },
 
   methods: {
-    ...mapActions('vuapix/users/userDetail', {
-      autoload: 'doQuery',
+    ...mapActions('vuapix/users', {
+      autoload: 'userDetail',
     }),
   },
 };

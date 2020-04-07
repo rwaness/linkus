@@ -12,20 +12,7 @@ const dataEntryStoreFactory = (ns, entryName, _, options = {}) => ({
     error: (state) => state.error,
   },
   actions: {
-    async doQuery({ commit, dispatch }, params) {
-      let response;
-      try {
-        commit('startFetching');
-        response = await dispatch(`${ns}/doQuery`, {
-          entryName,
-          params,
-        }, { root: true });
-        commit('endFetching');
-      } catch (error) {
-        commit('catchError', { error });
-      }
-      return response;
-    },
+    doQuery: ({ dispatch }, params) => dispatch(`${ns}/${entryName}`, params, { root: true }),
   },
   mutations: {
     startFetching(state) {
@@ -73,8 +60,8 @@ const dataTypeStoreFactory = (ns, dataType, { api, itemToKey, formatItem }) => (
     $items: (state) => state.items,
     $item: (_, getters) => (key) => getters.$items[key],
     ...(
-      Object.keys(api).reduce((acc, entryName) => ({
-        ...acc,
+      Object.keys(api).reduce((gettersMap, entryName) => ({
+        ...gettersMap,
         [entryName]: (state, getters) => (api[entryName].single
           ? getters.$item(state[entryName].key) || null
           : state[entryName].key.map(getters.$item)
@@ -82,22 +69,34 @@ const dataTypeStoreFactory = (ns, dataType, { api, itemToKey, formatItem }) => (
       }), {})
     ),
   },
-  actions: {
-    async doQuery(storeCtx, { entryName, params }) {
-      const { doQuery, single } = api[entryName];
-      const response = await doQuery(params, storeCtx);
-      const itemsMap = (single ? [formatItem(response)] : response).reduce((acc, item) => ({
-        ...acc,
-        ...(item ? { [itemToKey(item)]: formatItem(item) } : {}),
-      }), {});
-      storeCtx.commit('addItems', { itemsMap });
-      const keys = Object.keys(itemsMap);
-      storeCtx.commit(`${entryName}/updateKey`, {
-        key: single ? keys[0] : keys,
-      });
+  actions: Object.keys(api).reduce((actions, entryName) => ({
+    ...actions,
+    [entryName]: async (storeCtx, params) => {
+      let response;
+      try {
+        storeCtx.commit(`${entryName}/startFetching`);
+
+        const { doQuery, single } = api[entryName];
+        response = await doQuery(params, storeCtx);
+
+        const itemsMap = (single ? [formatItem(response)] : response).reduce((map, item) => ({
+          ...map,
+          ...(item ? { [itemToKey(item)]: formatItem(item) } : {}),
+        }), {});
+        storeCtx.commit('addItems', { itemsMap });
+
+        const keys = Object.keys(itemsMap);
+        storeCtx.commit(`${entryName}/updateKey`, {
+          key: single ? keys[0] : keys,
+        });
+
+        storeCtx.commit(`${entryName}/endFetching`);
+      } catch (error) {
+        storeCtx.commit(`${entryName}/catchError`, { error });
+      }
       return response;
     },
-  },
+  }), {}),
   mutations: {
     addItems(state, { itemsMap }) {
       state.items = {
@@ -106,8 +105,8 @@ const dataTypeStoreFactory = (ns, dataType, { api, itemToKey, formatItem }) => (
       };
     },
   },
-  modules: Object.keys(api).reduce((acc, entryName) => ({
-    ...acc,
+  modules: Object.keys(api).reduce((modules, entryName) => ({
+    ...modules,
     [entryName]: (api[entryName].single
       ? singleDataEntryStoreFactory(`${ns}/${dataType}`, entryName, api[entryName])
       : multipleDataEntryStoreFactory(`${ns}/${dataType}`, entryName, api[entryName])
@@ -125,8 +124,8 @@ const apiStoreFactory = (ns, apis) => ({
   },
   mutations: {
   },
-  modules: Object.keys(apis).reduce((acc, dataType) => ({
-    ...acc,
+  modules: Object.keys(apis).reduce((modules, dataType) => ({
+    ...modules,
     [dataType]: dataTypeStoreFactory(ns, dataType, apis[dataType]),
   }), {}),
 });
@@ -134,10 +133,10 @@ const apiStoreFactory = (ns, apis) => ({
 export default (apis, options = {}) => {
   const ns = options.ns || 'vuapix';
   return {
-    [ns]: apiStoreFactory(ns, Object.keys(apis).reduce((acc, dataType) => {
+    [ns]: apiStoreFactory(ns, Object.keys(apis).reduce((stores, dataType) => {
       const { apiFactory, ...apiSettings } = apis[dataType];
       return {
-        ...acc,
+        ...stores,
         [dataType]: {
           ...apiSettings,
           api: apiFactory({ dataType, ...apiSettings }),

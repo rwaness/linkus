@@ -98,8 +98,8 @@ export default {
   },
 
   methods: {
-    ...mapActions('vuapix/groups/groupDetail', {
-      fetch: 'doQuery',
+    ...mapActions('vuapix/groups', {
+      fetch: 'groupDetail',
     }),
     autoload() {
       return this.fetch({ id: this.groupId });

@@ -81,13 +81,14 @@ export default {
 
   methods: {
     ...mapActions('vuapix/groups', [
-      'doQuery',
+      'acceptInvitation',
+      'rejectInvitation',
     ]),
     accept() {
-      this.doQuery({ entryName: 'acceptInvitation', params: { group: this.group } });
+      this.acceptInvitation({ group: this.group });
     },
     reject() {
-      this.doQuery({ entryName: 'rejectInvitation', params: { group: this.group } });
+      this.rejectInvitation({ group: this.group });
     },
   },
 };
