@@ -1,25 +1,28 @@
 <template>
-  <v-list-item :to="{ name: 'MemberProfile', params: { memberId: user.id } }">
+  <v-list-item
+    class="member-list-item"
+    :to="{ name: 'MemberProfile', params: { memberId: member.id } }"
+  >
     <v-list-item-avatar>
       <v-icon>mdi-account</v-icon>
     </v-list-item-avatar>
 
     <v-list-item-content>
-      <v-list-item-title>{{ user.id }}</v-list-item-title>
+      <v-list-item-title>{{ member.name }}</v-list-item-title>
     </v-list-item-content>
 
     <v-list-item-icon>
       <v-icon>mdi-chevron-right</v-icon>
     </v-list-item-icon>
-    </v-list-item>
+  </v-list-item>
 </template>
 
 <script>
 export default {
-  name: 'UserListItem',
+  name: 'MemberListItem',
 
   props: {
-    user: {
+    member: {
       type: Object,
       required: true,
     },

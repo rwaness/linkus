@@ -80,12 +80,18 @@
         "plugins": "Plugins",
         "settings": "Settings"
       }
+    },
+    "groupMembersList": {
+      "headers": {
+        "guests": "Guests ({counter})",
+        "members": "Members ({counter})"
+      }
     }
   },
   "dialog": {
     "myInvitations": {
       "card": {
-        "title": "Invitations",
+        "title": "My Invitations",
         "noResults": {
           "label": "No invitation received",
           "message": "Come back later",
@@ -120,6 +126,11 @@
           "format": "The bio must be less than {nbChars} characters"
         }
       }
+    }
+  },
+  "listItem": {
+    "guest": {
+      "invitedBy": "Invited by {member}"
     }
   }
 }

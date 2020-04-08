@@ -87,7 +87,7 @@ const dataTypeStoreFactory = (ns, dataType, { api, itemToKey, formatItem }) => (
         const { doQuery, single } = api[entryName];
         response = await doQuery(params, storeCtx);
 
-        const itemsMap = (single ? [formatItem(response)] : response).reduce((map, item) => ({
+        const itemsMap = (single ? [response] : response).reduce((map, item) => ({
           ...map,
           ...(item ? { [itemToKey(item)]: formatItem(item) } : {}),
         }), {});

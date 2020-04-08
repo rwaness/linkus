@@ -1,29 +1,58 @@
 <template>
-  <div>
-    <list :items="group.members">
-      <template v-slot:list-item="{ item: user }">
-        <user-list-item :user="user" />
+  <v-list>
+    <v-list-group v-if="guests.length">
+      <template v-slot:activator>
+        <v-subheader>
+          {{ $t('pages.groupMembersList.headers.guests', { counter: guests.length }) }}
+        </v-subheader>
+      </template>
+      <list :items="guests">
+        <template v-slot:list-item="{ item: guest }">
+          <guest-list-item :guest="guest" />
+        </template>
+      </list>
+    </v-list-group>
+
+    <v-divider></v-divider>
+
+    <v-subheader>
+      {{ $t('pages.groupMembersList.headers.members', { counter: members.length }) }}
+    </v-subheader>
+    <list :items="members">
+      <template v-slot:list-item="{ item: member }">
+        <member-list-item :member="member" />
       </template>
     </list>
-  </div>
+  </v-list>
 </template>
 
 <script>
 import List from '@/components/util/List.vue';
-import UserListItem from '@/components/list-item/UserListItem.vue';
+import GuestListItem from '@/components/list-item/GuestListItem.vue';
+import MemberListItem from '@/components/list-item/MemberListItem.vue';
 
 export default {
   name: 'GroupMembersList',
 
   components: {
     List,
-    UserListItem,
+    GuestListItem,
+    MemberListItem,
   },
 
   props: {
     group: {
       type: Object,
       required: true,
+    },
+  },
+
+  computed: {
+    guests() {
+      return this.group.members.filter(({ email }) => this.group.guests.includes(email));
+    },
+    members() {
+      return this.group.members.filter(({ id }) => this.group.memberIds.includes(id));
     },
   },
 };
