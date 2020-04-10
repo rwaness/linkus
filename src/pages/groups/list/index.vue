@@ -10,7 +10,17 @@
         :loading="querying"
       >
         <div class="fill-height d-flex flex-column flex-nowrap">
-          <breadcrumbs :items="breadcrumbs" class="flex-grow-0" />
+          <v-toolbar dense class="flex-grow-0">
+            <v-toolbar-title class="subtitle-2">
+              {{ $t('pages.groupsList.title') }}
+            </v-toolbar-title>
+
+            <v-spacer></v-spacer>
+
+            <v-btn icon @click="createFormOpened = true">
+              <v-icon>mdi-account-multiple-plus</v-icon>
+            </v-btn>
+          </v-toolbar>
 
           <list
             class="flex-grow-1"
@@ -55,7 +65,6 @@ import { mapGetters, mapActions } from 'vuex';
 import AuthView from '@/lib/vue-mongodb-stitch/components/AuthView.vue';
 import DefaultLayout from '@/layouts/DefaultLayout.vue';
 import PageContent from '@/components/layout/PageContent.vue';
-import Breadcrumbs from '@/components/layout/Breadcrumbs.vue';
 import List from '@/components/util/List.vue';
 import GroupCreationCard from '@/components/card/GroupCreationCard.vue';
 import GroupListItem from '@/components/list-item/GroupListItem.vue';
@@ -67,7 +76,6 @@ export default {
     AuthView,
     DefaultLayout,
     PageContent,
-    Breadcrumbs,
     List,
     GroupCreationCard,
     GroupListItem,
