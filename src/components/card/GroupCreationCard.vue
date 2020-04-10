@@ -17,7 +17,7 @@
     <v-card-text>
       <group-creation-form
         ref="form"
-        @created="$emit('group:created', $event)"
+        @success="$emit('group:created', $event)"
       />
     </v-card-text>
 

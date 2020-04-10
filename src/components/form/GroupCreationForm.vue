@@ -13,18 +13,16 @@
       :label="$t('pages.groupsList.creation.form.email.field')"
       required
     ></v-text-field>
-
-    <v-alert v-if="error" type="error">
-      {{ error }}
-    </v-alert>
   </v-form>
 </template>
 
 <script>
-import { mapGetters, mapActions } from 'vuex';
+import VuapixFormMixin from '@/lib/vuapix/mixins/VuapixFormMixin';
 
 export default {
   name: 'GroupCreationForm',
+
+  mixins: [VuapixFormMixin],
 
   data() {
     return {
@@ -40,35 +38,19 @@ export default {
     };
   },
 
-  computed: {
-    ...mapGetters('vuapix/groups/newGroup', {
-      newGroup: 'data',
-      querying: 'querying',
-      error: 'error',
-    }),
-  },
-
-  watch: {
-    querying(querying) {
-      if (!querying && !this.error) {
-        this.$emit('created', this.newGroup);
-      }
+  vuapix: {
+    entry: 'vuapix/groups/newGroup',
+    params() {
+      return {
+        name: this.name,
+        guests: [this.email],
+      };
     },
   },
 
   methods: {
-    ...mapActions('vuapix/groups', {
-      createGroup: 'newGroup',
-    }),
-    async submit() {
-      let group;
-      if (this.$refs.form.validate()) {
-        group = await this.createGroup({
-          name: this.name,
-          guests: [this.email],
-        });
-      }
-      return group;
+    validate() {
+      return this.$refs.form.validate();
     },
   },
 };
