@@ -65,7 +65,7 @@ export default {
       }, {
         icon: 'mdi-account-multiple',
         text: this.$t('pages.groupDetail.nav.members'),
-        to: { name: 'GroupMembersList', params: { groupId: this.groupId } },
+        to: { name: 'GroupMembers', params: { groupId: this.groupId } },
       }, {
         icon: 'mdi-puzzle',
         text: this.$t('pages.groupDetail.nav.plugins'),

@@ -81,7 +81,7 @@
         "settings": "Settings"
       }
     },
-    "groupMembersList": {
+    "groupMembers": {
       "headers": {
         "guests": "Guests ({counter})",
         "members": "Members ({counter})"

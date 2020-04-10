@@ -2,8 +2,8 @@
   <v-list>
     <v-list-group v-if="guests.length">
       <template v-slot:activator>
-        <v-subheader>
-          {{ $t('pages.groupMembersList.headers.guests', { counter: guests.length }) }}
+          <v-subheader class="flex-grow-1 px-0">
+            {{ $t('pages.groupMembers.headers.guests', { counter: guests.length }) }}
         </v-subheader>
       </template>
       <list :items="guests">
@@ -16,7 +16,7 @@
     <v-divider></v-divider>
 
     <v-subheader>
-      {{ $t('pages.groupMembersList.headers.members', { counter: members.length }) }}
+        {{ $t('pages.groupMembers.headers.members', { counter: members.length }) }}
     </v-subheader>
     <list :items="members">
       <template v-slot:list-item="{ item: member }">
@@ -32,7 +32,7 @@ import GuestListItem from '@/components/list-item/GuestListItem.vue';
 import MemberListItem from '@/components/list-item/MemberListItem.vue';
 
 export default {
-  name: 'GroupMembersList',
+  name: 'GroupMembers',
 
   components: {
     List,

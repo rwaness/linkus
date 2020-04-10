@@ -9,8 +9,7 @@ import UserPreferences from '@/pages/user/preferences/index.vue';
 import GroupsList from '@/pages/groups/list/index.vue';
 import Group from '@/pages/groups/_groupId.vue';
 import GroupOverview from '@/pages/groups/_groupId/overview/index.vue';
-import GroupMembers from '@/pages/groups/_groupId/members.vue';
-import GroupMembersList from '@/pages/groups/_groupId/members/index.vue';
+import GroupMembers from '@/pages/groups/_groupId/members/index.vue';
 import MemberProfile from '@/pages/groups/_groupId/members/_memberId.vue';
 import GroupPlugins from '@/pages/groups/_groupId/plugins/index.vue';
 import GroupSettings from '@/pages/groups/_groupId/settings/index.vue';
@@ -56,17 +55,13 @@ const routes = [{
     component: GroupOverview,
   }, {
     path: 'members',
+    name: 'GroupMembers',
     component: GroupMembers,
-    children: [{
-      path: '',
-      name: 'GroupMembersList',
-      component: GroupMembersList,
-    }, {
-      path: ':memberId',
-      name: 'MemberProfile',
-      component: MemberProfile,
-      props: true,
-    }],
+  }, {
+    path: 'members/:memberId',
+    name: 'MemberProfile',
+    component: MemberProfile,
+    props: true,
   }, {
     path: 'plugins',
     name: 'GroupPlugins',
