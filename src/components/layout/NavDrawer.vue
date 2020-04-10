@@ -15,7 +15,6 @@
       <v-list-item
         v-for="item in items"
         :key="item.title"
-        link
         :to="item.link"
         :exact="item.exact"
       >

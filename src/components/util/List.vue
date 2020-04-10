@@ -13,8 +13,8 @@
       <v-list>
         <template>
           <div v-for="item in items" :key="`item-${item.id}`">
-            <slot name="list-item" :item="item" />
             <v-divider></v-divider>
+            <slot name="list-item" :item="item" />
           </div>
         </template>
       </v-list>
