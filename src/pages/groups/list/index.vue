@@ -34,18 +34,6 @@
             <template v-slot:list-item="{ item: group }">
               <group-list-item :group="group" />
             </template>
-
-            <v-btn
-              slot="after-list"
-              fab
-              fixed
-              bottom
-              right
-              color="primary"
-              @click="createFormOpened = true"
-            >
-              <v-icon>mdi-account-multiple-plus</v-icon>
-            </v-btn>
           </list>
         </div>
 
