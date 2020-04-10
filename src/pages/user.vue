@@ -2,13 +2,9 @@
   <default-layout class="user-profile">
     <auth-view enable-login>
       <template v-slot="{ user }">
-        <hub-page
-          v-if="user"
-          :breadcrumbs="breadcrumbs"
-          :nav-items="navItems"
-        >
-          <router-view :user="user"></router-view>
-        </hub-page>
+        <router-view :user="user"></router-view>
+
+        <bottom-nav :nav-items="navItems" />
       </template>
     </auth-view>
   </default-layout>
@@ -17,7 +13,7 @@
 <script>
 import AuthView from '@/lib/vue-mongodb-stitch/components/AuthView.vue';
 import DefaultLayout from '@/layouts/DefaultLayout.vue';
-import HubPage from '@/components/layout/HubPage.vue';
+import BottomNav from '@/components/layout/BottomNav.vue';
 
 export default {
   name: 'User',
@@ -25,7 +21,7 @@ export default {
   components: {
     AuthView,
     DefaultLayout,
-    HubPage,
+    BottomNav,
   },
 
   data() {
@@ -45,20 +41,6 @@ export default {
         to: { name: 'UserPreferences' },
       }],
     };
-  },
-
-  computed: {
-    user() {
-      return this.$mongodbStitch.user;
-    },
-    breadcrumbs() {
-      return this.user
-        ? [{
-          text: this.user.customData.profile.name,
-          to: { name: 'UserProfile' },
-        }]
-        : [];
-    },
   },
 };
 </script>

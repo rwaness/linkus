@@ -17,13 +17,11 @@
           :action-label="$t('pages.groupDetail.noResults.action')"
           @action:click="$router.push({ name: 'GroupsList' })"
         />
-        <hub-page
-          v-else
-          :breadcrumbs="breadcrumbs"
-          :nav-items="navItems"
-        >
+        <template v-else>
           <router-view :group="group"></router-view>
-        </hub-page>
+
+          <bottom-nav :nav-items="navItems" />
+        </template>
       </page-content>
     </auth-view>
   </default-layout>
@@ -34,7 +32,7 @@ import { mapGetters, mapActions } from 'vuex';
 import AuthView from '@/lib/vue-mongodb-stitch/components/AuthView.vue';
 import DefaultLayout from '@/layouts/DefaultLayout.vue';
 import PageContent from '@/components/layout/PageContent.vue';
-import HubPage from '@/components/layout/HubPage.vue';
+import BottomNav from '@/components/layout/BottomNav.vue';
 import NoResults from '@/components/util/NoResults.vue';
 
 export default {
@@ -44,7 +42,7 @@ export default {
     AuthView,
     DefaultLayout,
     PageContent,
-    HubPage,
+    BottomNav,
     NoResults,
   },
 
@@ -84,17 +82,6 @@ export default {
       querying: 'querying',
       error: 'error',
     }),
-    breadcrumbs() {
-      return this.group
-        ? [{
-          text: this.$t('pages.groupsList.title'),
-          to: { name: 'GroupsList' },
-        }, {
-          text: this.group.name,
-          to: { name: 'GroupOverview', params: { groupId: this.groupId } },
-        }]
-        : [];
-    },
   },
 
   methods: {
