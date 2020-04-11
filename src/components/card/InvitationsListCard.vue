@@ -1,19 +1,8 @@
 <template>
-  <v-card>
-    <v-toolbar
-      color="primary"
-      dark
-      flat
-    >
-      <v-toolbar-title>{{ $t('dialog.myInvitations.card.title') }}</v-toolbar-title>
-
-      <v-spacer></v-spacer>
-
-      <v-btn icon @click="close">
-        <v-icon>mdi-close</v-icon>
-      </v-btn>
-    </v-toolbar>
-
+  <card
+    :title="$t('dialog.myInvitations.card.title')"
+    @close="close"
+  >
     <list
       :items="invitations"
       no-results-icon="mdi-account-question"
@@ -26,18 +15,20 @@
         <invitation-list-item :group="group" />
       </template>
     </list>
-  </v-card>
+  </card>
 </template>
 
 <script>
 import { mapGetters } from 'vuex';
+import Card from '@/components/card/Card.vue';
 import List from '@/components/util/List.vue';
 import InvitationListItem from '@/components/list-item/InvitationListItem.vue';
 
 export default {
-  name: 'InvitationsCard',
+  name: 'InvitationsListCard',
 
   components: {
+    Card,
     List,
     InvitationListItem,
   },

@@ -1,27 +1,18 @@
 <template>
-  <v-card>
-    <v-toolbar
-      color="primary"
-      dark
-      flat
-    >
-      <v-toolbar-title>{{ $t('pages.groupsList.creation.card.title') }}</v-toolbar-title>
-
-      <v-spacer></v-spacer>
-
-      <v-btn icon @click="$emit('close')">
-        <v-icon>mdi-close</v-icon>
-      </v-btn>
-    </v-toolbar>
-
+  <card
+    :title="$t('pages.groupsList.creation.card.title')"
+    :loading="processing"
+    @close="$emit('close')"
+  >
     <v-card-text>
       <group-creation-form
         ref="form"
+        @submit="processing = true"
         @success="$emit('group:created', $event)"
       />
     </v-card-text>
 
-    <v-card-actions>
+    <template slot="actions">
       <v-spacer />
 
       <v-btn
@@ -30,21 +21,19 @@
       >
         {{ $t('pages.groupsList.creation.card.actions.submit') }}
       </v-btn>
-    </v-card-actions>
-
-    <loading-overlay :loading="processing" />
-  </v-card>
+    </template>
+  </card>
 </template>
 
 <script>
-import LoadingOverlay from '@/components/util/LoadingOverlay.vue';
+import Card from '@/components/card/Card.vue';
 import GroupCreationForm from '@/components/form/GroupCreationForm.vue';
 
 export default {
   name: 'GroupCreationCard',
 
   components: {
-    LoadingOverlay,
+    Card,
     GroupCreationForm,
   },
 
@@ -55,10 +44,8 @@ export default {
   },
 
   methods: {
-    async submit() {
-      this.processing = true;
-      await this.$refs.form.submit();
-      this.processing = false;
+    submit() {
+      this.$refs.form.submit();
     },
   },
 };
