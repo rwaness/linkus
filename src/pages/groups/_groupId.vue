@@ -1,26 +1,24 @@
 <template>
-  <default-layout class="groups-wrapper">
-    <auth-view
-      class="fill-height"
-      enable-login
-    >
+  <default-layout class="group-detail">
+    <auth-view class="fill-height" enable-login>
       <page-content
-        class="group-detail"
-        :autoload="autoload"
-        :loading="querying"
+        vuapix-entry="vuapix/groups/groupDetail"
+        :vuapix-params="{ id: groupId }"
       >
-        <no-results
-          v-if="!group"
-          icon="mdi-account-group"
-          :label="$t('pages.groupDetail.noResults.label')"
-          :message="$t('pages.groupDetail.noResults.message')"
-          :action-label="$t('pages.groupDetail.noResults.action')"
-          @action:click="$router.push({ name: 'GroupsList' })"
-        />
-        <template v-else>
-          <router-view :group="group"></router-view>
+        <template v-slot="{ data: group }">
+          <no-results
+            v-if="!group"
+            icon="mdi-account-group"
+            :label="$t('pages.groupDetail.noResults.label')"
+            :message="$t('pages.groupDetail.noResults.message')"
+            :action-label="$t('pages.groupDetail.noResults.action')"
+            @action:click="$router.push({ name: 'GroupsList' })"
+          />
+          <template v-else>
+            <router-view :group="group"></router-view>
 
-          <bottom-nav :nav-items="navItems" />
+            <bottom-nav :nav-items="navItems" />
+          </template>
         </template>
       </page-content>
     </auth-view>
@@ -28,7 +26,6 @@
 </template>
 
 <script>
-import { mapGetters, mapActions } from 'vuex';
 import AuthView from '@/lib/vue-mongodb-stitch/components/AuthView.vue';
 import DefaultLayout from '@/layouts/DefaultLayout.vue';
 import PageContent from '@/components/layout/PageContent.vue';
@@ -74,23 +71,6 @@ export default {
         to: { name: 'GroupSettings', params: { groupId: this.groupId } },
       }],
     };
-  },
-
-  computed: {
-    ...mapGetters('vuapix/groups/groupDetail', {
-      group: 'data',
-      querying: 'querying',
-      error: 'error',
-    }),
-  },
-
-  methods: {
-    ...mapActions('vuapix/groups', {
-      fetch: 'groupDetail',
-    }),
-    autoload() {
-      return this.fetch({ id: this.groupId });
-    },
   },
 };
 </script>

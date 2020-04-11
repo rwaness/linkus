@@ -1,16 +1,17 @@
 <template>
   <page-content
     class="member-profile"
-    :autoload="autoload"
-    :loading="querying"
+    vuapix-entry="vuapix/users/userDetail"
+    :vuapix-params="{ id: memberId }"
   >
-    <div class="error">{{ error }}</div>
-    <pre>{{ user }}</pre>
+    <template v-slot="{ data: member }">
+      <div class="error">{{ error }}</div>
+      <pre>{{ member }}</pre>
+    </template>
   </page-content>
 </template>
 
 <script>
-import { mapGetters, mapActions } from 'vuex';
 import PageContent from '@/components/layout/PageContent.vue';
 
 export default {
@@ -25,20 +26,6 @@ export default {
       type: String,
       required: true,
     },
-  },
-
-  computed: {
-    ...mapGetters('vuapix/users/userDetail', {
-      user: 'data',
-      querying: 'querying',
-      error: 'error',
-    }),
-  },
-
-  methods: {
-    ...mapActions('vuapix/users', {
-      autoload: 'userDetail',
-    }),
   },
 };
 </script>

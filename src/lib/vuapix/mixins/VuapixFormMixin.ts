@@ -1,8 +1,4 @@
-import LifeCycleMixin from '@/mixins/LifeCycleMixin';
-
 export default {
-  mixins: [LifeCycleMixin],
-
   computed: {
     vuapixData() {
       return this.$store.getters[`${this.$options.vuapix.entry}/data`];

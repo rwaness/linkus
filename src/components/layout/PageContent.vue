@@ -1,45 +1,37 @@
 <template>
-  <div class="page-content fill-height">
-    <loading-overlay :loading="!loaded || loading" />
+  <vuapix-wrapper class="page-content fill-height"
+    :entry="vuapixEntry"
+    :params="vuapixParams"
+  >
+    <loading-overlay slot="loader" :loading="true" />
 
-    <template v-if="loaded">
-      <slot></slot>
+    <template v-slot="props">
+      <slot v-bind="props"></slot>
     </template>
-  </div>
+  </vuapix-wrapper>
 </template>
 
 <script>
+import VuapixWrapper from '@/lib/vuapix/components/VuapixWrapper.vue';
 import LoadingOverlay from '@/components/util/LoadingOverlay.vue';
 
 export default {
   name: 'PageContent',
 
   components: {
+    VuapixWrapper,
     LoadingOverlay,
   },
 
   props: {
-    autoload: {
-      type: Function,
-      default: null,
+    vuapixEntry: {
+      type: String,
+      required: true,
     },
-    loading: {
-      type: Boolean,
-      default: false,
+    vuapixParams: {
+      type: Object,
+      default: undefined,
     },
-  },
-
-  data() {
-    return {
-      loaded: false,
-    };
-  },
-
-  async created() {
-    if (this.autoload) {
-      await this.autoload();
-    }
-    this.loaded = true;
   },
 };
 </script>
