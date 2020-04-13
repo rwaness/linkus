@@ -1,6 +1,7 @@
 <template>
   <v-container class="no-results fill-height">
     <v-row
+      no-gutters
       justify="center"
       align="center"
       class="fill-height flex-column flex-nowrap"
