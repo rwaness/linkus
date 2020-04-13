@@ -33,11 +33,13 @@ export default {
     validate() {
       return true;
     },
-    submit() {
+    async submit() {
+      let result;
       if (this.validate()) {
         const { entry, params = () => undefined } = this.$options.vuapix;
-        this.$store.dispatch(entry, params.call(this));
+        result = await this.$store.dispatch(entry, params.call(this));
       }
+      return result;
     },
   },
 };

@@ -76,21 +76,14 @@ export default {
     };
   },
 
-  watch: {
-    value(value) {
-      if (!value) {
-        this.loading = false;
-      }
-    },
-  },
-
   methods: {
     close() {
       this.$emit('input', false);
     },
-    submit() {
+    async submit() {
       this.loading = true;
-      this.$slots.default[0].componentInstance.submit();
+      await this.$slots.default[0].componentInstance.submit();
+      this.loading = false;
     },
   },
 };
