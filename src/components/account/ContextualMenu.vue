@@ -59,13 +59,10 @@
         </v-list>
       </v-menu>
 
-      <v-dialog v-model="invitationsListOpened">
-        <invitations-list-card
-          :invitations="invitations"
-          @invitation:accepted="goTo('GroupOverview', { groupId: $event.id })"
-          @close="invitationsListOpened = false"
-        />
-      </v-dialog>
+      <list-invitations-dialog
+        v-model="invitationsListOpened"
+        :invitations="invitations"
+      />
     </template>
   </auth-view>
 </template>
@@ -73,14 +70,14 @@
 <script>
 import { mapGetters, mapActions } from 'vuex';
 import AuthView from '@/lib/vue-mongodb-stitch/components/AuthView.vue';
-import InvitationsListCard from '@/components/card/InvitationsListCard.vue';
+import ListInvitationsDialog from '@/components/dialog/ListInvitationsDialog.vue';
 
 export default {
   name: 'ContextualMenu',
 
   components: {
     AuthView,
-    InvitationsListCard,
+    ListInvitationsDialog,
   },
 
   data() {

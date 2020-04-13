@@ -12,7 +12,7 @@
     <template v-else>
       <v-list>
         <template>
-          <div v-for="item in items" :key="`item-${item.id}`">
+          <div v-for="item in items" :key="`item-${getItemKey(item)}`">
             <v-divider></v-divider>
             <slot name="list-item" :item="item" />
           </div>
@@ -38,6 +38,10 @@ export default {
     items: {
       type: Array,
       required: true,
+    },
+    getItemKey: {
+      type: Function,
+      default: ({ id }) => id,
     },
     noResultsIcon: {
       type: String,

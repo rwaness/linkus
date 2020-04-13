@@ -3,13 +3,13 @@
     <template v-slot:activator>
       <group-list-item-content
         :group="group"
-        :subtitle="$t('dialog.myInvitations.card.listItem.subtitle', { owner: group.owner })"
+        :subtitle="$t('listItem.invitation.subtitle', { owner: group.owner })"
       />
     </template>
 
     <v-list-item>
       <v-list-item-title class="font-weight-regular text-right">
-        {{ $t('dialog.myInvitations.card.listItem.actions.label') }}
+        {{ $t('listItem.invitation.actions.label') }}
       </v-list-item-title>
       <v-list-item-icon>
         <v-btn
@@ -31,10 +31,10 @@
 
           <v-card>
             <v-card-title>
-              {{ $t('dialog.myInvitations.card.listItem.actions.reject.title') }}
+              {{ $t('listItem.invitation.actions.reject.title') }}
             </v-card-title>
             <v-card-text>
-              {{ $t('dialog.myInvitations.card.listItem.actions.reject.text', {
+              {{ $t('listItem.invitation.actions.reject.text', {
                 groupName: group.name,
                 owner: group.owner,
               }) }}
@@ -42,10 +42,10 @@
             <v-card-actions>
               <v-spacer></v-spacer>
               <v-btn @click="reject">
-                {{ $t('dialog.myInvitations.card.listItem.actions.reject.confirm') }}
+                {{ $t('listItem.invitation.actions.reject.confirm') }}
               </v-btn>
               <v-btn @click="confirmRejectionOpened = false">
-                {{ $t('dialog.myInvitations.card.listItem.actions.reject.cancel') }}
+                {{ $t('listItem.invitation.actions.reject.cancel') }}
               </v-btn>
             </v-card-actions>
           </v-card>

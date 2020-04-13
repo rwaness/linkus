@@ -43,29 +43,6 @@
         "label": "You don't have any groups yet!",
         "message": "Create one now to invite your friends",
         "action": "Create My First Group"
-      },
-      "creation": {
-        "card": {
-          "title": "New group",
-          "actions": {
-            "submit": "Create"
-          }
-        },
-        "form": {
-          "name": {
-            "field": "Group name",
-            "rules": {
-              "required": "A name is required"
-            }
-          },
-          "email": {
-            "field": "Guest email",
-            "rules": {
-              "required": "An email is required",
-              "format": "Guest email must be valid"
-            }
-          }
-        }
       }
     },
     "groupDetail": {
@@ -89,26 +66,28 @@
     }
   },
   "dialog": {
-    "myInvitations": {
-      "card": {
-        "title": "My Invitations",
-        "noResults": {
-          "label": "No invitation received",
-          "message": "Come back later",
-          "action": "Close"
-        },
-        "listItem": {
-          "subtitle": "Invited by {owner}",
-          "actions": {
-            "label": "Accept ?",
-            "reject": {
-              "title": "Reject invitation ?",
-              "text": "Are you sure to reject this invitation to the group \"{groupName}\" from {owner} ?",
-              "confirm": "Confirm",
-              "cancel": "Cancel"
-            }
-          }
-        }
+    "actions": {
+      "cancel": "Cancel",
+      "submit": "Submit"
+    },
+    "newGroup": {
+      "title": "New group",
+      "actions": {
+        "submit": "Create"
+      }
+    },
+    "newInvitations": {
+      "title": "Invite new members",
+      "actions": {
+        "submit": "Invite"
+      }
+    },
+    "listInvitations": {
+      "title": "My Invitations",
+      "noResults": {
+        "label": "No invitation received",
+        "message": "Come back later",
+        "action": "Close"
       }
     }
   },
@@ -126,11 +105,47 @@
           "format": "The bio must be less than {nbChars} characters"
         }
       }
+    },
+    "invitations": {
+      "emails": {
+        "label": "Emails",
+        "rules": {
+          "required": "An email is required",
+          "format": "{email} is not a valid email"
+        }
+      }
+    },
+    "newGroup": {
+      "name": {
+        "label": "Group name",
+        "rules": {
+          "required": "A name is required"
+        }
+      },
+      "emails": {
+        "label": "Guests email",
+        "rules": {
+          "required": "An email is required",
+          "format": "Guest email must be valid"
+        }
+      }
     }
   },
   "listItem": {
     "guest": {
       "invitedBy": "Invited by {member}"
+    },
+    "invitation": {
+      "subtitle": "Invited by {owner}",
+      "actions": {
+        "label": "Accept ?",
+        "reject": {
+          "title": "Reject invitation ?",
+          "text": "Are you sure to reject this invitation to the group \"{groupName}\" from {owner} ?",
+          "confirm": "Confirm",
+          "cancel": "Cancel"
+        }
+      }
     }
   }
 }

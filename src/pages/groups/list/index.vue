@@ -31,12 +31,9 @@
             </list>
           </div>
 
-          <v-dialog v-model="createFormOpened">
-            <group-creation-card
-              @group:created="goToMyGroup"
-              @close="createFormOpened = false"
-            />
-          </v-dialog>
+          <new-group-dialog
+            v-model="createFormOpened"
+          />
         </template>
       </page-content>
     </auth-view>
@@ -48,7 +45,7 @@ import AuthView from '@/lib/vue-mongodb-stitch/components/AuthView.vue';
 import DefaultLayout from '@/layouts/DefaultLayout.vue';
 import PageContent from '@/components/layout/PageContent.vue';
 import List from '@/components/util/List.vue';
-import GroupCreationCard from '@/components/card/GroupCreationCard.vue';
+import NewGroupDialog from '@/components/dialog/NewGroupDialog.vue';
 import GroupListItem from '@/components/list-item/GroupListItem.vue';
 
 export default {
@@ -59,7 +56,7 @@ export default {
     DefaultLayout,
     PageContent,
     List,
-    GroupCreationCard,
+    NewGroupDialog,
     GroupListItem,
   },
 
@@ -70,12 +67,6 @@ export default {
       }],
       createFormOpened: false,
     };
-  },
-
-  methods: {
-    goToMyGroup({ id: groupId }) {
-      this.$router.push({ name: 'GroupOverview', params: { groupId } });
-    },
   },
 };
 </script>
