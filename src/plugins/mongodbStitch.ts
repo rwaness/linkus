@@ -1,6 +1,6 @@
 import Vue from 'vue';
 import VueMongodbStitch from '@/lib/vue-mongodb-stitch';
-import mongodbStitch from '@/services/mongodbStitch';
+import mongodbStitch from '@/services/mongodbStitchService';
 
 // define plugin
 VueMongodbStitch.install = (V) => {

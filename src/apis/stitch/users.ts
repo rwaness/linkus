@@ -1,5 +1,5 @@
 import { BSON } from 'mongodb-stitch-browser-sdk';
-import mongodbStitch from '@/services/mongodbStitch';
+import mongodbStitch from '@/services/mongodbStitchService';
 
 export const getUserId = ({ _id: id } = {}, toString = true) => (id
   ? ((toString && `${id}`) || id)

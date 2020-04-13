@@ -1,4 +1,4 @@
-import mongodbStitch from '@/services/mongodbStitch';
+import mongodbStitch from '@/services/mongodbStitchService';
 import {
   getGroupId,
   getIdQuery,
