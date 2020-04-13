@@ -16,7 +16,7 @@
           <v-list-item :to="{ name: 'UserProfile' }" exact>
             <v-list-item-content>
               <v-list-item-title class="title">
-                User
+                {{ user.customData.profile.name }}
               </v-list-item-title>
               <v-list-item-subtitle>
                 {{ user.profile.email }}
