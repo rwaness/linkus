@@ -22,9 +22,7 @@
       <v-card-actions>
         <v-spacer></v-spacer>
 
-        <v-btn
-          @click="close"
-        >
+        <v-btn @click="close">
           {{ $t('dialog.actions.cancel') }}
         </v-btn>
 

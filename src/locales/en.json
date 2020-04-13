@@ -27,6 +27,14 @@
         "account": "Account",
         "preferences": "Preferences"
       },
+      "profile": {
+        "bio": "Bio",
+        "livingPlace": "Living place",
+        "birthDate": "Date of birth",
+        "email": "Email",
+        "phone": "Phone",
+        "job": "Job"
+      },
       "preferences": {
         "title": "Preferences",
         "language": {
@@ -89,10 +97,16 @@
         "message": "Come back later",
         "action": "Close"
       }
+    },
+    "updateProfile": {
+      "title": "Update profile",
+      "actions": {
+        "submit": "Update"
+      }
     }
   },
   "form": {
-    "userProfile": {
+    "updateProfile": {
       "name": {
         "label": "Name",
         "rules": {
@@ -101,6 +115,36 @@
       },
       "bio": {
         "label": "Bio",
+        "rules": {
+          "format": "The bio must be less than {nbChars} characters"
+        }
+      },
+      "livingPlace": {
+        "label": "Living place",
+        "rules": {
+          "format": "The bio must be less than {nbChars} characters"
+        }
+      },
+      "birthDate": {
+        "label": "Date of birth",
+        "rules": {
+          "format": "The bio must be less than {nbChars} characters"
+        }
+      },
+      "email": {
+        "label": "Email",
+        "rules": {
+          "format": "The bio must be less than {nbChars} characters"
+        }
+      },
+      "phone": {
+        "label": "Phone",
+        "rules": {
+          "format": "The bio must be less than {nbChars} characters"
+        }
+      },
+      "job": {
+        "label": "Job",
         "rules": {
           "format": "The bio must be less than {nbChars} characters"
         }

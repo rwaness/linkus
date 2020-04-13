@@ -1,28 +1,27 @@
 <template>
   <form-dialog
-    :title="$t('dialog.newInvitations.title')"
-    :submit-label="$t('dialog.newInvitations.actions.submit')"
-    reset-on-close
+    :title="$t('dialog.updateProfile.title')"
+    :submit-label="$t('dialog.updateProfile.actions.submit')"
     :value="value"
     @input="$emit('input', $event)"
   >
-    <new-invitations-form
-      :group="group"
+    <update-profile-form
+      :profile="profile"
       @success="close"
-    ></new-invitations-form>
+    ></update-profile-form>
   </form-dialog>
 </template>
 
 <script>
 import FormDialog from '@/components/dialog/FormDialog.vue';
-import NewInvitationsForm from '@/components/form/NewInvitationsForm.vue';
+import UpdateProfileForm from '@/components/form/UpdateProfileForm.vue';
 
 export default {
-  name: 'NewInvitationsDialog',
+  name: 'UpdateProfileDialog',
 
   components: {
     FormDialog,
-    NewInvitationsForm,
+    UpdateProfileForm,
   },
 
   props: {
@@ -30,7 +29,7 @@ export default {
       type: Boolean,
       default: false,
     },
-    group: {
+    profile: {
       type: Object,
       required: true,
     },

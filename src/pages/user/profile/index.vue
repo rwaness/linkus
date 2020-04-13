@@ -1,54 +1,58 @@
 <template>
-  <v-container>
-    <v-dialog v-model="editionFormOpened">
-      <template v-slot:activator="{ on }">
-        <v-btn icon v-on="on">
-          <v-icon>mdi-account-edit</v-icon>
-        </v-btn>
-      </template>
+  <div>
+    <v-toolbar dense>
+      <v-toolbar-title class="title">
+        {{ profile.name }}
+      </v-toolbar-title>
 
-      <v-card>
-        <v-card-text>
-          <user-profile-form
-            ref="form"
-            :profile="profile"
-          ></user-profile-form>
-        </v-card-text>
+      <v-spacer></v-spacer>
 
-        <v-card-actions>
-          <v-spacer></v-spacer>
-          <v-btn
-            color="primary"
-            @click="cancel"
-          >
-            Cancel
-          </v-btn>
-          <v-btn
-            color="primary"
-            @click="submit"
-          >
-            Save
-          </v-btn>
-        </v-card-actions>
+      <v-btn icon @click="editionFormOpened = true">
+        <v-icon>mdi-account-edit</v-icon>
+      </v-btn>
+    </v-toolbar>
 
-        <loading-overlay :loading="updating"></loading-overlay>
-      </v-card>
-    </v-dialog>
+    <v-container>
+      <span class="subtitle-2">{{ $t('pages.user.profile.bio') }}</span>
+      <v-divider></v-divider>
+      <p>{{ profile.bio }}</p>
 
-    <p>{{ profile.bio }}</p>
-  </v-container>
+      <span class="subtitle-2">{{ $t('pages.user.profile.livingPlace') }}</span>
+      <v-divider></v-divider>
+      <p>{{ profile.livingPlace }}</p>
+
+      <span class="subtitle-2">{{ $t('pages.user.profile.birthDate') }}</span>
+      <v-divider></v-divider>
+      <p>{{ profile.birthDate }}</p>
+
+      <span class="subtitle-2">{{ $t('pages.user.profile.email') }}</span>
+      <v-divider></v-divider>
+      <p>{{ profile.email }}</p>
+
+      <span class="subtitle-2">{{ $t('pages.user.profile.phone') }}</span>
+      <v-divider></v-divider>
+      <p>{{ profile.phone }}</p>
+
+      <span class="subtitle-2">{{ $t('pages.user.profile.job') }}</span>
+      <v-divider></v-divider>
+      <p>{{ profile.job }}</p>
+    </v-container>
+
+    <update-profile-dialog
+      v-model="editionFormOpened"
+      :profile="profile"
+    ></update-profile-dialog>
+  </div>
 </template>
 
 <script>
-import UserProfileForm from '@/components/form/UserProfileForm.vue';
-import LoadingOverlay from '@/components/util/LoadingOverlay.vue';
+import UpdateProfileDialog from '@/components/dialog/UpdateProfileDialog.vue';
 
 export default {
   name: 'UserProfile',
 
   components: {
-    UserProfileForm,
-    LoadingOverlay,
+    UpdateProfileDialog,
   },
 
   props: {
@@ -68,23 +72,6 @@ export default {
   computed: {
     profile() {
       return this.user.customData.profile;
-    },
-  },
-
-  watch: {
-    profile() {
-      this.editionFormOpened = false;
-    },
-  },
-
-  methods: {
-    cancel() {
-      this.$refs.form.reset();
-    },
-    async submit() {
-      this.updating = true;
-      await this.$refs.form.submit();
-      this.updating = false;
     },
   },
 };
