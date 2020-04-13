@@ -31,7 +31,7 @@
               <v-icon>mdi-account-question</v-icon>
             </v-list-item-icon>
             <v-list-item-content>
-              <v-list-item-title>{{ $t('appbar.account.myInvitations') }}</v-list-item-title>
+              <v-list-item-title>{{ $t('appbar.account.invitationsList') }}</v-list-item-title>
             </v-list-item-content>
           </v-list-item>
 
@@ -42,7 +42,7 @@
                <v-icon>mdi-account-cog</v-icon>
             </v-list-item-icon>
             <v-list-item-content>
-              <v-list-item-title>{{ $t('appbar.account.myPreferences') }}</v-list-item-title>
+              <v-list-item-title>{{ $t('appbar.account.preferences') }}</v-list-item-title>
             </v-list-item-content>
           </v-list-item>
 
@@ -92,14 +92,14 @@ export default {
   },
 
   computed: {
-    ...mapGetters('vuapix/groups/myInvitations', {
+    ...mapGetters('vuapix/groups/invitationsList', {
       invitations: 'data',
     }),
   },
 
   methods: {
     ...mapActions('vuapix/groups', {
-      fetchInvitations: 'myInvitations',
+      fetchInvitations: 'invitationsList',
     }),
     showInvitations() {
       this.invitationsListOpened = true;

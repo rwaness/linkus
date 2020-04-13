@@ -60,7 +60,7 @@ export default ({ itemToKey }) => ({
       });
     },
   },
-  myInvitations: {
+  invitationsList: {
     doQuery() {
       return collection.find({
         ...getInvitationsQuery(),
@@ -82,7 +82,7 @@ export default ({ itemToKey }) => ({
       });
       if (joinedGroup) {
         const key = itemToKey(joinedGroup);
-        commit('myInvitations/removeKey', { key });
+        commit('invitationsList/removeKey', { key });
         commit('groupsList/addKey', { key });
       } else {
         // TODO
@@ -103,7 +103,7 @@ export default ({ itemToKey }) => ({
       });
       if (rejectedGroup) {
         const key = itemToKey(rejectedGroup);
-        commit('myInvitations/removeKey', { key });
+        commit('invitationsList/removeKey', { key });
       } else {
         // TODO
         alert('no group updated!');

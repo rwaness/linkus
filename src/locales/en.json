@@ -1,8 +1,8 @@
 {
   "appbar": {
     "account": {
-      "myInvitations": "My Invitations",
-      "myPreferences": "My Preferences",
+      "invitationsList": "Invitations",
+      "preferences": "Preferences",
       "logout": "Logout"
     }
   },
@@ -28,7 +28,7 @@
         "preferences": "Preferences"
       },
       "preferences": {
-        "title": "My Preferences",
+        "title": "Preferences",
         "language": {
           "subtitle": "Language"
         },
@@ -42,7 +42,7 @@
       "noResults": {
         "label": "You don't have any groups yet!",
         "message": "Create one now to invite your friends",
-        "action": "Create My First Group"
+        "action": "Create my first group"
       }
     },
     "groupDetail": {
@@ -83,7 +83,7 @@
       }
     },
     "listInvitations": {
-      "title": "My Invitations",
+      "title": "Invitations",
       "noResults": {
         "label": "No invitation received",
         "message": "Come back later",
