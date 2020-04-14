@@ -44,7 +44,7 @@
 
 <script>
 import GroupToolbar from '@/components/toolbar/GroupToolbar.vue';
-import List from '@/components/util/List.vue';
+import List from '@/components/ui/List.vue';
 import GuestListItem from '@/components/list-item/GuestListItem.vue';
 import MemberListItem from '@/components/list-item/MemberListItem.vue';
 import NewInvitationsDialog from '@/components/dialog/NewInvitationsDialog.vue';

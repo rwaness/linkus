@@ -13,7 +13,7 @@
 
 <script>
 import VuapixProvider from '@/lib/vuapix/components/VuapixProvider.vue';
-import LoadingOverlay from '@/components/util/LoadingOverlay.vue';
+import LoadingOverlay from '@/components/ui/LoadingOverlay.vue';
 
 export default {
   name: 'PageContent',

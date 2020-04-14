@@ -38,8 +38,8 @@
 </template>
 
 <script>
-import Card from '@/components/util/Card.vue';
-import LoadingOverlay from '@/components/util/LoadingOverlay.vue';
+import Card from '@/components/ui/Card.vue';
+import LoadingOverlay from '@/components/ui/LoadingOverlay.vue';
 
 export default {
   name: 'FormDialog',

@@ -33,8 +33,8 @@
 
 <script>
 import { mapGetters } from 'vuex';
-import Card from '@/components/util/Card.vue';
-import List from '@/components/util/List.vue';
+import Card from '@/components/ui/Card.vue';
+import List from '@/components/ui/List.vue';
 import InvitationListItem from '@/components/list-item/InvitationListItem.vue';
 
 export default {

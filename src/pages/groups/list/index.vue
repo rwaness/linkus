@@ -44,7 +44,7 @@
 import AuthView from '@/lib/vue-mongodb-stitch/components/AuthView.vue';
 import DefaultLayout from '@/layouts/DefaultLayout.vue';
 import PageContent from '@/components/layout/PageContent.vue';
-import List from '@/components/util/List.vue';
+import List from '@/components/ui/List.vue';
 import NewGroupDialog from '@/components/dialog/NewGroupDialog.vue';
 import GroupListItem from '@/components/list-item/GroupListItem.vue';
 

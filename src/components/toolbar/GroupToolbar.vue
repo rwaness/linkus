@@ -18,7 +18,7 @@
 </template>
 
 <script>
-import Toolbar from '@/components/util/Toolbar.vue';
+import Toolbar from '@/components/ui/Toolbar.vue';
 
 export default {
   name: 'GroupToolbar',

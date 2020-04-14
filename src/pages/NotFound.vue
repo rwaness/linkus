@@ -12,7 +12,7 @@
 
 <script>
 import DefaultLayout from '@/layouts/DefaultLayout.vue';
-import NoResults from '@/components/util/NoResults.vue';
+import NoResults from '@/components/ui/NoResults.vue';
 
 export default {
   name: 'NotFound',

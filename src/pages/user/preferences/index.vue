@@ -15,7 +15,7 @@
 </template>
 
 <script>
-import DataSection from '@/components/util/DataSection.vue';
+import DataSection from '@/components/ui/DataSection.vue';
 
 export default {
   name: 'UserPreferences',
