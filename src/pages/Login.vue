@@ -21,7 +21,7 @@ export default {
 
   methods: {
     onAuthenticate() {
-      this.$router.push({ name: 'Home' });
+      this.$router.push({ name: 'GroupsList' });
     },
   },
 };
