@@ -4,17 +4,18 @@
       <page-content vuapix-entry="vuapix/groups/groupsList">
         <template v-slot="{ data: groups }">
           <div class="fill-height d-flex flex-column flex-nowrap">
-            <v-toolbar dense class="flex-grow-0">
-              <v-toolbar-title class="subtitle-2">
-                {{ $t('pages.groupsList.title') }}
-              </v-toolbar-title>
-
-              <v-spacer></v-spacer>
-
-              <v-btn icon @click="createFormOpened = true">
+            <toolbar
+              :title="$t('pages.groupsList.title')"
+              class="flex-grow-0"
+            >
+              <v-btn
+                slot="append"
+                icon
+                @click="createFormOpened = true"
+              >
                 <v-icon>mdi-account-multiple-plus</v-icon>
               </v-btn>
-            </v-toolbar>
+            </toolbar>
 
             <list
               class="flex-grow-1"
@@ -44,9 +45,10 @@
 import AuthView from '@/lib/vue-mongodb-stitch/components/AuthView.vue';
 import DefaultLayout from '@/layouts/DefaultLayout.vue';
 import PageContent from '@/components/layout/PageContent.vue';
+import Toolbar from '@/components/ui/Toolbar.vue';
 import List from '@/components/ui/List.vue';
-import NewGroupDialog from '@/components/dialog/NewGroupDialog.vue';
 import GroupListItem from '@/components/list-item/GroupListItem.vue';
+import NewGroupDialog from '@/components/dialog/NewGroupDialog.vue';
 
 export default {
   name: 'GroupsList',
@@ -55,9 +57,10 @@ export default {
     AuthView,
     DefaultLayout,
     PageContent,
+    Toolbar,
     List,
-    NewGroupDialog,
     GroupListItem,
+    NewGroupDialog,
   },
 
   data() {
