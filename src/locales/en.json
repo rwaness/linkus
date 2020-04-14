@@ -35,6 +35,9 @@
         "phone": "Phone",
         "job": "Job"
       },
+      "account": {
+        "email": "Email"
+      },
       "preferences": {
         "title": "Preferences",
         "language": {
