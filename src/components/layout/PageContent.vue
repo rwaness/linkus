@@ -1,5 +1,5 @@
 <template>
-  <vuapix-wrapper class="page-content fill-height"
+  <vuapix-provider class="page-content fill-height"
     :entry="vuapixEntry"
     :params="vuapixParams"
   >
@@ -8,18 +8,18 @@
     <template v-slot="props">
       <slot v-bind="props"></slot>
     </template>
-  </vuapix-wrapper>
+  </vuapix-provider>
 </template>
 
 <script>
-import VuapixWrapper from '@/lib/vuapix/components/VuapixWrapper.vue';
+import VuapixProvider from '@/lib/vuapix/components/VuapixProvider.vue';
 import LoadingOverlay from '@/components/util/LoadingOverlay.vue';
 
 export default {
   name: 'PageContent',
 
   components: {
-    VuapixWrapper,
+    VuapixProvider,
     LoadingOverlay,
   },
 

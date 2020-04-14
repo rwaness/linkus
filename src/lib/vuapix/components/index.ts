@@ -1,2 +1,2 @@
 /* eslint-disable import/prefer-default-export */
-export { default as VuapixWrapper } from './VuapixWrapper.vue';
+export { default as VuapixProvider } from './VuapixProvider.vue';

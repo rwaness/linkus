@@ -1,5 +1,5 @@
 <template>
-  <div class="vuapix-wrapper">
+  <div class="vuapix-provider">
     <template v-if="!loaded || querying">
       <slot name="loader"></slot>
     </template>
@@ -12,7 +12,7 @@
 
 <script>
 export default {
-  name: 'VuapixWrapper',
+  name: 'VuapixProvider',
 
   props: {
     entry: {
