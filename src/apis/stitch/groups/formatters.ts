@@ -1,6 +1,7 @@
+import { Group, Member, Guest } from '@/models';
 import * as helpers from './helpers';
 
-export const formatGuest = (guest, group) => {
+export function formatGuest(guest, group): Guest {
   const invitedBy = (typeof guest.invitedBy === 'string')
     ? group.members.find(({ id }) => guest.invitedBy === id)
     : guest.invitedBy;
@@ -8,15 +9,19 @@ export const formatGuest = (guest, group) => {
     ...guest,
     invitedBy: invitedBy || {},
   };
-};
+}
 
-export const formatMember = (member, group) => (group.guests.includes(member.email)
-  ? formatGuest(member, group)
-  : member);
+export function formatMember(member, group): Member {
+  return (group.guests.includes(member.email)
+    ? formatGuest(member, group)
+    : member);
+}
 
-export const formatGroup = (group) => ({
-  ...group,
-  id: helpers.getGroupId(group),
-  plugins: [],
-  members: (group.members || []).map((member) => formatMember(member, group)),
-});
+export function formatGroup(group): Group {
+  return {
+    ...group,
+    id: helpers.getGroupId(group),
+    plugins: [],
+    members: (group.members || []).map((member) => formatMember(member, group)),
+  };
+}
