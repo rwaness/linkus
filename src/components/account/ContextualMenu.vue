@@ -7,9 +7,17 @@
         right
       >
         <template v-slot:activator="{ on }">
-          <v-btn icon small outlined dark v-on="on">
-            <v-icon>mdi-account</v-icon>
-          </v-btn>
+          <v-badge
+            :value="invitations.length"
+            color="red"
+            dot
+            overlap
+            bottom
+          >
+            <v-btn icon small outlined dark v-on="on">
+              <v-icon>mdi-account</v-icon>
+            </v-btn>
+          </v-badge>
         </template>
 
         <v-list>
@@ -28,7 +36,15 @@
 
           <v-list-item @click="showInvitations">
             <v-list-item-icon>
-              <v-icon>mdi-account-question</v-icon>
+              <v-badge
+                :value="invitations.length"
+                color="red"
+                overlap
+                bottom
+                :content="invitations.length"
+              >
+                <v-icon>mdi-account-question</v-icon>
+              </v-badge>
             </v-list-item-icon>
             <v-list-item-content>
               <v-list-item-title>{{ $t('appbar.account.invitationsList') }}</v-list-item-title>
