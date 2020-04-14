@@ -1,32 +1,28 @@
 <template>
   <v-container>
     <!-- language -->
-    <v-row>
-      <v-col cols="12">
-        <h2 class="subtitle-2">
-          <v-icon>mdi-translate</v-icon>
-          {{ $t('pages.user.preferences.language.subtitle') }}
-        </h2>
-      </v-col>
-    </v-row>
-
-    <v-divider></v-divider>
+    <data-section
+      icon="mdi-translate"
+      :title="$t('pages.user.preferences.language.subtitle')"
+    ></data-section>
 
     <!-- theme -->
-    <v-row>
-      <v-col cols="12">
-        <h2 class="subtitle-2">
-          <v-icon>mdi-brightness-6</v-icon>
-          {{ $t('pages.user.preferences.theme.subtitle') }}
-        </h2>
-      </v-col>
-    </v-row>
+    <data-section
+      icon="mdi-brightness-6"
+      :title="$t('pages.user.preferences.theme.subtitle')"
+    ></data-section>
   </v-container>
 </template>
 
 <script>
+import DataSection from '@/components/util/DataSection.vue';
+
 export default {
   name: 'UserPreferences',
+
+  components: {
+    DataSection,
+  },
 
   props: {
     user: {

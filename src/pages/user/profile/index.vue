@@ -13,29 +13,29 @@
     </v-toolbar>
 
     <v-container>
-      <span class="subtitle-2">{{ $t('pages.user.profile.bio') }}</span>
-      <v-divider></v-divider>
-      <p>{{ profile.bio }}</p>
+      <data-section :title="$t('pages.user.profile.bio')">
+        <p>{{ profile.bio }}</p>
+      </data-section>
 
-      <span class="subtitle-2">{{ $t('pages.user.profile.livingPlace') }}</span>
-      <v-divider></v-divider>
-      <p>{{ profile.livingPlace }}</p>
+      <data-section :title="$t('pages.user.profile.livingPlace')">
+        <p>{{ profile.livingPlace }}</p>
+      </data-section>
 
-      <span class="subtitle-2">{{ $t('pages.user.profile.birthDate') }}</span>
-      <v-divider></v-divider>
-      <p>{{ profile.birthDate }}</p>
+      <data-section :title="$t('pages.user.profile.birthDate')">
+       <p>{{ profile.birthDate }}</p>
+      </data-section>
 
-      <span class="subtitle-2">{{ $t('pages.user.profile.email') }}</span>
-      <v-divider></v-divider>
-      <p>{{ profile.email }}</p>
+      <data-section :title="$t('pages.user.profile.email')">
+        <p>{{ profile.email }}</p>
+      </data-section>
 
-      <span class="subtitle-2">{{ $t('pages.user.profile.phone') }}</span>
-      <v-divider></v-divider>
-      <p>{{ profile.phone }}</p>
+      <data-section :title="$t('pages.user.profile.phone')">
+       <p>{{ profile.phone }}</p>
+      </data-section>
 
-      <span class="subtitle-2">{{ $t('pages.user.profile.job') }}</span>
-      <v-divider></v-divider>
-      <p>{{ profile.job }}</p>
+      <data-section :title="$t('pages.user.profile.job')">
+       <p>{{ profile.job }}</p>
+      </data-section>
     </v-container>
 
     <update-profile-dialog
@@ -46,12 +46,14 @@
 </template>
 
 <script>
+import DataSection from '@/components/util/DataSection.vue';
 import UpdateProfileDialog from '@/components/dialog/UpdateProfileDialog.vue';
 
 export default {
   name: 'UserProfile',
 
   components: {
+    DataSection,
     UpdateProfileDialog,
   },
 

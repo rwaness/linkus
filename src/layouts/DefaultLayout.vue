@@ -7,7 +7,7 @@
       :mini="drawerMini"
     />
 
-    <v-content class="fill-height">
+    <v-content class="fill-height grey lighten-4">
       <slot />
     </v-content>
   </div>
