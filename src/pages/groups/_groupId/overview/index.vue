@@ -1,14 +1,31 @@
 <template>
-  <v-container fluid>
-    <pre>{{ group }}</pre>
-    <br>
-    <br>
-  </v-container>
+  <div class="group-overview">
+    <group-toolbar :group="group">
+      <!-- <v-btn
+        icon
+        @click="invitationsFormOpened = true"
+      >
+        <v-icon>mdi-account-plus</v-icon>
+      </v-btn> -->
+    </group-toolbar>
+
+    <v-container fluid>
+      <pre>{{ group }}</pre>
+      <br>
+      <br>
+    </v-container>
+  </div>
 </template>
 
 <script>
+import GroupToolbar from '@/components/toolbar/GroupToolbar.vue';
+
 export default {
   name: 'GroupOverview',
+
+  components: {
+    GroupToolbar,
+  },
 
   props: {
     group: {

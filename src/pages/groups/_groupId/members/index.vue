@@ -1,22 +1,13 @@
 <template>
   <div class="group-members">
-    <v-toolbar dense>
+    <group-toolbar :group="group">
       <v-btn
-        x-small
-        text
-        :to="{ name: 'GroupsList' }"
-        exact
-        class="ml-n4"
+        icon
+        @click="invitationsFormOpened = true"
       >
-        <v-icon>mdi-chevron-left</v-icon>All groups
-      </v-btn>
-
-      <v-spacer></v-spacer>
-
-      <v-btn icon @click="invitationsFormOpened = true">
         <v-icon>mdi-account-plus</v-icon>
       </v-btn>
-    </v-toolbar>
+    </group-toolbar>
 
     <v-list>
       <v-list-group v-if="guests.length">
@@ -52,6 +43,7 @@
 </template>
 
 <script>
+import GroupToolbar from '@/components/toolbar/GroupToolbar.vue';
 import List from '@/components/util/List.vue';
 import GuestListItem from '@/components/list-item/GuestListItem.vue';
 import MemberListItem from '@/components/list-item/MemberListItem.vue';
@@ -61,6 +53,7 @@ export default {
   name: 'GroupMembers',
 
   components: {
+    GroupToolbar,
     List,
     GuestListItem,
     MemberListItem,

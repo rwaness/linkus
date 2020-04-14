@@ -1,16 +1,10 @@
 <template>
   <div>
-    <v-toolbar dense>
-      <v-toolbar-title class="title">
-        {{ profile.name }}
-      </v-toolbar-title>
-
-      <v-spacer></v-spacer>
-
+    <user-toolbar :user="user">
       <v-btn icon @click="editionFormOpened = true">
         <v-icon>mdi-account-edit</v-icon>
       </v-btn>
-    </v-toolbar>
+    </user-toolbar>
 
     <v-container>
       <data-section :title="$t('pages.user.profile.bio')">
@@ -46,6 +40,7 @@
 </template>
 
 <script>
+import UserToolbar from '@/components/toolbar/UserToolbar.vue';
 import DataSection from '@/components/util/DataSection.vue';
 import UpdateProfileDialog from '@/components/dialog/UpdateProfileDialog.vue';
 
@@ -53,6 +48,7 @@ export default {
   name: 'UserProfile',
 
   components: {
+    UserToolbar,
     DataSection,
     UpdateProfileDialog,
   },
