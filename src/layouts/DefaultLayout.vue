@@ -14,7 +14,6 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
 import AppBar from '@/components/layout/AppBar.vue';
 import NavDrawer from '@/components/layout/NavDrawer.vue';
 
