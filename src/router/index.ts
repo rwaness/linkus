@@ -2,18 +2,9 @@ import Vue from 'vue';
 import VueRouter from 'vue-router';
 import Home from '@/pages/Home.vue';
 import Login from '@/pages/Login.vue';
-import User from '@/pages/user.vue';
-import UserProfile from '@/pages/user/profile/index.vue';
-import UserAccount from '@/pages/user/account/index.vue';
-import UserPreferences from '@/pages/user/preferences/index.vue';
-import GroupsList from '@/pages/groups/list/index.vue';
-import Group from '@/pages/groups/_groupId.vue';
-import GroupOverview from '@/pages/groups/_groupId/overview/index.vue';
-import GroupMembers from '@/pages/groups/_groupId/members/index.vue';
-import MemberProfile from '@/pages/groups/_groupId/members/_memberId.vue';
-import GroupPlugins from '@/pages/groups/_groupId/plugins/index.vue';
-import GroupSettings from '@/pages/groups/_groupId/settings/index.vue';
 import NotFound from '@/pages/NotFound.vue';
+import userRouter from './user';
+import groupsRouter from './groups';
 
 Vue.use(VueRouter);
 
@@ -25,53 +16,10 @@ const routes = [{
   path: '/login',
   name: 'Login',
   component: Login,
-}, {
-  path: '/user',
-  component: User,
-  children: [{
-    path: '',
-    name: 'UserProfile',
-    component: UserProfile,
-  }, {
-    path: 'account',
-    name: 'UserAccount',
-    component: UserAccount,
-  }, {
-    path: 'preferences',
-    name: 'UserPreferences',
-    component: UserPreferences,
-  }],
-}, {
-  path: '/groups',
-  name: 'GroupsList',
-  component: GroupsList,
-}, {
-  path: '/groups/:groupId',
-  component: Group,
-  props: true,
-  children: [{
-    path: '',
-    name: 'GroupOverview',
-    component: GroupOverview,
-  }, {
-    path: 'members',
-    name: 'GroupMembers',
-    component: GroupMembers,
-  }, {
-    path: 'members/:memberId',
-    name: 'MemberProfile',
-    component: MemberProfile,
-    props: true,
-  }, {
-    path: 'plugins',
-    name: 'GroupPlugins',
-    component: GroupPlugins,
-  }, {
-    path: 'settings',
-    name: 'GroupSettings',
-    component: GroupSettings,
-  }],
-}, {
+},
+...userRouter,
+...groupsRouter,
+{
   path: '/about',
   name: 'About',
   // route level code-splitting
