@@ -38,7 +38,7 @@
 </template>
 
 <script>
-import Card from '@/components/card/Card.vue';
+import Card from '@/components/util/Card.vue';
 import LoadingOverlay from '@/components/util/LoadingOverlay.vue';
 
 export default {
