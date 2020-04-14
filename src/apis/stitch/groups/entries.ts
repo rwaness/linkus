@@ -20,6 +20,7 @@ export default ({ itemToKey }) => ({
       }).asArray();
     },
   },
+
   newGroup: {
     single: true,
     async doQuery({ name, guests }) {
@@ -44,6 +45,7 @@ export default ({ itemToKey }) => ({
       };
     },
   },
+
   invite: {
     single: true,
     doQuery({ group, guests }) {
@@ -60,6 +62,7 @@ export default ({ itemToKey }) => ({
       });
     },
   },
+
   invitationsList: {
     doQuery() {
       return collection.find({
@@ -67,6 +70,7 @@ export default ({ itemToKey }) => ({
       }).asArray();
     },
   },
+
   acceptInvitation: {
     single: true,
     async doQuery({ group }, { commit }) {
@@ -80,17 +84,19 @@ export default ({ itemToKey }) => ({
       }, {
         returnNewDocument: true,
       });
-      if (joinedGroup) {
-        const key = itemToKey(joinedGroup);
-        commit('invitationsList/removeKey', { key });
-        commit('groupsList/addKey', { key });
-      } else {
-        // TODO
-        alert('no group updated!');
+
+      if (!joinedGroup) {
+        throw new Error('No group updated');
       }
+
+      const key = itemToKey(joinedGroup);
+      commit('invitationsList/removeKey', { key });
+      commit('groupsList/addKey', { key });
+
       return joinedGroup;
     },
   },
+
   rejectInvitation: {
     single: true,
     async doQuery({ group }, { commit }) {
@@ -101,16 +107,18 @@ export default ({ itemToKey }) => ({
       }, {
         returnNewDocument: true,
       });
-      if (rejectedGroup) {
-        const key = itemToKey(rejectedGroup);
-        commit('invitationsList/removeKey', { key });
-      } else {
-        // TODO
-        alert('no group updated!');
+
+      if (!rejectedGroup) {
+        throw new Error('No group updated');
       }
+
+      const key = itemToKey(rejectedGroup);
+      commit('invitationsList/removeKey', { key });
+
       return rejectedGroup;
     },
   },
+
   groupDetail: {
     single: true,
     async doQuery({ id }, { getters }) {
