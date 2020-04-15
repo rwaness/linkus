@@ -1,6 +1,6 @@
 <template>
   <default-layout class="groups-list">
-    <auth-provider class="fill-height" enable-login>
+    <auth-view class="fill-height" enable-login>
       <page-content vuapix-entry="vuapix/groups/groupsList">
         <template v-slot="{ data: groups }">
           <div class="fill-height d-flex flex-column flex-nowrap">
@@ -37,12 +37,12 @@
           />
         </template>
       </page-content>
-    </auth-provider>
+    </auth-view>
   </default-layout>
 </template>
 
 <script>
-import AuthProvider from '@/lib/vue-mongodb-stitch/components/AuthProvider.vue';
+import AuthView from '@/components/layout/AuthView.vue';
 import DefaultLayout from '@/layouts/DefaultLayout.vue';
 import PageContent from '@/components/layout/PageContent.vue';
 import Toolbar from '@/components/ui/Toolbar.vue';
@@ -54,7 +54,7 @@ export default {
   name: 'GroupsList',
 
   components: {
-    AuthProvider,
+    AuthView,
     DefaultLayout,
     PageContent,
     Toolbar,

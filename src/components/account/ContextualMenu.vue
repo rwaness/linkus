@@ -1,99 +1,100 @@
 <template>
-  <auth-provider :enable-login="false">
-    <template v-slot="{ user }">
-      <v-menu
-        v-model="open"
-        offset-y
-        right
+  <v-menu
+    v-model="open"
+    offset-y
+    right
+  >
+    <template v-slot:activator="{ on }">
+      <v-badge
+        :value="invitations.length"
+        color="red"
+        dot
+        overlap
+        bottom
       >
-        <template v-slot:activator="{ on }">
+        <v-btn icon small outlined dark v-on="on">
+          <v-icon>mdi-account</v-icon>
+        </v-btn>
+      </v-badge>
+    </template>
+
+    <v-list>
+      <v-list-item :to="{ name: 'UserProfile' }" exact>
+        <v-list-item-content>
+          <v-list-item-title class="title">
+            {{ user.customData.profile.name }}
+          </v-list-item-title>
+          <v-list-item-subtitle>
+            {{ user.profile.email }}
+          </v-list-item-subtitle>
+        </v-list-item-content>
+      </v-list-item>
+
+      <v-divider></v-divider>
+
+      <v-list-item @click="showInvitations">
+        <v-list-item-icon>
           <v-badge
             :value="invitations.length"
             color="red"
-            dot
             overlap
             bottom
+            :content="invitations.length"
           >
-            <v-btn icon small outlined dark v-on="on">
-              <v-icon>mdi-account</v-icon>
-            </v-btn>
+            <v-icon>mdi-account-question</v-icon>
           </v-badge>
-        </template>
+        </v-list-item-icon>
+        <v-list-item-content>
+          <v-list-item-title>{{ $t('appbar.account.invitationsList') }}</v-list-item-title>
+        </v-list-item-content>
+      </v-list-item>
 
-        <v-list>
-          <v-list-item :to="{ name: 'UserProfile' }" exact>
-            <v-list-item-content>
-              <v-list-item-title class="title">
-                {{ user.customData.profile.name }}
-              </v-list-item-title>
-              <v-list-item-subtitle>
-                {{ user.profile.email }}
-              </v-list-item-subtitle>
-            </v-list-item-content>
-          </v-list-item>
+      <v-divider></v-divider>
 
-          <v-divider></v-divider>
+      <v-list-item :to="{ name: 'UserPreferences' }">
+        <v-list-item-icon>
+            <v-icon>mdi-account-cog</v-icon>
+        </v-list-item-icon>
+        <v-list-item-content>
+          <v-list-item-title>{{ $t('appbar.account.preferences') }}</v-list-item-title>
+        </v-list-item-content>
+      </v-list-item>
 
-          <v-list-item @click="showInvitations">
-            <v-list-item-icon>
-              <v-badge
-                :value="invitations.length"
-                color="red"
-                overlap
-                bottom
-                :content="invitations.length"
-              >
-                <v-icon>mdi-account-question</v-icon>
-              </v-badge>
-            </v-list-item-icon>
-            <v-list-item-content>
-              <v-list-item-title>{{ $t('appbar.account.invitationsList') }}</v-list-item-title>
-            </v-list-item-content>
-          </v-list-item>
+      <v-divider></v-divider>
 
-          <v-divider></v-divider>
+      <v-list-item @click="logout">
+        <v-list-item-icon>
+            <v-icon>mdi-logout</v-icon>
+        </v-list-item-icon>
+        <v-list-item-content>
+          <v-list-item-title>{{ $t('appbar.account.logout') }}</v-list-item-title>
+        </v-list-item-content>
+      </v-list-item>
+    </v-list>
 
-          <v-list-item :to="{ name: 'UserPreferences' }">
-            <v-list-item-icon>
-               <v-icon>mdi-account-cog</v-icon>
-            </v-list-item-icon>
-            <v-list-item-content>
-              <v-list-item-title>{{ $t('appbar.account.preferences') }}</v-list-item-title>
-            </v-list-item-content>
-          </v-list-item>
-
-          <v-divider></v-divider>
-
-          <v-list-item @click="logout">
-            <v-list-item-icon>
-               <v-icon>mdi-logout</v-icon>
-            </v-list-item-icon>
-            <v-list-item-content>
-              <v-list-item-title>{{ $t('appbar.account.logout') }}</v-list-item-title>
-            </v-list-item-content>
-          </v-list-item>
-        </v-list>
-      </v-menu>
-
-      <list-invitations-dialog
-        v-model="invitationsListOpened"
-        :invitations="invitations"
-      />
-    </template>
-  </auth-provider>
+    <list-invitations-dialog
+      v-model="invitationsListOpened"
+      :invitations="invitations"
+    />
+  </v-menu>
 </template>
 
 <script>
 import { mapGetters, mapActions } from 'vuex';
-import AuthProvider from '@/lib/vue-mongodb-stitch/components/AuthProvider.vue';
 import ListInvitationsDialog from '@/components/dialog/ListInvitationsDialog.vue';
 
 export default {
   name: 'ContextualMenu',
 
   components: {
-    AuthProvider,
     ListInvitationsDialog,
+  },
+
+  props: {
+    user: {
+      type: Object,
+      required: true,
+    },
   },
 
   data() {

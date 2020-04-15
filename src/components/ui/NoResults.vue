@@ -11,10 +11,11 @@
         v-text="icon"
       />
       <span
-        class="font-weight-bold"
+        class="text-center font-weight-bold"
         v-html="label"
       />
       <span
+        class="text-center"
         v-if="message"
         v-html="message"
       />

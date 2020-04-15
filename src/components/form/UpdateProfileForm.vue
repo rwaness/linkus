@@ -91,7 +91,7 @@ export default {
   },
 
   vuapix: {
-    entry: 'vuapix/users/profile',
+    entry: 'vuapix/users/updateProfile',
     params() {
       return this.values;
     },

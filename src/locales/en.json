@@ -13,6 +13,27 @@
       "about": "About"
     }
   },
+  "onboarding": {
+    "title": "Welcome !",
+    "step": {
+      "1": {
+        "title": "Complete your profile",
+        "nextLabel": "Continue"
+      },
+      "2": {
+        "title": "Join group",
+        "noResults": {
+          "label": "No invitation received",
+          "message": "You'll be notified to have been invited"
+        },
+        "nextLabel": "Continue"
+      },
+      "3": {
+        "title": "Let's go",
+        "nextLabel": "See my groups..."
+      }
+    }
+  },
   "pages": {
     "notFound": {
       "noResults": {

@@ -15,7 +15,10 @@
       <v-spacer></v-spacer>
 
       <auth-provider>
-        <contextual-menu />
+        <template v-slot="{ user }">
+          <contextual-menu :user="user"/>
+        </template>
+
         <template v-slot:unauthenticated>
           <v-dialog v-model="registrationFormOpened">
             <template v-slot:activator="{ on }">
@@ -32,7 +35,6 @@
         </template>
       </auth-provider>
     </v-app-bar>
-
   </div>
 </template>
 
