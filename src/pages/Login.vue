@@ -1,6 +1,6 @@
 <template>
   <default-layout>
-    <auth-view
+    <auth-provider
       enable-login
       @authenticated="onAuthenticate"
     />
@@ -9,13 +9,13 @@
 
 <script>
 import DefaultLayout from '@/layouts/DefaultLayout.vue';
-import AuthView from '@/lib/vue-mongodb-stitch/components/AuthView.vue';
+import AuthProvider from '@/lib/vue-mongodb-stitch/components/AuthProvider.vue';
 
 export default {
   name: 'Login',
 
   components: {
-    AuthView,
+    AuthProvider,
     DefaultLayout,
   },
 

@@ -1,5 +1,5 @@
 <template>
-  <auth-view :enable-login="false">
+  <auth-provider :enable-login="false">
     <template v-slot="{ user }">
       <v-menu
         v-model="open"
@@ -80,19 +80,19 @@
         :invitations="invitations"
       />
     </template>
-  </auth-view>
+  </auth-provider>
 </template>
 
 <script>
 import { mapGetters, mapActions } from 'vuex';
-import AuthView from '@/lib/vue-mongodb-stitch/components/AuthView.vue';
+import AuthProvider from '@/lib/vue-mongodb-stitch/components/AuthProvider.vue';
 import ListInvitationsDialog from '@/components/dialog/ListInvitationsDialog.vue';
 
 export default {
   name: 'ContextualMenu',
 
   components: {
-    AuthView,
+    AuthProvider,
     ListInvitationsDialog,
   },
 

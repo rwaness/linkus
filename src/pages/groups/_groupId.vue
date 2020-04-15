@@ -1,6 +1,6 @@
 <template>
   <default-layout class="group-detail">
-    <auth-view class="fill-height" enable-login>
+    <auth-provider class="fill-height" enable-login>
       <page-content
         vuapix-entry="vuapix/groups/groupDetail"
         :vuapix-params="{ id: groupId }"
@@ -21,12 +21,12 @@
           </template>
         </template>
       </page-content>
-    </auth-view>
+    </auth-provider>
   </default-layout>
 </template>
 
 <script>
-import AuthView from '@/lib/vue-mongodb-stitch/components/AuthView.vue';
+import AuthProvider from '@/lib/vue-mongodb-stitch/components/AuthProvider.vue';
 import DefaultLayout from '@/layouts/DefaultLayout.vue';
 import PageContent from '@/components/layout/PageContent.vue';
 import BottomNav from '@/components/layout/BottomNav.vue';
@@ -36,7 +36,7 @@ export default {
   name: 'Group',
 
   components: {
-    AuthView,
+    AuthProvider,
     DefaultLayout,
     PageContent,
     BottomNav,

@@ -1,17 +1,17 @@
 <template>
   <default-layout class="user-profile">
-    <auth-view enable-login>
+    <auth-provider enable-login>
       <template v-slot="{ user }">
         <router-view :user="user"></router-view>
 
         <bottom-nav :nav-items="navItems" />
       </template>
-    </auth-view>
+    </auth-provider>
   </default-layout>
 </template>
 
 <script>
-import AuthView from '@/lib/vue-mongodb-stitch/components/AuthView.vue';
+import AuthProvider from '@/lib/vue-mongodb-stitch/components/AuthProvider.vue';
 import DefaultLayout from '@/layouts/DefaultLayout.vue';
 import BottomNav from '@/components/layout/BottomNav.vue';
 
@@ -19,7 +19,7 @@ export default {
   name: 'User',
 
   components: {
-    AuthView,
+    AuthProvider,
     DefaultLayout,
     BottomNav,
   },

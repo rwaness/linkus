@@ -1,5 +1,5 @@
 <template>
-  <div class="auth-view">
+  <div class="auth-provider">
     <slot v-if="authenticating" name="authenticating"></slot>
     <slot v-else-if="user" :user="user" />
     <slot v-else name="unauthenticated">
@@ -14,7 +14,7 @@
 import LoginCard from './LoginCard.vue';
 
 export default {
-  name: 'AuthView',
+  name: 'AuthProvider',
 
   components: {
     LoginCard,

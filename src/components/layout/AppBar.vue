@@ -14,7 +14,7 @@
 
       <v-spacer></v-spacer>
 
-      <auth-view>
+      <auth-provider>
         <contextual-menu />
         <template v-slot:unauthenticated>
           <v-dialog v-model="registrationFormOpened">
@@ -30,14 +30,14 @@
             />
           </v-dialog>
         </template>
-      </auth-view>
+      </auth-provider>
     </v-app-bar>
 
   </div>
 </template>
 
 <script>
-import AuthView from '@/lib/vue-mongodb-stitch/components/AuthView.vue';
+import AuthProvider from '@/lib/vue-mongodb-stitch/components/AuthProvider.vue';
 import ContextualMenu from '@/components/account/ContextualMenu.vue';
 import RegistrationCard from '@/lib/vue-mongodb-stitch/components/RegistrationCard.vue';
 
@@ -45,7 +45,7 @@ export default {
   name: 'AppBar',
 
   components: {
-    AuthView,
+    AuthProvider,
     ContextualMenu,
     RegistrationCard,
   },
