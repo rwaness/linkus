@@ -1,8 +1,12 @@
 <template>
   <v-dialog
-    :value="value"
-    @input="$emit('input', $event)"
+    v-model="modelValue"
+    scrollable
   >
+    <template v-slot:activator="{ on }">
+      <slot name="activator" :on="on"></slot>
+    </template>
+
     <card :title="title">
       <template v-slot:toolbar-right>
         <v-btn
@@ -70,13 +74,23 @@ export default {
 
   data() {
     return {
+      modelValue: this.value,
       loading: false,
     };
   },
 
+  watch: {
+    value(value) {
+      this.modelValue = value;
+    },
+    modelValue(modelValue) {
+      this.$emit('input', modelValue);
+    },
+  },
+
   methods: {
     close() {
-      this.$emit('input', false);
+      this.modelValue = false;
     },
     async submit() {
       this.loading = true;

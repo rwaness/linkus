@@ -1,12 +1,13 @@
 <template>
   <div class="group-members">
     <group-toolbar :group="group">
-      <v-btn
-        icon
-        @click="invitationsFormOpened = true"
-      >
-        <v-icon>mdi-account-plus</v-icon>
-      </v-btn>
+      <new-invitations-dialog :group="group">
+        <template v-slot:activator="{ on }">
+          <v-btn icon v-on="on">
+            <v-icon>mdi-account-plus</v-icon>
+          </v-btn>
+        </template>
+      </new-invitations-dialog>
     </group-toolbar>
 
     <v-list>
@@ -34,11 +35,6 @@
         </template>
       </list>
     </v-list>
-
-    <new-invitations-dialog
-      v-model="invitationsFormOpened"
-      :group="group"
-    ></new-invitations-dialog>
   </div>
 </template>
 
@@ -65,12 +61,6 @@ export default {
       type: Object,
       required: true,
     },
-  },
-
-  data() {
-    return {
-      invitationsFormOpened: false,
-    };
   },
 
   computed: {

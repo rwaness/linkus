@@ -6,6 +6,10 @@
     :value="value"
     @input="$emit('input', $event)"
   >
+    <template v-slot:activator="{ on }">
+      <slot name="activator" :on="on"></slot>
+    </template>
+
     <new-invitations-form
       :group="group"
       @success="close"

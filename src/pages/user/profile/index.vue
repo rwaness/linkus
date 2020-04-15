@@ -1,9 +1,13 @@
 <template>
   <div>
     <user-toolbar :user="user">
-      <v-btn icon @click="editionFormOpened = true">
-        <v-icon>mdi-account-edit</v-icon>
-      </v-btn>
+      <update-profile-dialog :profile="profile">
+        <template v-slot:activator="{ on }">
+          <v-btn icon v-on="on">
+            <v-icon>mdi-account-edit</v-icon>
+          </v-btn>
+        </template>
+      </update-profile-dialog>
     </user-toolbar>
 
     <v-container>
@@ -31,11 +35,6 @@
        <p>{{ profile.job }}</p>
       </data-section>
     </v-container>
-
-    <update-profile-dialog
-      v-model="editionFormOpened"
-      :profile="profile"
-    ></update-profile-dialog>
   </div>
 </template>
 
@@ -58,13 +57,6 @@ export default {
       type: Object,
       required: true,
     },
-  },
-
-  data() {
-    return {
-      editionFormOpened: false,
-      updating: false,
-    };
   },
 
   computed: {
