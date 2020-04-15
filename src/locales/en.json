@@ -24,6 +24,7 @@
     "user": {
       "nav": {
         "profile": "Profile",
+        "groups": "My Groups",
         "account": "Account",
         "preferences": "Preferences"
       },
