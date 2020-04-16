@@ -6,7 +6,7 @@
       :vnode="stepNode"
       :step="index + 1"
       :complete="value > index + 1"
-      @step:next="value = Math.min(value + 1, steps.length)"
+      @step:next="nextStep"
     ></vnode>
   </v-stepper>
 </template>
@@ -30,6 +30,16 @@ export default {
   computed: {
     steps() {
       return this.$slots.default;
+    },
+  },
+
+  methods: {
+    nextStep() {
+      if (this.value < this.steps.length) {
+        this.value += 1;
+      } else {
+        this.$emit('finish');
+      }
     },
   },
 };

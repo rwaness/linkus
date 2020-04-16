@@ -11,5 +11,9 @@ export default {
       }
       return valid;
     },
+    submit() {
+      return this.validate()
+        && VuapixFormMixin.methods.submit.call(this);
+    },
   },
 };

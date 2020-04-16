@@ -43,16 +43,17 @@ export default {
       type: String,
       default: '',
     },
-    onNext: {
+    checkBeforeNext: {
       type: Function,
-      default: () => undefined,
+      default: () => true,
     },
   },
 
   methods: {
     async nextStep() {
-      await this.onNext();
-      this.$emit('step:next');
+      if (await this.checkBeforeNext()) {
+        this.$emit('step:next');
+      }
     },
   },
 };

@@ -30,16 +30,9 @@ export default {
   },
 
   methods: {
-    validate() {
-      return true;
-    },
-    async submit() {
-      let result;
-      if (this.validate()) {
-        const { entry, params = () => undefined } = this.$options.vuapix;
-        result = await this.$store.dispatch(entry, params.call(this));
-      }
-      return result;
+    submit() {
+      const { entry, params = () => undefined } = this.$options.vuapix;
+      return this.$store.dispatch(entry, params.call(this));
     },
   },
 };

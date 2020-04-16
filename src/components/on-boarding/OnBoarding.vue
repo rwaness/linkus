@@ -4,10 +4,10 @@
       {{ $t('onboarding.title') }}
     </header>
 
-    <stepper>
+    <stepper @finish="submit">
       <step
         :title="$t('onboarding.step.1.title')"
-        :on-next="updateProfile"
+        :check-before-next="updateProfile"
       >
         <update-profile-form
           ref="updateProfileForm"
@@ -35,7 +35,6 @@
       <step
         :title="$t('onboarding.step.3.title')"
         :next-label="$t('onboarding.step.3.nextLabel')"
-        :on-next="submit"
       ></step>
     </stepper>
   </v-container>
@@ -76,8 +75,7 @@ export default {
 
   methods: {
     updateProfile() {
-      const form = this.$refs.updateProfileForm;
-      return form.submit();
+      return this.$refs.updateProfileForm.submit();
     },
   },
 };
