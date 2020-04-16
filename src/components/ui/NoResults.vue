@@ -7,8 +7,8 @@
       class="fill-height flex-column flex-nowrap"
     >
       <v-icon
-        size="62"
         v-text="icon"
+        size="62"
       />
       <span
         class="text-center font-weight-bold"
@@ -21,8 +21,9 @@
       />
       <v-btn
         v-if="actionLabel"
-        color="accent"
         v-html="actionLabel"
+        class="mt-3"
+        color="primary"
         @click="$emit('action:click')"
       />
     </v-row>
