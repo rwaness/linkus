@@ -1,6 +1,6 @@
 <template>
   <v-dialog
-    v-model="modelValue"
+    v-model="model"
     scrollable
   >
     <template v-slot:activator="{ on }">
@@ -20,7 +20,7 @@
       <loading-overlay :loading="loading"></loading-overlay>
 
       <v-card-text>
-        <slot v-if="value || !resetOnClose"></slot>
+        <slot v-if="model || !resetOnClose"></slot>
       </v-card-text>
 
       <v-card-actions>
@@ -42,11 +42,14 @@
 </template>
 
 <script>
+import OptionalModelMixin from '@/mixins/OptionalModelMixin';
 import Card from '@/components/ui/Card.vue';
 import LoadingOverlay from '@/components/ui/LoadingOverlay.vue';
 
 export default {
   name: 'FormDialog',
+
+  mixins: [OptionalModelMixin],
 
   components: {
     Card,
@@ -54,10 +57,6 @@ export default {
   },
 
   props: {
-    value: {
-      type: Boolean,
-      default: false,
-    },
     resetOnClose: {
       type: Boolean,
       default: false,
@@ -74,23 +73,13 @@ export default {
 
   data() {
     return {
-      modelValue: this.value,
       loading: false,
     };
   },
 
-  watch: {
-    value(value) {
-      this.modelValue = value;
-    },
-    modelValue(modelValue) {
-      this.$emit('input', modelValue);
-    },
-  },
-
   methods: {
     close() {
-      this.modelValue = false;
+      this.model = false;
     },
     async submit() {
       this.loading = true;
