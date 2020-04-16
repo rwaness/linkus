@@ -23,6 +23,7 @@
 </template>
 
 <script>
+// TODO functional (missing left border on step due to the div container)
 export default {
   name: 'Step',
 
