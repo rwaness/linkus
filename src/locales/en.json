@@ -179,6 +179,7 @@
     "invitations": {
       "emails": {
         "label": "Emails",
+        "message": "Multiple emails allowed",
         "rules": {
           "required": "An email is required",
           "format": "{email} is not a valid email"
@@ -194,6 +195,7 @@
       },
       "emails": {
         "label": "Guests email",
+        "message": "Multiple emails allowed",
         "rules": {
           "required": "An email is required",
           "format": "Guest email must be valid"

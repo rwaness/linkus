@@ -14,9 +14,9 @@
       deletable-chips
       append-icon
       :label="$t('form.newGroup.emails.label')"
+      :messages="$t('form.newGroup.emails.message')"
       :rules="emailsRules"
-    >
-    </v-combobox>
+    ></v-combobox>
   </v-form>
 </template>
 
