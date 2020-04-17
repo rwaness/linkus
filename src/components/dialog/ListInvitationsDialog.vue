@@ -1,7 +1,7 @@
 <template>
   <v-dialog
-    :value="value"
-    @input="$emit('input', $event)"
+    v-model="model"
+    scrollable
   >
     <card
       :title="$t('dialog.listInvitations.title')"
@@ -33,12 +33,15 @@
 
 <script>
 import { mapGetters } from 'vuex';
+import DialogMixin from '@/mixins/DialogMixin';
 import Card from '@/components/ui/Card.vue';
 import List from '@/components/ui/List.vue';
 import InvitationListItem from '@/components/list-item/InvitationListItem.vue';
 
 export default {
   name: 'ListInvitationsDialog',
+
+  mixins: [DialogMixin],
 
   components: {
     Card,
@@ -47,10 +50,6 @@ export default {
   },
 
   props: {
-    value: {
-      type: Boolean,
-      default: false,
-    },
     invitations: {
       type: Array,
       required: true,
@@ -71,12 +70,6 @@ export default {
     joinedGroup({ id: groupId }) {
       this.$router.push({ name: 'GroupOverview', params: { groupId } });
       this.close();
-    },
-  },
-
-  methods: {
-    close() {
-      this.$emit('input', false);
     },
   },
 };

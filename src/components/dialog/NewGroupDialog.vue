@@ -1,9 +1,8 @@
 <template>
   <form-dialog
+    v-model="model"
     :title="$t('dialog.newGroup.title')"
     :submit-label="$t('dialog.newGroup.actions.submit')"
-    :value="value"
-    @input="$emit('input', $event)"
   >
     <new-group-form
       @success="onSuccess"
@@ -12,22 +11,18 @@
 </template>
 
 <script>
+import DialogMixin from '@/mixins/DialogMixin';
 import FormDialog from '@/components/dialog/FormDialog.vue';
 import NewGroupForm from '@/components/form/NewGroupForm.vue';
 
 export default {
   name: 'NewGroupDialog',
 
+  mixins: [DialogMixin],
+
   components: {
     FormDialog,
     NewGroupForm,
-  },
-
-  props: {
-    value: {
-      type: Boolean,
-      default: false,
-    },
   },
 
   methods: {

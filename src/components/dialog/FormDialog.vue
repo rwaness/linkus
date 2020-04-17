@@ -42,14 +42,14 @@
 </template>
 
 <script>
-import OptionalModelMixin from '@/mixins/OptionalModelMixin';
+import DialogMixin from '@/mixins/DialogMixin';
 import Card from '@/components/ui/Card.vue';
 import LoadingOverlay from '@/components/ui/LoadingOverlay.vue';
 
 export default {
   name: 'FormDialog',
 
-  mixins: [OptionalModelMixin],
+  mixins: [DialogMixin],
 
   components: {
     Card,
@@ -78,9 +78,6 @@ export default {
   },
 
   methods: {
-    close() {
-      this.model = false;
-    },
     async submit() {
       this.loading = true;
       await this.$slots.default[0].componentInstance.submit();

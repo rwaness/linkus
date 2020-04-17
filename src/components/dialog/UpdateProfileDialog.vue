@@ -1,9 +1,8 @@
 <template>
   <form-dialog
+    v-model="model"
     :title="$t('dialog.updateProfile.title')"
     :submit-label="$t('dialog.updateProfile.actions.submit')"
-    :value="value"
-    @input="$emit('input', $event)"
   >
     <template v-slot:activator="{ on }">
       <slot name="activator" :on="on"></slot>
@@ -17,11 +16,14 @@
 </template>
 
 <script>
+import DialogMixin from '@/mixins/DialogMixin';
 import FormDialog from '@/components/dialog/FormDialog.vue';
 import UpdateProfileForm from '@/components/form/UpdateProfileForm.vue';
 
 export default {
   name: 'UpdateProfileDialog',
+
+  mixins: [DialogMixin],
 
   components: {
     FormDialog,
@@ -29,19 +31,9 @@ export default {
   },
 
   props: {
-    value: {
-      type: Boolean,
-      default: false,
-    },
     profile: {
       type: Object,
       required: true,
-    },
-  },
-
-  methods: {
-    close() {
-      this.$emit('input', false);
     },
   },
 };
