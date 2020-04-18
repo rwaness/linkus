@@ -1,40 +1,27 @@
 <template>
-  <v-dialog
+  <card-dialog
     v-model="model"
-    scrollable
+    :title="$t('dialog.listInvitations.title')"
   >
-    <card
-      :title="$t('dialog.listInvitations.title')"
+    <list
+      :items="invitations"
+      no-results-icon="mdi-account-question"
+      :no-results-label="$t('dialog.listInvitations.noResults.label')"
+      :no-results-message="$t('dialog.listInvitations.noResults.message')"
+      :no-results-action-label="$t('dialog.listInvitations.noResults.action')"
+      @no-results-action:click="close"
     >
-      <template v-slot:toolbar-right>
-        <v-btn
-          icon
-          @click="close"
-        >
-          <v-icon>mdi-close</v-icon>
-        </v-btn>
+      <template v-slot:list-item="{ item: group }">
+        <invitation-list-item :group="group" />
       </template>
-
-      <list
-        :items="invitations"
-        no-results-icon="mdi-account-question"
-        :no-results-label="$t('dialog.listInvitations.noResults.label')"
-        :no-results-message="$t('dialog.listInvitations.noResults.message')"
-        :no-results-action-label="$t('dialog.listInvitations.noResults.action')"
-        @no-results-action:click="close"
-      >
-        <template v-slot:list-item="{ item: group }">
-          <invitation-list-item :group="group" />
-        </template>
-      </list>
-    </card>
-  </v-dialog>
+    </list>
+  </card-dialog>
 </template>
 
 <script>
 import { mapGetters } from 'vuex';
 import DialogMixin from '@/mixins/DialogMixin';
-import Card from '@/components/ui/Card.vue';
+import CardDialog from '@/components/dialog/CardDialog.vue';
 import List from '@/components/ui/List.vue';
 import InvitationListItem from '@/components/list-item/InvitationListItem.vue';
 
@@ -44,7 +31,7 @@ export default {
   mixins: [DialogMixin],
 
   components: {
-    Card,
+    CardDialog,
     List,
     InvitationListItem,
   },
