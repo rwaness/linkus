@@ -1,5 +1,5 @@
 import { Group, Member, Guest } from '@/models';
-import * as helpers from './helpers';
+import { getId } from '@/services/mongodbStitchService';
 
 export function formatGuest(guest, group): Guest {
   const invitedBy = (typeof guest.invitedBy === 'string')
@@ -20,7 +20,7 @@ export function formatMember(member, group): Member {
 export function formatGroup(group): Group {
   return {
     ...group,
-    id: helpers.getGroupId(group),
+    id: getId(group),
     plugins: [],
     members: (group.members || []).map((member) => formatMember(member, group)),
   };

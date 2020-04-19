@@ -9,3 +9,8 @@ const mongodbStitch = new VueMongodbStitch({
 });
 
 export default mongodbStitch;
+
+export const getId = ({ _id: id } = {}, asString = true) => (id
+  ? ((asString && `${id}`) || id)
+  : null
+);

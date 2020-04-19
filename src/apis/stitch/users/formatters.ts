@@ -1,7 +1,7 @@
-import * as helpers from './helpers';
+import { getId } from '@/services/mongodbStitchService';
 
 /* eslint-disable import/prefer-default-export */
 export const formatUser = (user) => ({
   ...user,
-  id: helpers.getUserId(user),
+  id: getId(user),
 });

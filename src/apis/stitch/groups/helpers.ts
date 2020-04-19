@@ -1,10 +1,5 @@
 import { BSON } from 'mongodb-stitch-browser-sdk';
-import mongodbStitch from '@/services/mongodbStitchService';
-
-export const getGroupId = ({ _id: id } = {}, toString = true) => (id
-  ? ((toString && `${id}`) || id)
-  : null
-);
+import mongodbStitch, { getId } from '@/services/mongodbStitchService';
 
 export const getIdQuery = (id) => ({ _id: new BSON.ObjectId(id) });
 
@@ -14,7 +9,7 @@ export const getInvitationsQuery = () => ({
 });
 
 export const getInvitationQuery = (group) => ({
-  _id: getGroupId(group, false),
+  _id: getId(group, false),
   ...getInvitationsQuery(),
 });
 
