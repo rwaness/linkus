@@ -1,7 +1,7 @@
 <template>
   <div>
-    <user-toolbar :user="user">
-      <update-profile-dialog :profile="profile">
+    <user-toolbar :user="userData">
+      <update-profile-dialog :user="userData">
         <template v-slot:activator="{ on }">
           <v-btn icon v-on="on">
             <v-icon>mdi-account-edit</v-icon>
@@ -60,8 +60,11 @@ export default {
   },
 
   computed: {
+    userData() {
+      return this.user.customData;
+    },
     profile() {
-      return this.user.customData.profile;
+      return this.userData.profile;
     },
   },
 };

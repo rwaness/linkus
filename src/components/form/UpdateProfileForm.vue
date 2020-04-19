@@ -1,49 +1,55 @@
 <template>
   <v-form ref="form" lazy-validation>
-    <v-text-field
-      v-model="values.name"
+    <confidential-field
+      :confidentiality.sync="confidentialityValues.name"
+      disable-confidentiality
+      component="v-text-field"
+      v-model="profileValues.name"
       :rules="rules.name"
       :label="$t('form.updateProfile.name.label')"
       required
-    ></v-text-field>
+    ></confidential-field>
 
-    <v-text-field
-      v-model="values.bio"
+    <confidential-field
+      :confidentiality.sync="confidentialityValues.bio"
+      component="v-text-field"
+      v-model="profileValues.bio"
       :counter="250"
       :rules="rules.bio"
       :label="$t('form.updateProfile.bio.label')"
-    ></v-text-field>
+      required
+    ></confidential-field>
 
     <v-text-field
-      v-model="values.livingPlace"
+      v-model="profileValues.livingPlace"
       :counter="250"
       :rules="rules.livingPlace"
       :label="$t('form.updateProfile.livingPlace.label')"
     ></v-text-field>
 
     <v-text-field
-      v-model="values.birthDate"
+      v-model="profileValues.birthDate"
       :counter="250"
       :rules="rules.birthDate"
       :label="$t('form.updateProfile.birthDate.label')"
     ></v-text-field>
 
     <v-text-field
-      v-model="values.email"
+      v-model="profileValues.email"
       :counter="250"
       :rules="rules.email"
       :label="$t('form.updateProfile.email.label')"
     ></v-text-field>
 
     <v-text-field
-      v-model="values.phone"
+      v-model="profileValues.phone"
       :counter="250"
       :rules="rules.phone"
       :label="$t('form.updateProfile.phone.label')"
     ></v-text-field>
 
     <v-text-field
-      v-model="values.job"
+      v-model="profileValues.job"
       :counter="250"
       :rules="rules.job"
       :label="$t('form.updateProfile.job.label')"
@@ -53,14 +59,21 @@
 
 <script>
 import FormMixin from '@/mixins/FormMixin';
+import { VTextField } from 'vuetify/lib';
+import ConfidentialField from './fields/ConfidentialField.vue';
 
 export default {
   name: 'UpdateProfileForm',
 
   mixins: [FormMixin],
 
+  components: {
+    VTextField,
+    ConfidentialField,
+  },
+
   props: {
-    profile: {
+    user: {
       type: Object,
       required: true,
     },
@@ -68,7 +81,8 @@ export default {
 
   data() {
     return {
-      values: { ...this.profile },
+      profileValues: { ...this.user.profile },
+      confidentialityValues: { ...this.user.confidentiality },
       rules: {
         name: [
           (v) => !!v || this.$t('form.updateProfile.name.rules.required'),
@@ -93,7 +107,10 @@ export default {
   vuapix: {
     entry: 'vuapix/users/updateProfile',
     params() {
-      return this.values;
+      return {
+        profile: this.profileValues,
+        confidentiality: this.confidentialityValues,
+      };
     },
   },
 };

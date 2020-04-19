@@ -3,13 +3,14 @@
     v-model="model"
     :title="$t('dialog.updateProfile.title')"
     :submit-label="$t('dialog.updateProfile.actions.submit')"
+    reset-on-close
   >
     <template v-slot:activator="{ on }">
       <slot name="activator" :on="on"></slot>
     </template>
 
     <update-profile-form
-      :profile="profile"
+      :user="user"
       @success="close"
     ></update-profile-form>
   </form-dialog>
@@ -31,7 +32,7 @@ export default {
   },
 
   props: {
-    profile: {
+    user: {
       type: Object,
       required: true,
     },

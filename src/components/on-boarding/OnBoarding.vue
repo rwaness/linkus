@@ -11,7 +11,7 @@
       >
         <update-profile-form
           ref="updateProfileForm"
-          :profile="user.customData.profile"
+          :user="userData"
         ></update-profile-form>
       </step>
 
@@ -71,6 +71,12 @@ export default {
 
   vuapix: {
     entry: 'vuapix/users/flagAsOnBoarded',
+  },
+
+  computed: {
+    userData() {
+      return this.user.customData;
+    },
   },
 
   methods: {

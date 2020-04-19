@@ -1,5 +1,5 @@
 <template>
-  <toolbar :title="user.customData.profile.name">
+  <toolbar :title="user.profile.name">
     <template v-slot:append>
       <slot></slot>
     </template>

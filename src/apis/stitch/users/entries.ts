@@ -15,14 +15,20 @@ export default () => ({
   },
   updateProfile: {
     single: true,
-    async doQuery(profile) {
+    async doQuery({ profile, confidentiality }) {
       const user = await collection.findOneAndUpdate({
         id: getUserId(mongodbStitch.user.customData),
       }, {
-        $set: Object.keys(profile).reduce((newProfile, field) => ({
-          ...newProfile,
-          [`profile.${field}`]: profile[field],
-        }), {}),
+        $set: {
+          ...Object.keys(profile).reduce((newProfile, field) => ({
+            ...newProfile,
+            [`profile.${field}`]: profile[field],
+          }), {}),
+          ...Object.keys(confidentiality).reduce((newConfidentiality, field) => ({
+            ...newConfidentiality,
+            [`confidentiality.${field}`]: confidentiality[field],
+          }), {}),
+        },
       }, {
         returnNewDocument: true,
       });
