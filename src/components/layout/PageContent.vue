@@ -3,7 +3,9 @@
     :entry="vuapixEntry"
     :params="vuapixParams"
   >
-    <loading-overlay slot="loader" :loading="true" />
+    <template v-slot:loader="{ loading }">
+      <loading-overlay :loading="loading" />
+    </template>
 
     <template v-slot="props">
       <slot v-bind="props"></slot>
@@ -30,7 +32,7 @@ export default {
     },
     vuapixParams: {
       type: Object,
-      default: undefined,
+      default: () => ({}),
     },
   },
 };

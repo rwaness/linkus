@@ -1,8 +1,6 @@
 <template>
   <div class="vuapix-provider">
-    <template v-if="!loaded || querying">
-      <slot name="loader"></slot>
-    </template>
+    <slot name="loader" :loading="loading"></slot>
 
     <template v-if="loaded">
       <slot :data="data" :error="error" :querying="querying"></slot>
@@ -21,7 +19,7 @@ export default {
     },
     params: {
       type: Object,
-      default: undefined,
+      default: () => ({}),
     },
   },
 
@@ -40,6 +38,9 @@ export default {
     },
     error() {
       return this.$store.getters[`${this.entry}/error`];
+    },
+    loading() {
+      return !this.loaded || this.querying;
     },
   },
 

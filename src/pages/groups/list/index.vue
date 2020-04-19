@@ -8,13 +8,14 @@
               :title="$t('pages.groupsList.title')"
               class="flex-grow-0"
             >
-              <v-btn
-                slot="append"
-                icon
-                @click="createFormOpened = true"
-              >
-                <v-icon>mdi-account-multiple-plus</v-icon>
-              </v-btn>
+              <template v-slot:append>
+                <v-btn
+                  icon
+                  @click="createFormOpened = true"
+                >
+                  <v-icon>mdi-account-multiple-plus</v-icon>
+                </v-btn>
+              </template>
             </toolbar>
 
             <list

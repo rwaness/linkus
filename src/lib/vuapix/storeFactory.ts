@@ -22,11 +22,11 @@ const dataEntryStoreFactory = (ns, entryName, _, options = {}) => {
           state[field] = intialState[field];
         });
       },
-      startFetching(state) {
+      startQuerying(state) {
         state.querying = true;
         state.error = null;
       },
-      endFetching(state) {
+      endQuerying(state) {
         state.querying = false;
       },
       catchError(state, { error }) {
@@ -82,7 +82,7 @@ const dataTypeStoreFactory = (ns, dataType, { api, itemToKey, formatItem }) => (
     [entryName]: async (storeCtx, params) => {
       let response;
       try {
-        storeCtx.commit(`${entryName}/startFetching`);
+        storeCtx.commit(`${entryName}/startQuerying`);
 
         const { doQuery, single } = api[entryName];
         response = await doQuery(params, storeCtx);
@@ -98,7 +98,7 @@ const dataTypeStoreFactory = (ns, dataType, { api, itemToKey, formatItem }) => (
           key: single ? keys[0] : keys,
         });
 
-        storeCtx.commit(`${entryName}/endFetching`);
+        storeCtx.commit(`${entryName}/endQuerying`);
       } catch (error) {
         storeCtx.commit(`${entryName}/catchError`, { error });
         console.error(error);
