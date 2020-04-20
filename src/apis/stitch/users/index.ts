@@ -1,10 +1,11 @@
 import { BSON } from 'mongodb-stitch-browser-sdk';
 import mongodbStitch, { getId } from '@/services/mongodbStitchService';
+import { formatUser } from './formatters';
 
 const collection = mongodbStitch.db.collection('users');
 
-export function userDetail({ id }) {
-  return collection.findOne({ _id: new BSON.ObjectId(id) });
+export async function userDetail({ id }) {
+  return formatUser(await collection.findOne({ _id: new BSON.ObjectId(id) }));
 }
 
 export async function updateProfile({ profile, confidentiality }) {
@@ -27,7 +28,7 @@ export async function updateProfile({ profile, confidentiality }) {
   if (user) {
     await mongodbStitch.refreshCustomData();
   }
-  return user;
+  return formatUser(user);
 }
 
 export async function flagAsOnBoarded() {
@@ -43,5 +44,5 @@ export async function flagAsOnBoarded() {
   if (user) {
     await mongodbStitch.refreshCustomData();
   }
-  return user;
+  return formatUser(user);
 }
