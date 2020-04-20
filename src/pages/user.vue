@@ -32,10 +32,6 @@ export default {
         to: { name: 'UserProfile' },
         exact: true,
       }, {
-        icon: 'mdi-account-group',
-        text: this.$t('pages.user.nav.groups'),
-        to: { name: 'GroupsList' },
-      }, {
         icon: 'mdi-account-key',
         text: this.$t('pages.user.nav.account'),
         to: { name: 'UserAccount' },

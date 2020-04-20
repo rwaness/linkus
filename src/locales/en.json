@@ -10,6 +10,7 @@
     "items": {
       "home": "Home",
       "groupsList": "My Groups",
+      "appsList": "My Apps",
       "about": "About"
     }
   },
@@ -46,7 +47,6 @@
     "user": {
       "nav": {
         "profile": "Profile",
-        "groups": "My Groups",
         "account": "Account",
         "preferences": "Preferences"
       },

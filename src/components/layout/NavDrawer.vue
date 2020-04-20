@@ -55,24 +55,24 @@ export default {
 
   data() {
     return {
-      items: [
-        {
-          title: this.$t('nav.items.home'),
-          icon: 'mdi-home',
-          link: { name: 'Home' },
-          exact: true,
-        },
-        {
-          title: this.$t('nav.items.groupsList'),
-          icon: 'mdi-account-group',
-          link: { name: 'GroupsList' },
-        },
-        {
-          title: this.$t('nav.items.about'),
-          icon: 'mdi-help-circle',
-          link: { name: 'About' },
-        },
-      ],
+      items: [{
+        title: this.$t('nav.items.home'),
+        icon: 'mdi-home',
+        link: { name: 'Home' },
+        exact: true,
+      }, {
+        title: this.$t('nav.items.groupsList'),
+        icon: 'mdi-account-group',
+        link: { name: 'GroupsList' },
+      }, {
+        title: this.$t('nav.items.appsList'),
+        icon: 'mdi-puzzle',
+        link: { name: 'AppsList' },
+      }, {
+        title: this.$t('nav.items.about'),
+        icon: 'mdi-help-circle',
+        link: { name: 'About' },
+      }],
     };
   },
 };

@@ -5,6 +5,7 @@ import Login from '@/pages/Login.vue';
 import NotFound from '@/pages/NotFound.vue';
 import userRouter from './user';
 import groupsRouter from './groups';
+import appsRouter from './apps';
 
 Vue.use(VueRouter);
 
@@ -19,6 +20,7 @@ const routes = [{
 },
 ...userRouter,
 ...groupsRouter,
+...appsRouter,
 {
   path: '/about',
   name: 'About',
