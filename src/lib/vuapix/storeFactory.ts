@@ -59,7 +59,7 @@ const multipleDataEntryStoreFactory = (ns, entryName, entry) => dataEntryStoreFa
   },
 );
 
-const dataTypeStoreFactory = (ns, dataType, { api, itemToKey, formatItem }) => ({
+const dataTypeStoreFactory = (ns, dataType, { api, itemToKey }) => ({
   namespaced: true,
   state: {
     items: {},
@@ -89,7 +89,7 @@ const dataTypeStoreFactory = (ns, dataType, { api, itemToKey, formatItem }) => (
 
         const itemsMap = (single ? [response] : response).reduce((map, item) => ({
           ...map,
-          ...(item ? { [itemToKey(item)]: formatItem(item) } : {}),
+          ...(item ? { [itemToKey(item)]: item } : {}),
         }), {});
         storeCtx.commit('addItems', { itemsMap });
 

@@ -6,15 +6,16 @@ import {
   getInvitationQuery,
   getDeleteInvitationUpdates,
 } from './helpers';
+import { formatGroup } from './formatters';
 
 const collection = mongodbStitch.db.collection('groups');
 
-export function groupsList() {
-  return collection.find({
+export async function groupsList() {
+  return (await collection.find({
     memberIds: mongodbStitch.user.id,
   }, {
     limit: 100,
-  }).asArray();
+  }).asArray()).map(formatGroup);
 }
 
 export async function newGroup({ name, guests }) {
@@ -33,15 +34,15 @@ export async function newGroup({ name, guests }) {
     ],
   };
   const { insertedId } = await collection.insertOne(group);
-  return {
+  return formatGroup({
     _id: insertedId,
     ...group,
-  };
+  });
 }
 
-export function invite({ group, guests }) {
+export async function invite({ group, guests }) {
   const owner = mongodbStitch.user.customData;
-  return collection.findOneAndUpdate({
+  return formatGroup(await collection.findOneAndUpdate({
     ...getIdQuery(group.id),
   }, {
     $addToSet: {
@@ -50,17 +51,17 @@ export function invite({ group, guests }) {
     },
   }, {
     returnNewDocument: true,
-  });
+  }));
 }
 
-export function invitationsList() {
-  return collection.find({
+export async function invitationsList() {
+  return (await collection.find({
     ...getInvitationsQuery(),
-  }).asArray();
+  }).asArray()).map(formatGroup);
 }
 
-export function acceptInvitation({ group }) {
-  return collection.findOneAndUpdate({
+export async function acceptInvitation({ group }) {
+  return formatGroup(await collection.findOneAndUpdate({
     ...getInvitationQuery(group),
   }, {
     ...getDeleteInvitationUpdates(),
@@ -69,19 +70,19 @@ export function acceptInvitation({ group }) {
     },
   }, {
     returnNewDocument: true,
-  });
+  }));
 }
 
-export function rejectInvitation({ group }) {
-  return collection.findOneAndUpdate({
+export async function rejectInvitation({ group }) {
+  return formatGroup(await collection.findOneAndUpdate({
     ...getInvitationQuery(group),
   }, {
     ...getDeleteInvitationUpdates(),
   }, {
     returnNewDocument: true,
-  });
+  }));
 }
 
-export function groupDetail({ id }) {
-  return collection.findOne(getIdQuery(id));
+export async function groupDetail({ id }) {
+  return formatGroup(await collection.findOne(getIdQuery(id)));
 }
