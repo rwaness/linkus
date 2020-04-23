@@ -7,6 +7,9 @@
       <slot v-if="user.customData.onBoarded" :user="user"></slot>
       <on-boarding v-else :user="user"></on-boarding>
     </template>
+    <template v-slot:unauthenticated>
+      <slot name="unauthenticated"></slot>
+    </template>
   </auth-provider>
 </template>
 

@@ -5,7 +5,17 @@
       :vuapix-params="{ id: appId }"
     >
       <template v-slot="{ data: app }">
-        <pre>{{ app }}</pre>
+        <auth-view>
+          <template v-slot="{ user }">
+            <app-wrapper
+              :app="app"
+              :user="user"
+            ></app-wrapper>
+          </template>
+          <template v-slot:unauthenticated>
+            <pre>{{ app }}</pre>
+          </template>
+        </auth-view>
       </template>
     </page-content>
   </default-layout>
@@ -14,13 +24,17 @@
 <script>
 import DefaultLayout from '@/layouts/DefaultLayout.vue';
 import PageContent from '@/components/layout/PageContent.vue';
+import AuthView from '@/components/layout/AuthView.vue';
+import AppWrapper from '@/components/apps/AppWrapper.vue';
 
 export default {
   name: 'AppDetail',
 
   components: {
     DefaultLayout,
+    AuthView,
     PageContent,
+    AppWrapper,
   },
 
   props: {
