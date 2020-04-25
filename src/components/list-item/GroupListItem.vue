@@ -32,7 +32,7 @@ export default {
 
   computed: {
     link() {
-      return { name: 'GroupOverview', params: { groupId: this.group.id } };
+      return { name: 'GroupOverviewPage', params: { groupId: this.group.id } };
     },
   },
 };

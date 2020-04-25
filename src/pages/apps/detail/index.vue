@@ -5,7 +5,7 @@
       :vuapix-params="{ id: appId }"
     >
       <template v-slot="{ data: app }">
-        <auth-view>
+        <auth-view class="fill-height">
           <template v-slot="{ user }">
             <app-wrapper
               :app="app"
@@ -28,7 +28,7 @@ import AuthView from '@/components/layout/AuthView.vue';
 import AppWrapper from '@/components/apps/AppWrapper.vue';
 
 export default {
-  name: 'AppDetail',
+  name: 'AppDetailPage',
 
   components: {
     DefaultLayout,

@@ -10,7 +10,7 @@
 import DataSection from '@/components/ui/DataSection.vue';
 
 export default {
-  name: 'UserAccount',
+  name: 'UserAccountPage',
 
   components: {
     DataSection,

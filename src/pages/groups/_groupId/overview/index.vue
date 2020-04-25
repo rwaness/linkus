@@ -21,7 +21,7 @@
 import GroupToolbar from '@/components/toolbar/GroupToolbar.vue';
 
 export default {
-  name: 'GroupOverview',
+  name: 'GroupOverviewPage',
 
   components: {
     GroupToolbar,

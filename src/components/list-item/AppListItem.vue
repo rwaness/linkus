@@ -24,7 +24,7 @@ export default {
 
   computed: {
     link() {
-      return { name: 'AppDetail', params: { appId: this.app.id } };
+      return { name: 'AppDetailPage', params: { appId: this.app.id } };
     },
   },
 };

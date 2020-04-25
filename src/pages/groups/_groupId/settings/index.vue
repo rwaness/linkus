@@ -6,7 +6,7 @@
 
 <script>
 export default {
-  name: 'GroupSettings',
+  name: 'GroupSettingsPage',
 
   props: {
     group: {

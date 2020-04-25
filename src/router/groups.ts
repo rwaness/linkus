@@ -1,39 +1,39 @@
-import GroupsList from '@/pages/groups/list/index.vue';
-import Group from '@/pages/groups/_groupId.vue';
-import GroupOverview from '@/pages/groups/_groupId/overview/index.vue';
-import GroupMembers from '@/pages/groups/_groupId/members/index.vue';
-import MemberProfile from '@/pages/groups/_groupId/members/_memberId.vue';
-import GroupPlugins from '@/pages/groups/_groupId/plugins/index.vue';
-import GroupSettings from '@/pages/groups/_groupId/settings/index.vue';
+import GroupsListPage from '@/pages/groups/list/index.vue';
+import GroupPage from '@/pages/groups/_groupId.vue';
+import GroupOverviewPage from '@/pages/groups/_groupId/overview/index.vue';
+import GroupMembersPage from '@/pages/groups/_groupId/members/index.vue';
+import MemberProfilePage from '@/pages/groups/_groupId/members/_memberId.vue';
+import GroupPluginsPage from '@/pages/groups/_groupId/plugins/index.vue';
+import GroupSettingsPage from '@/pages/groups/_groupId/settings/index.vue';
 
 export default [{
   path: '/groups',
-  name: 'GroupsList',
-  component: GroupsList,
+  name: 'GroupsListPage',
+  component: GroupsListPage,
 }, {
   path: '/groups/:groupId',
-  component: Group,
+  component: GroupPage,
   props: true,
   children: [{
     path: '',
-    name: 'GroupOverview',
-    component: GroupOverview,
+    name: 'GroupOverviewPage',
+    component: GroupOverviewPage,
   }, {
     path: 'members',
-    name: 'GroupMembers',
-    component: GroupMembers,
+    name: 'GroupMembersPage',
+    component: GroupMembersPage,
   }, {
     path: 'members/:memberId',
-    name: 'MemberProfile',
-    component: MemberProfile,
+    name: 'MemberProfilePage',
+    component: MemberProfilePage,
     props: true,
   }, {
     path: 'plugins',
-    name: 'GroupPlugins',
-    component: GroupPlugins,
+    name: 'GroupPluginsPage',
+    component: GroupPluginsPage,
   }, {
     path: 'settings',
-    name: 'GroupSettings',
-    component: GroupSettings,
+    name: 'GroupSettingsPage',
+    component: GroupSettingsPage,
   }],
 }];

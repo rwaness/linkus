@@ -23,7 +23,7 @@ import List from '@/components/ui/List.vue';
 import PluginListItem from '@/components/list-item/PluginListItem.vue';
 
 export default {
-  name: 'GroupPlugins',
+  name: 'GroupPluginsPage',
 
   components: {
     List,

@@ -58,20 +58,16 @@ export default {
       items: [{
         title: this.$t('nav.items.home'),
         icon: 'mdi-home',
-        link: { name: 'Home' },
+        link: { name: 'HomePage' },
         exact: true,
       }, {
         title: this.$t('nav.items.groupsList'),
         icon: 'mdi-account-group',
-        link: { name: 'GroupsList' },
+        link: { name: 'GroupsListPage' },
       }, {
         title: this.$t('nav.items.appsList'),
-        icon: 'mdi-puzzle',
-        link: { name: 'AppsList' },
-      }, {
-        title: this.$t('nav.items.about'),
-        icon: 'mdi-help-circle',
-        link: { name: 'About' },
+        icon: 'mdi-toy-brick',
+        link: { name: 'AppsListPage' },
       }],
     };
   },

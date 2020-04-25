@@ -1,13 +1,13 @@
-import AppsList from '@/pages/apps/list/index.vue';
-import AppDetail from '@/pages/apps/detail/index.vue';
+import AppsListPage from '@/pages/apps/list/index.vue';
+import AppDetailPage from '@/pages/apps/detail/index.vue';
 
 export default [{
   path: '/apps',
-  name: 'AppsList',
-  component: AppsList,
+  name: 'AppsListPage',
+  component: AppsListPage,
 }, {
   path: '/apps/:appId',
-  name: 'AppDetail',
-  component: AppDetail,
+  name: 'AppDetailPage',
+  component: AppDetailPage,
   props: true,
 }];

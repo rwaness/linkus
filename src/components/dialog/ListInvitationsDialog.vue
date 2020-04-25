@@ -55,7 +55,7 @@ export default {
 
   watch: {
     joinedGroup({ id: groupId }) {
-      this.$router.push({ name: 'GroupOverview', params: { groupId } });
+      this.$router.push({ name: 'GroupOverviewPage', params: { groupId } });
       this.close();
     },
   },

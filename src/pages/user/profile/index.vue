@@ -44,7 +44,7 @@ import DataSection from '@/components/ui/DataSection.vue';
 import UpdateProfileDialog from '@/components/dialog/UpdateProfileDialog.vue';
 
 export default {
-  name: 'UserProfile',
+  name: 'UserProfilePage',
 
   components: {
     UserToolbar,

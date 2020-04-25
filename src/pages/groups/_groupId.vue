@@ -12,7 +12,7 @@
             :label="$t('pages.groupDetail.noResults.label')"
             :message="$t('pages.groupDetail.noResults.message')"
             :action-label="$t('pages.groupDetail.noResults.action')"
-            @action:click="$router.push({ name: 'GroupsList' })"
+            @action:click="$router.push({ name: 'GroupsListPage' })"
           />
           <template v-else>
             <router-view :group="group"></router-view>
@@ -33,7 +33,7 @@ import BottomNav from '@/components/layout/BottomNav.vue';
 import NoResults from '@/components/ui/NoResults.vue';
 
 export default {
-  name: 'Group',
+  name: 'GroupPage',
 
   components: {
     AuthView,
@@ -55,20 +55,20 @@ export default {
       navItems: [{
         icon: 'mdi-view-dashboard',
         text: this.$t('pages.groupDetail.nav.overview'),
-        to: { name: 'GroupOverview', params: { groupId: this.groupId } },
+        to: { name: 'GroupOverviewPage', params: { groupId: this.groupId } },
         exact: true,
       }, {
         icon: 'mdi-account-multiple',
         text: this.$t('pages.groupDetail.nav.members'),
-        to: { name: 'GroupMembers', params: { groupId: this.groupId } },
+        to: { name: 'GroupMembersPage', params: { groupId: this.groupId } },
       }, {
-        icon: 'mdi-puzzle',
+        icon: 'mdi-toy-brick',
         text: this.$t('pages.groupDetail.nav.plugins'),
-        to: { name: 'GroupPlugins', params: { groupId: this.groupId } },
+        to: { name: 'GroupPluginsPage', params: { groupId: this.groupId } },
       }, {
         icon: 'mdi-cogs',
         text: this.$t('pages.groupDetail.nav.settings'),
-        to: { name: 'GroupSettings', params: { groupId: this.groupId } },
+        to: { name: 'GroupSettingsPage', params: { groupId: this.groupId } },
       }],
     };
   },

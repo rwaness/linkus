@@ -3,7 +3,7 @@
     <template v-slot:prepend>
       <v-btn
         icon
-        :to="{ name: 'GroupsList' }"
+        :to="{ name: 'GroupsListPage' }"
         exact
         class="ml-n4"
       >

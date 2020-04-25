@@ -12,7 +12,7 @@ import DefaultLayout from '@/layouts/DefaultLayout.vue';
 import AuthView from '@/components/layout/AuthView.vue';
 
 export default {
-  name: 'Login',
+  name: 'LoginPage',
 
   components: {
     AuthView,
@@ -21,7 +21,7 @@ export default {
 
   methods: {
     onAuthenticate() {
-      this.$router.push({ name: 'GroupsList' });
+      this.$router.push({ name: 'GroupsListPage' });
     },
   },
 };

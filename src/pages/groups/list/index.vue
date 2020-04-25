@@ -25,8 +25,8 @@
               :no-results-label="$t('pages.groupsList.noResults.label')"
               :no-results-message="$t('pages.groupsList.noResults.message')"
               :no-results-action-label="$t('pages.groupsList.noResults.action')"
-              @no-results-action:click="createFormOpened = true">
-
+              @no-results-action:click="createFormOpened = true"
+            >
               <template v-slot:list-item="{ item: group }">
                 <group-list-item :group="group" />
               </template>
@@ -35,7 +35,7 @@
 
           <new-group-dialog
             v-model="createFormOpened"
-          />
+          ></new-group-dialog>
         </template>
       </page-content>
     </auth-view>
@@ -52,7 +52,7 @@ import GroupListItem from '@/components/list-item/GroupListItem.vue';
 import NewGroupDialog from '@/components/dialog/NewGroupDialog.vue';
 
 export default {
-  name: 'GroupsList',
+  name: 'GroupsListPage',
 
   components: {
     AuthView,

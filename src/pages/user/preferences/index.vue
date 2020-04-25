@@ -18,7 +18,7 @@
 import DataSection from '@/components/ui/DataSection.vue';
 
 export default {
-  name: 'UserPreferences',
+  name: 'UserPreferencesPage',
 
   components: {
     DataSection,

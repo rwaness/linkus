@@ -1,8 +1,8 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
-import Home from '@/pages/Home.vue';
-import Login from '@/pages/Login.vue';
-import NotFound from '@/pages/NotFound.vue';
+import HomePage from '@/pages/HomePage.vue';
+import LoginPage from '@/pages/LoginPage.vue';
+import NotFoundPage from '@/pages/NotFoundPage.vue';
 import userRouter from './user';
 import groupsRouter from './groups';
 import appsRouter from './apps';
@@ -11,27 +11,20 @@ Vue.use(VueRouter);
 
 const routes = [{
   path: '/',
-  name: 'Home',
-  component: Home,
+  name: 'HomePage',
+  component: HomePage,
 }, {
   path: '/login',
-  name: 'Login',
-  component: Login,
+  name: 'LoginPage',
+  component: LoginPage,
 },
 ...userRouter,
 ...groupsRouter,
 ...appsRouter,
 {
-  path: '/about',
-  name: 'About',
-  // route level code-splitting
-  // this generates a separate chunk (about.[hash].js) for this route
-  // which is lazy-loaded when the route is visited.
-  component: () => import(/* webpackChunkName: "about" */ '@/pages/About.vue'),
-}, {
   path: '*',
-  name: 'NotFound',
-  component: NotFound,
+  name: 'NotFoundPage',
+  component: NotFoundPage,
 }];
 
 const router = new VueRouter({

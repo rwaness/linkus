@@ -7,7 +7,7 @@
 
 <script>
 import LoadingOverlay from '@/components/ui/LoadingOverlay.vue';
-import AsyncError from './AsyncError';
+import NotFound from '@/components/error/NotFound.vue';
 
 export default {
   name: 'AppWrapper',
@@ -28,7 +28,7 @@ export default {
       return () => ({
         component: import(`@/lib/packages/${this.app.package}/index.vue`),
         loading: LoadingOverlay,
-        error: AsyncError,
+        error: NotFound,
         delay: 200,
         timeout: 3000,
       });

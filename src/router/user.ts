@@ -1,22 +1,22 @@
-import User from '@/pages/user.vue';
-import UserProfile from '@/pages/user/profile/index.vue';
-import UserAccount from '@/pages/user/account/index.vue';
-import UserPreferences from '@/pages/user/preferences/index.vue';
+import UserPage from '@/pages/user.vue';
+import UserProfilePage from '@/pages/user/profile/index.vue';
+import UserAccountPage from '@/pages/user/account/index.vue';
+import UserPreferencesPage from '@/pages/user/preferences/index.vue';
 
 export default [{
   path: '/user',
-  component: User,
+  component: UserPage,
   children: [{
     path: '',
-    name: 'UserProfile',
-    component: UserProfile,
+    name: 'UserProfilePage',
+    component: UserProfilePage,
   }, {
     path: 'account',
-    name: 'UserAccount',
-    component: UserAccount,
+    name: 'UserAccountPage',
+    component: UserAccountPage,
   }, {
     path: 'preferences',
-    name: 'UserPreferences',
-    component: UserPreferences,
+    name: 'UserPreferencesPage',
+    component: UserPreferencesPage,
   }],
 }];

@@ -19,7 +19,7 @@
     </template>
 
     <v-list>
-      <v-list-item :to="{ name: 'UserProfile' }" exact>
+      <v-list-item :to="{ name: 'UserProfilePage' }" exact>
         <v-list-item-content>
           <v-list-item-title class="title">
             {{ user.customData.profile.name }}
@@ -51,7 +51,7 @@
 
       <v-divider></v-divider>
 
-      <v-list-item :to="{ name: 'UserPreferences' }">
+      <v-list-item :to="{ name: 'UserPreferencesPage' }">
         <v-list-item-icon>
             <v-icon>mdi-account-cog</v-icon>
         </v-list-item-icon>
@@ -130,7 +130,7 @@ export default {
       }
     },
     logout() {
-      this.goTo('Home');
+      this.goTo('HomePage');
       this.$mongodbStitch.logout();
     },
   },

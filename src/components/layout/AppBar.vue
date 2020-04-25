@@ -60,10 +60,10 @@ export default {
 
   methods: {
     goToLogin() {
-      if (this.$router.currentRoute && this.$router.currentRoute.name === 'Login') {
+      if (this.$router.currentRoute && this.$router.currentRoute.name === 'LoginPage') {
         this.registrationFormOpened = false;
       } else {
-        this.$router.push({ name: 'Login' });
+        this.$router.push({ name: 'LoginPage' });
       }
     },
   },

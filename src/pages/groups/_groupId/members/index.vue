@@ -46,7 +46,7 @@ import MemberListItem from '@/components/list-item/MemberListItem.vue';
 import NewInvitationsDialog from '@/components/dialog/NewInvitationsDialog.vue';
 
 export default {
-  name: 'GroupMembers',
+  name: 'GroupMembersPage',
 
   components: {
     GroupToolbar,

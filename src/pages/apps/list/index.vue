@@ -21,7 +21,7 @@ import List from '@/components/ui/List.vue';
 import AppListItem from '@/components/list-item/AppListItem.vue';
 
 export default {
-  name: 'AppsList',
+  name: 'AppsListPage',
 
   components: {
     DefaultLayout,

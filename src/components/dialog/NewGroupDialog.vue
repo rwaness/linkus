@@ -27,7 +27,7 @@ export default {
 
   methods: {
     onSuccess({ id: groupId }) {
-      this.$router.push({ name: 'GroupOverview', params: { groupId } });
+      this.$router.push({ name: 'GroupOverviewPage', params: { groupId } });
     },
   },
 };

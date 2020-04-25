@@ -16,7 +16,7 @@ import DefaultLayout from '@/layouts/DefaultLayout.vue';
 import BottomNav from '@/components/layout/BottomNav.vue';
 
 export default {
-  name: 'User',
+  name: 'UserPage',
 
   components: {
     AuthView,
@@ -29,16 +29,16 @@ export default {
       navItems: [{
         icon: 'mdi-home-account',
         text: this.$t('pages.user.nav.profile'),
-        to: { name: 'UserProfile' },
+        to: { name: 'UserProfilePage' },
         exact: true,
       }, {
         icon: 'mdi-account-key',
         text: this.$t('pages.user.nav.account'),
-        to: { name: 'UserAccount' },
+        to: { name: 'UserAccountPage' },
       }, {
         icon: 'mdi-account-cog',
         text: this.$t('pages.user.nav.preferences'),
-        to: { name: 'UserPreferences' },
+        to: { name: 'UserPreferencesPage' },
       }],
     };
   },

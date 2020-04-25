@@ -15,7 +15,7 @@
 import PageContent from '@/components/layout/PageContent.vue';
 
 export default {
-  name: 'MemberProfile',
+  name: 'MemberProfilePage',
 
   components: {
     PageContent,

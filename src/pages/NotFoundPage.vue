@@ -1,16 +1,19 @@
 <template>
-  <default-layout class="about">
-    <h1>This is an about page</h1>
+  <default-layout class="not-found">
+    <not-found></not-found>
   </default-layout>
 </template>
 
 <script>
 import DefaultLayout from '@/layouts/DefaultLayout.vue';
+import NotFound from '@/components/error/NotFound.vue';
 
 export default {
-  name: 'About',
+  name: 'NotFoundPage',
+
   components: {
     DefaultLayout,
+    NotFound,
   },
 };
 </script>
