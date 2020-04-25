@@ -101,7 +101,6 @@ const dataTypeStoreFactory = (ns, dataType, { api, itemToKey }) => ({
         storeCtx.commit(`${entryName}/endQuerying`);
       } catch (error) {
         storeCtx.commit(`${entryName}/catchError`, { error });
-        console.error(error);
       }
       return response;
     },

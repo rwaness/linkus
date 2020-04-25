@@ -111,7 +111,6 @@ export default {
 
   watch: {
     modelLevel(modelLevel) {
-      console.log('updateModelLevel', modelLevel);
       if (modelLevel !== 'shared') {
         this.updateConfidentiality();
       }
