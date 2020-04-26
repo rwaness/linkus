@@ -4,7 +4,7 @@
       {{ $t('onboarding.title') }}
     </header>
 
-    <stepper @finish="submit">
+    <stepper @finish="vuapixDoQuery">
       <step
         :title="$t('onboarding.step.1.title')"
         :check-before-next="updateProfile"
@@ -41,7 +41,7 @@
 </template>
 
 <script>
-import { VuapixProvider, VuapixFormMixin } from '@/lib/vuapix';
+import { VuapixProvider, VuapixMixin } from '@/lib/vuapix';
 import Stepper from '@/components/ui/Stepper.vue';
 import Step from '@/components/ui/Step.vue';
 import UpdateProfileForm from '@/components/form/UpdateProfileForm.vue';
@@ -51,7 +51,7 @@ import InvitationListItem from '@/components/list-item/InvitationListItem.vue';
 export default {
   name: 'OnBoarding',
 
-  mixins: [VuapixFormMixin],
+  mixins: [VuapixMixin],
 
   components: {
     VuapixProvider,

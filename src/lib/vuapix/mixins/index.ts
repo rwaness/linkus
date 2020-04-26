@@ -1,2 +1,2 @@
 /* eslint-disable import/prefer-default-export */
-export { default as VuapixFormMixin } from './VuapixFormMixin';
+export { default as VuapixMixin } from './VuapixMixin';

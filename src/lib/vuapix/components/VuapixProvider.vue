@@ -1,16 +1,20 @@
 <template>
   <div class="vuapix-provider">
-    <slot name="loader" :loading="loading"></slot>
-
-    <template v-if="loaded">
-      <slot :data="data" :error="error" :querying="querying"></slot>
-    </template>
+    <slot
+      :data="vuapixData"
+      :error="vuapixError"
+      :querying="vuapixQuerying"
+    ></slot>
   </div>
 </template>
 
 <script>
+import VuapixMixin from '../mixins/VuapixMixin';
+
 export default {
   name: 'VuapixProvider',
+
+  mixins: [VuapixMixin],
 
   props: {
     entry: {
@@ -18,41 +22,20 @@ export default {
       required: true,
     },
     params: {
-      type: Object,
-      default: () => ({}),
+      type: [Function, Object],
+      default: () => undefined,
     },
   },
 
-  data() {
+  vuapix() {
     return {
-      loaded: false,
+      entry: this.entry,
+      params: this.params,
     };
   },
 
-  computed: {
-    data() {
-      return this.$store.getters[`${this.entry}/data`];
-    },
-    querying() {
-      return this.$store.getters[`${this.entry}/querying`];
-    },
-    error() {
-      return this.$store.getters[`${this.entry}/error`];
-    },
-    loading() {
-      return !this.loaded || this.querying;
-    },
-  },
-
-  async created() {
-    await this.load();
-    this.loaded = true;
-  },
-
-  methods: {
-    load() {
-      return this.$store.dispatch(this.entry, this.params);
-    },
+  created() {
+    this.vuapixDoQuery();
   },
 };
 </script>

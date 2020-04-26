@@ -1,7 +1,13 @@
-import { VuapixFormMixin } from '@/lib/vuapix';
+import { VuapixMixin } from '@/lib/vuapix';
 
 export default {
-  mixins: [VuapixFormMixin],
+  mixins: [VuapixMixin],
+
+  mounted() {
+    if (!this.$refs.form) {
+      throw new Error(`No "form" ref on component "${this.$options.name}"`);
+    }
+  },
 
   methods: {
     validate() {
@@ -12,8 +18,11 @@ export default {
       return valid;
     },
     submit() {
-      return this.validate()
-        && VuapixFormMixin.methods.submit.call(this);
+      return this.validate() && this.vuapixDoQuery();
+    },
+    vuapixEmit(eventName, data) {
+      const event = eventName === 'query' ? 'submit' : eventName;
+      this.$emit(event, data);
     },
   },
 };
