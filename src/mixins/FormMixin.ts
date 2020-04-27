@@ -5,7 +5,7 @@ export default {
 
   mounted() {
     if (!this.$refs.form) {
-      throw new Error(`No "form" ref on component "${this.$options.name}"`);
+      throw new Error(`Missing "form" ref on component "${this.$options.name}"`);
     }
   },
 
