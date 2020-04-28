@@ -21,8 +21,8 @@
 <script>
 import { mapGetters } from 'vuex';
 import DialogMixin from '@/mixins/DialogMixin';
-import CardDialog from '@/components/dialog/CardDialog.vue';
-import List from '@/components/ui/List.vue';
+import CardDialog from '@/components/layout/CardDialog.vue';
+import List from '@/components/layout/List.vue';
 import InvitationListItem from '@/components/list-item/InvitationListItem.vue';
 
 export default {

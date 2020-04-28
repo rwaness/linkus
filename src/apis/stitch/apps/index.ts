@@ -4,8 +4,15 @@ import { formatApp } from './formatters';
 
 const collection = mongodbStitch.db.collection('apps');
 
-export async function appsList() {
-  return (await collection.find({}, {
+export async function appsList({ ids } = {}) {
+  const query = {
+    ...(ids && ids.length
+      ? { _id: { $in: ids.map((id) => new BSON.ObjectId(id)) } }
+      : {}
+    ),
+  };
+
+  return (await collection.find(query, {
     limit: 100,
   }).asArray()).map(formatApp);
 }

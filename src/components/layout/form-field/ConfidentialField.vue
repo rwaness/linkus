@@ -65,9 +65,9 @@
 
 <script>
 import { defaultLevel, getConfidentialityIcon, getConfidentialityLabel } from '@/services/confidentiality';
-import CardDialog from '@/components/dialog/CardDialog.vue';
+import CardDialog from '@/components/layout/CardDialog.vue';
 import ConfidentialityListItem from '@/components/list-item/ConfidentialityListItem.vue';
-import GroupsSelect from '@/components/form/fields/GroupsSelect.vue';
+import GroupsSelect from '@/components/layout/form-field/GroupsSelect.vue';
 
 export default {
   name: 'ConfidentialField',

@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import LoadingOverlay from '@/components/ui/LoadingOverlay.vue';
+import LoadingOverlay from '@/components/layout/LoadingOverlay.vue';
 import NotFound from '@/components/error/NotFound.vue';
 
 export default {

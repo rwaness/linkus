@@ -28,10 +28,10 @@
 
 <script>
 import DialogMixin from '@/mixins/DialogMixin';
-import Card from '@/components/ui/Card.vue';
+import Card from '@/components/layout/Card.vue';
 
 export default {
-  name: 'FormDialog',
+  name: 'CardDialog',
 
   mixins: [DialogMixin],
 

@@ -97,6 +97,16 @@
         "guests": "Guests ({counter})",
         "members": "Members ({counter})"
       }
+    },
+    "appsList": {
+      "auth": {
+        "title": "My Apps",
+        "noResults": {
+          "label": "You don't have added any app yet!",
+          "message": "Add one now to customize your experience",
+          "action": "Add my first app"
+        }
+      }
     }
   },
   "dialog": {
@@ -129,6 +139,9 @@
       "actions": {
         "submit": "Update"
       }
+    },
+    "addApp": {
+      "title": "Add an app"
     }
   },
   "form": {

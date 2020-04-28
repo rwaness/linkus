@@ -13,7 +13,7 @@
 
 <script>
 import OptionalModelMixin from '@/mixins/OptionalModelMixin';
-import Vnode from '@/components/functional/Vnode';
+import Vnode from '@/components/layout/Vnode';
 
 export default {
   name: 'Stepper',

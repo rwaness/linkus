@@ -1,32 +1,52 @@
 <template>
-  <auth-provider
-    class="auth-view"
-    :enable-login="enableLogin"
-  >
-    <template v-slot="{ user }">
-      <slot v-if="user.customData.onBoarded" :user="user"></slot>
-      <on-boarding v-else :user="user"></on-boarding>
-    </template>
-    <template v-slot:unauthenticated>
-      <slot name="unauthenticated"></slot>
+  <auth-provider class="auth-view">
+    <template v-slot="{ user, authenticating }">
+      <loading-overlay
+        v-if="enableLoading"
+        :loading="authenticating"
+      ></loading-overlay>
+
+      <slot
+        v-if="!user || user.loggedInProviderType === 'anon-user'"
+        name="unauthenticated"
+      >
+        <v-container v-if="enableLogin">
+          <login-card></login-card>
+        </v-container>
+      </slot>
+      <on-boarding
+        v-else-if="!user.customData.onBoarded"
+        :user="user"
+      ></on-boarding>
+      <slot
+        v-else
+        :user="user"
+      ></slot>
     </template>
   </auth-provider>
 </template>
 
 <script>
 import { AuthProvider } from '@/lib/vue-mongodb-stitch';
+import LoadingOverlay from '@/components/layout/LoadingOverlay.vue';
+import LoginCard from '@/components/card/LoginCard.vue';
 import OnBoarding from '@/components/on-boarding';
 
-// TODO handle enable-login here !
 export default {
   name: 'AuthView',
 
   components: {
     AuthProvider,
+    LoadingOverlay,
+    LoginCard,
     OnBoarding,
   },
 
   props: {
+    enableLoading: {
+      type: Boolean,
+      default: false,
+    },
     enableLogin: {
       type: Boolean,
       default: false,

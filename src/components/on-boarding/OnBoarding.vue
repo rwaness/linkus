@@ -42,10 +42,10 @@
 
 <script>
 import { VuapixProvider, VuapixMixin } from '@/lib/vuapix';
-import Stepper from '@/components/ui/Stepper.vue';
-import Step from '@/components/ui/Step.vue';
+import Stepper from '@/components/layout/Stepper.vue';
+import Step from '@/components/layout/Step.vue';
 import UpdateProfileForm from '@/components/form/UpdateProfileForm.vue';
-import List from '@/components/ui/List.vue';
+import List from '@/components/layout/List.vue';
 import InvitationListItem from '@/components/list-item/InvitationListItem.vue';
 
 export default {

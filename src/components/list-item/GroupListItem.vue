@@ -14,7 +14,7 @@
 </template>
 
 <script>
-import GroupListItemContent from './content/GroupListItemContent.vue';
+import GroupListItemContent from '@/components/list-item/content/GroupListItemContent.vue';
 
 export default {
   name: 'GroupListItem',

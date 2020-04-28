@@ -25,7 +25,7 @@
 </template>
 
 <script>
-import NoResults from './NoResults.vue';
+import NoResults from '@/components/layout/NoResults.vue';
 
 export default {
   name: 'List',

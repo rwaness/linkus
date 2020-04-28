@@ -2,7 +2,7 @@
   <v-toolbar dense>
     <slot name="prepend"></slot>
 
-    <v-toolbar-title>{{ title }}</v-toolbar-title>
+    <v-toolbar-title class="primary--text">{{ title }}</v-toolbar-title>
 
     <v-spacer></v-spacer>
 

@@ -1,6 +1,5 @@
 <template>
   <div>
-    NOTES<br/>
     user: {{ user.id }}
   </div>
 </template>

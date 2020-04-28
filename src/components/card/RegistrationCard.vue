@@ -62,7 +62,7 @@
 </template>
 
 <script>
-import RegistrationForm from './forms/RegistrationForm.vue';
+import RegistrationForm from '@/components/form/RegistrationForm.vue';
 
 export default {
   name: 'RegistrationCard',

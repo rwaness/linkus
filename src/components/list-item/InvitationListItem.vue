@@ -57,7 +57,7 @@
 
 <script>
 import { mapActions } from 'vuex';
-import GroupListItemContent from './content/GroupListItemContent.vue';
+import GroupListItemContent from '@/components/list-item/content/GroupListItemContent.vue';
 
 export default {
   name: 'InvitationListItem',

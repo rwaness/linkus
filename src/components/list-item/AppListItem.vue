@@ -2,12 +2,15 @@
   <v-list-item
     class="app-list-item"
     :to="link"
+    exact
   >
     <v-list-item-title>{{ app.name }}</v-list-item-title>
 
-    <v-list-item-icon>
-      <v-icon>mdi-chevron-right</v-icon>
-    </v-list-item-icon>
+    <slot name="action">
+      <v-list-item-icon>
+        <v-icon>mdi-chevron-right</v-icon>
+      </v-list-item-icon>
+    </slot>
   </v-list-item>
 </template>
 

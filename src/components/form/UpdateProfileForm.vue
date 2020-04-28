@@ -60,7 +60,7 @@
 <script>
 import FormMixin from '@/mixins/FormMixin';
 import { VTextField } from 'vuetify/lib';
-import ConfidentialField from './fields/ConfidentialField.vue';
+import ConfidentialField from '@/components/layout/form-field/ConfidentialField.vue';
 
 export default {
   name: 'UpdateProfileForm',

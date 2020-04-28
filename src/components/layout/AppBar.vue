@@ -14,7 +14,7 @@
 
       <v-spacer></v-spacer>
 
-      <auth-provider>
+      <auth-view>
         <template v-slot="{ user }">
           <contextual-menu :user="user"/>
         </template>
@@ -33,21 +33,21 @@
             />
           </v-dialog>
         </template>
-      </auth-provider>
+      </auth-view>
     </v-app-bar>
   </div>
 </template>
 
 <script>
-import AuthProvider from '@/lib/vue-mongodb-stitch/components/AuthProvider.vue';
-import ContextualMenu from '@/components/account/ContextualMenu.vue';
-import RegistrationCard from '@/lib/vue-mongodb-stitch/components/RegistrationCard.vue';
+import RegistrationCard from '@/components/card/RegistrationCard.vue';
+import AuthView from '@/components/layout/AuthView.vue';
+import ContextualMenu from '@/components/layout/ContextualMenu.vue';
 
 export default {
   name: 'AppBar',
 
   components: {
-    AuthProvider,
+    AuthView,
     ContextualMenu,
     RegistrationCard,
   },

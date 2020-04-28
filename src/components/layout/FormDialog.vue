@@ -32,8 +32,8 @@
 
 <script>
 import DialogMixin from '@/mixins/DialogMixin';
-import CardDialog from '@/components/dialog/CardDialog.vue';
-import LoadingOverlay from '@/components/ui/LoadingOverlay.vue';
+import CardDialog from '@/components/layout/CardDialog.vue';
+import LoadingOverlay from '@/components/layout/LoadingOverlay.vue';
 
 export default {
   name: 'FormDialog',

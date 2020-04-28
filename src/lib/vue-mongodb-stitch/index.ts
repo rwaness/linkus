@@ -1,2 +1,3 @@
 export { default } from './vue-mongodb-stitch';
-export { default as AuthProvider } from './components/AuthProvider.vue';
+export * from './mixins';
+export * from './components';

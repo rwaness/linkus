@@ -18,7 +18,7 @@
 
 <script>
 import DialogMixin from '@/mixins/DialogMixin';
-import FormDialog from '@/components/dialog/FormDialog.vue';
+import FormDialog from '@/components/layout/FormDialog.vue';
 import NewInvitationsForm from '@/components/form/NewInvitationsForm.vue';
 
 export default {

@@ -19,7 +19,7 @@
 </template>
 
 <script>
-import List from '@/components/ui/List.vue';
+import List from '@/components/layout/List.vue';
 import PluginListItem from '@/components/list-item/PluginListItem.vue';
 
 export default {

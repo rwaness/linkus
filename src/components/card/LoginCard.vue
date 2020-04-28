@@ -1,19 +1,15 @@
 <template>
-  <v-card>
-    <v-toolbar
-      color="primary"
-      dark
-      flat
-    >
-      <v-toolbar-title>{{ $t('mongodbStitch.login.card.title') }}</v-toolbar-title>
-    </v-toolbar>
+  <card :title="$t('mongodbStitch.login.card.title')">
+    <loading-overlay :loading="loading"></loading-overlay>
 
     <v-card-text>
-      <login-form ref="form" />
+      <login-form
+        ref="form"
+      ></login-form>
     </v-card-text>
 
     <v-card-actions>
-      <v-spacer />
+      <v-spacer></v-spacer>
 
       <v-btn
         color="primary"
@@ -22,21 +18,21 @@
         {{ $t('mongodbStitch.login.card.actions.submit') }}
       </v-btn>
     </v-card-actions>
-
-    <v-overlay :value="logging">
-      <v-progress-circular indeterminate size="64"></v-progress-circular>
-    </v-overlay>
-  </v-card>
+  </card>
 </template>
 
 <script>
-import LoginForm from './forms/LoginForm.vue';
+import LoginForm from '@/components/form/LoginForm.vue';
+import Card from '@/components/layout/Card.vue';
+import LoadingOverlay from '@/components/layout/LoadingOverlay.vue';
 
 export default {
   name: 'LoginCard',
 
   components: {
+    Card,
     LoginForm,
+    LoadingOverlay,
   },
 
   data() {

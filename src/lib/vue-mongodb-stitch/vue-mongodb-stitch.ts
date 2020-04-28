@@ -29,7 +29,10 @@ export default class VueMongodbStitch extends MongodbStitch {
   }
 
   async auth() {
-    if (!this.user && super.user) {
+    if (!this.user) {
+      if (!super.user) {
+        super.loginAnonymous();
+      }
       await this.refreshCustomData();
       this.user = super.user;
     }

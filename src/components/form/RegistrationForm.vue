@@ -28,7 +28,7 @@
 </template>
 
 <script>
-import PasswordField from './fields/PasswordField.vue';
+import PasswordField from '@/components/layout/form-field/PasswordField.vue';
 
 export default {
   name: 'RegistrationForm',

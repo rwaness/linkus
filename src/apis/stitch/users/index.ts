@@ -46,3 +46,16 @@ export async function flagAsOnBoarded() {
   }
   return formatUser(user);
 }
+
+export async function addApp({ id }) {
+  const user = await collection.findOneAndUpdate({
+    id: getId(mongodbStitch.user.customData),
+  }, {
+    $addToSet: {
+      apps: id,
+    },
+  }, {
+    returnNewDocument: true,
+  });
+  return formatUser(user);
+}

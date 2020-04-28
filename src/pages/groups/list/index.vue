@@ -46,8 +46,8 @@
 import AuthView from '@/components/layout/AuthView.vue';
 import DefaultLayout from '@/layouts/DefaultLayout.vue';
 import PageContent from '@/components/layout/PageContent.vue';
-import Toolbar from '@/components/ui/Toolbar.vue';
-import List from '@/components/ui/List.vue';
+import Toolbar from '@/components/layout/Toolbar.vue';
+import List from '@/components/layout/List.vue';
 import GroupListItem from '@/components/list-item/GroupListItem.vue';
 import NewGroupDialog from '@/components/dialog/NewGroupDialog.vue';
 

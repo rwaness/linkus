@@ -40,9 +40,11 @@ export default {
   },
 
   methods: {
-    vuapixDoQuery() {
-      const { entry, params } = this.vuapixOption;
-      return this.$store.dispatch(entry, params());
+    vuapixDoQuery(params: object = {}) {
+      return this.$store.dispatch(
+        this.vuapixOption.entry,
+        { ...params, ...this.vuapixOption.params() },
+      );
     },
     vuapixEmit(eventName: string, data?: any) {
       this.$emit(`vuapix:${eventName}`, data);

@@ -12,7 +12,7 @@
 
 <script>
 import DialogMixin from '@/mixins/DialogMixin';
-import FormDialog from '@/components/dialog/FormDialog.vue';
+import FormDialog from '@/components/layout/FormDialog.vue';
 import NewGroupForm from '@/components/form/NewGroupForm.vue';
 
 export default {

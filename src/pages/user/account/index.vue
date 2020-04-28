@@ -7,7 +7,7 @@
 </template>
 
 <script>
-import DataSection from '@/components/ui/DataSection.vue';
+import DataSection from '@/components/layout/DataSection.vue';
 
 export default {
   name: 'UserAccountPage',

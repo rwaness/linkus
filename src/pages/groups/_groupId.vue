@@ -30,7 +30,7 @@ import AuthView from '@/components/layout/AuthView.vue';
 import DefaultLayout from '@/layouts/DefaultLayout.vue';
 import PageContent from '@/components/layout/PageContent.vue';
 import BottomNav from '@/components/layout/BottomNav.vue';
-import NoResults from '@/components/ui/NoResults.vue';
+import NoResults from '@/components/layout/NoResults.vue';
 
 export default {
   name: 'GroupPage',

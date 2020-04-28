@@ -40,7 +40,7 @@
 
 <script>
 import UserToolbar from '@/components/toolbar/UserToolbar.vue';
-import DataSection from '@/components/ui/DataSection.vue';
+import DataSection from '@/components/layout/DataSection.vue';
 import UpdateProfileDialog from '@/components/dialog/UpdateProfileDialog.vue';
 
 export default {
