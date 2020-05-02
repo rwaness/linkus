@@ -2,9 +2,15 @@
   <v-toolbar dense>
     <slot name="prepend"></slot>
 
-    <v-toolbar-title class="primary--text">{{ title }}</v-toolbar-title>
+    <slot>
+      <v-spacer v-if="$slots.prepend"></v-spacer>
 
-    <v-spacer></v-spacer>
+      <v-toolbar-title class="primary--text">
+        {{ title }}
+      </v-toolbar-title>
+
+      <v-spacer v-if="$slots.append"></v-spacer>
+    </slot>
 
     <slot name="append"></slot>
   </v-toolbar>
@@ -17,7 +23,7 @@ export default {
   props: {
     title: {
       type: String,
-      required: true,
+      default: '',
     },
   },
 };

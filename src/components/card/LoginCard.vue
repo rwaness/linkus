@@ -1,6 +1,6 @@
 <template>
   <card :title="$t('mongodbStitch.login.card.title')">
-    <loading-overlay :loading="loading"></loading-overlay>
+    <loading-overlay :loading="logging"></loading-overlay>
 
     <v-card-text>
       <login-form
