@@ -3,13 +3,19 @@
     <slot name="prepend"></slot>
 
     <slot>
-      <v-spacer v-if="$slots.prepend"></v-spacer>
+      <v-btn
+        v-if="enableBackBtn"
+        icon
+        @click="$emit('click;back')"
+      >
+        <v-icon>mdi-chevron-left</v-icon>
+      </v-btn>
 
       <v-toolbar-title class="primary--text">
         {{ title }}
       </v-toolbar-title>
 
-      <v-spacer v-if="$slots.append"></v-spacer>
+      <v-spacer></v-spacer>
     </slot>
 
     <slot name="append"></slot>
@@ -24,6 +30,10 @@ export default {
     title: {
       type: String,
       default: '',
+    },
+    enableBackBtn: {
+      type: Boolean,
+      default: false,
     },
   },
 };
