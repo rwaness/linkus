@@ -2,7 +2,6 @@
   <v-text-field
     :value="value"
     placeholder="Search"
-    :loading="loading"
     autofocus
     clearable
     dense
@@ -33,12 +32,6 @@ export default {
       type: String,
       required: true,
     },
-  },
-
-  data() {
-    return {
-      loading: false,
-    };
   },
 
   methods: {
