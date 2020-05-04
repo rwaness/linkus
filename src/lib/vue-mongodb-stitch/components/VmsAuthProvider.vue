@@ -1,5 +1,5 @@
 <template>
-  <div class="auth-provider">
+  <div class="vms-mauth-provider">
     <slot
       :user="vmsUser"
       :authenticating="vmsAuthenticating"
@@ -11,14 +11,8 @@
 import VueMongodbStitchMixin from '../mixins/VueMongoDbStitchMixin';
 
 export default {
-  name: 'AuthProvider',
+  name: 'VmsAuthProvider',
 
   mixins: [VueMongodbStitchMixin],
-
-  methods: {
-    vmsEmit(eventName, param) {
-      this.$emit(eventName, param);
-    },
-  },
 };
 </script>

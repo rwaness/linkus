@@ -10,7 +10,7 @@
       ></loading-overlay>
 
       <slot
-        v-if="!user || user.loggedInProviderType === 'anon-user'"
+        v-if="!user"
         name="unauthenticated"
       >
         <v-container v-if="enableLogin">
@@ -30,7 +30,7 @@
 </template>
 
 <script>
-import { AuthProvider } from '@/lib/vue-mongodb-stitch';
+import AuthProvider from '@/components/layout/AuthProvider.vue';
 import LoadingOverlay from '@/components/layout/LoadingOverlay.vue';
 import LoginCard from '@/components/card/LoginCard.vue';
 import OnBoarding from '@/components/on-boarding';
