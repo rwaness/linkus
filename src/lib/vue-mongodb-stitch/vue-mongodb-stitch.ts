@@ -40,7 +40,7 @@ export default class VueMongodbStitch extends MongodbStitch {
   }
 
   async loginWithCredential(credential) {
-    await super.loginWithCredential(credential);
+    this.user = await super.loginWithCredential(credential);
     return this.auth();
   }
 

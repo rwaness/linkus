@@ -14,5 +14,11 @@ export default {
   name: 'AuthProvider',
 
   mixins: [VueMongodbStitchMixin],
+
+  methods: {
+    vmsEmit(eventName, param) {
+      this.$emit(eventName, param);
+    },
+  },
 };
 </script>

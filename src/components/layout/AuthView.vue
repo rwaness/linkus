@@ -1,5 +1,8 @@
 <template>
-  <auth-provider class="auth-view">
+  <auth-provider
+    class="auth-view"
+    @authenticated="$emit('authenticated', $event)"
+  >
     <template v-slot="{ user, authenticating }">
       <loading-overlay
         v-if="enableLoading"
