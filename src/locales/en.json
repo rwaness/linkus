@@ -9,8 +9,8 @@
   "nav": {
     "items": {
       "home": "Home",
-      "groupsList": "My Groups",
-      "appsList": "My Apps",
+      "groupsList": "Groups",
+      "appsList": "Apps",
       "about": "About"
     }
   },
@@ -72,7 +72,7 @@
       }
     },
     "groupsList": {
-      "title": "My Groups",
+      "title": "Groups",
       "noResults": {
         "label": "You don't have any groups yet!",
         "message": "Create one now to invite your friends",
@@ -100,7 +100,7 @@
     },
     "appsList": {
       "auth": {
-        "title": "My Apps",
+        "title": "Apps",
         "noResults": {
           "label": "You don't have added any app yet!",
           "message": "Add one now to customize your experience",
