@@ -3,7 +3,9 @@
     v-model="model"
     title="Login"
   >
-    <login-form></login-form>
+    <login-form
+      @success="onSuccess"
+    ></login-form>
   </form-dialog>
 </template>
 
@@ -20,6 +22,12 @@ export default {
   components: {
     FormDialog,
     LoginForm,
+  },
+
+  methods: {
+    onSuccess({ id: groupId }) {
+      this.$router.push({ name: 'GroupOverviewPage', params: { groupId } });
+    },
   },
 };
 </script>

@@ -28,7 +28,9 @@ export default {
 
   methods: {
     vmsEmit(eventName, param) {
-      this.$emit(eventName, param);
+      if (eventName !== 'authenticated' || this.isLoggedIn) {
+        this.$emit(eventName, param);
+      }
     },
   },
 };

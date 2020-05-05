@@ -1,18 +1,14 @@
 <template>
-  <v-card>
-    <v-toolbar
-      color="primary"
-      dark
-      flat
-    >
-      <v-toolbar-title>{{ $t('mongodbStitch.registration.card.title') }}</v-toolbar-title>
-
-      <v-spacer></v-spacer>
-
-      <v-btn icon @click="$emit('close')">
+  <card :title="$t('mongodbStitch.registration.card.title')">
+    <template v-slot:toolbar-right>
+      <v-btn
+        icon
+        @click="$emit('close')">
         <v-icon>mdi-close</v-icon>
       </v-btn>
-    </v-toolbar>
+    </template>
+
+    <loading-overlay :loading="registering"></loading-overlay>
 
     <v-card-text>
       <registration-form
@@ -25,7 +21,7 @@
       </v-alert>
     </v-card-text>
 
-    <v-card-actions>
+    <template v-slot:actions>
       <template v-if="!success">
         <v-btn
           text
@@ -53,21 +49,21 @@
           {{ $t('mongodbStitch.registration.success.actionBtn') }}
         </v-btn>
       </template>
-    </v-card-actions>
-
-    <v-overlay :value="registering">
-      <v-progress-circular indeterminate size="64"></v-progress-circular>
-    </v-overlay>
-  </v-card>
+    </template>
+  </card>
 </template>
 
 <script>
+import Card from '@/components/layout/Card.vue';
+import LoadingOverlay from '@/components/layout/LoadingOverlay.vue';
 import RegistrationForm from '@/components/form/RegistrationForm.vue';
 
 export default {
   name: 'RegistrationCard',
 
   components: {
+    Card,
+    LoadingOverlay,
     RegistrationForm,
   },
 

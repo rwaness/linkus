@@ -10,7 +10,15 @@
       <slot name="toolbar-right"></slot>
     </v-toolbar>
 
+    <!-- <v-card-title>
+      {{  }}
+    </v-card-title> -->
+
     <slot></slot>
+
+    <v-card-actions v-if="$slots['actions']">
+      <slot name="actions"></slot>
+    </v-card-actions>
   </v-card>
 </template>
 

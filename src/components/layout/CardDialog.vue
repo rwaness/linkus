@@ -1,8 +1,5 @@
 <template>
-  <v-dialog
-    v-model="model"
-    scrollable
-  >
+  <dialog-box v-model="model">
     <template v-slot:activator="{ on }">
       <slot name="activator" :on="on"></slot>
     </template>
@@ -19,11 +16,14 @@
 
       <slot></slot>
 
-      <v-card-actions v-if="$slots['card-actions']">
+      <template
+        v-if="$slots['card-actions']"
+        v-slot:actions
+      >
         <slot name="card-actions"></slot>
-      </v-card-actions>
+      </template>
     </card>
-  </v-dialog>
+  </dialog-box>
 </template>
 
 <script>

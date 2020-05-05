@@ -109,11 +109,13 @@
       }
     }
   },
-  "dialog": {
+  "formCard": {
     "actions": {
       "cancel": "Cancel",
       "submit": "Submit"
-    },
+    }
+  },
+  "dialog": {
     "newGroup": {
       "title": "New group",
       "actions": {

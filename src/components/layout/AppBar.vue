@@ -20,18 +20,13 @@
         </template>
 
         <template v-slot:unauthenticated>
-          <v-dialog v-model="registrationFormOpened">
+          <registration-dialog>
             <template v-slot:activator="{ on }">
               <v-btn v-on="on">
                 <v-icon>mdi-account-circle</v-icon> SIGN UP
               </v-btn>
             </template>
-
-            <registration-card
-              @goto:signin="goToLogin"
-              @close="registrationFormOpened = false"
-            />
-          </v-dialog>
+          </registration-dialog>
         </template>
       </auth-view>
     </v-app-bar>
@@ -39,9 +34,9 @@
 </template>
 
 <script>
-import RegistrationCard from '@/components/card/RegistrationCard.vue';
 import AuthView from '@/components/layout/AuthView.vue';
 import ContextualMenu from '@/components/layout/ContextualMenu.vue';
+import RegistrationDialog from '@/components/dialog/RegistrationDialog.vue';
 
 export default {
   name: 'AppBar',
@@ -49,23 +44,7 @@ export default {
   components: {
     AuthView,
     ContextualMenu,
-    RegistrationCard,
-  },
-
-  data() {
-    return {
-      registrationFormOpened: false,
-    };
-  },
-
-  methods: {
-    goToLogin() {
-      if (this.$router.currentRoute && this.$router.currentRoute.name === 'LoginPage') {
-        this.registrationFormOpened = false;
-      } else {
-        this.$router.push({ name: 'LoginPage' });
-      }
-    },
+    RegistrationDialog,
   },
 };
 </script>

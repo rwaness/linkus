@@ -1,5 +1,5 @@
 <template>
-  <card :title="$t('mongodbStitch.login.card.title')">
+  <card :title="title">
     <template
       v-if="$listeners['close']"
       v-slot:toolbar-right
@@ -12,52 +12,63 @@
       </v-btn>
     </template>
 
-    <loading-overlay :loading="logging"></loading-overlay>
+    <loading-overlay :loading="loading"></loading-overlay>
 
     <v-card-text>
-      <login-form
-        ref="form"
-      ></login-form>
+      <slot></slot>
     </v-card-text>
 
     <template v-slot:actions>
       <v-spacer></v-spacer>
 
+      <v-btn @click="$emit('cancel')">
+        {{ $t('formCard.actions.cancel') }}
+      </v-btn>
+
       <v-btn
         color="primary"
         @click="submit"
       >
-        {{ $t('mongodbStitch.login.card.actions.submit') }}
+        {{ submitLabel || $t('formCard.actions.submit') }}
       </v-btn>
     </template>
   </card>
 </template>
 
 <script>
-import LoginForm from '@/components/form/LoginForm.vue';
 import Card from '@/components/layout/Card.vue';
 import LoadingOverlay from '@/components/layout/LoadingOverlay.vue';
 
 export default {
-  name: 'LoginCard',
+  name: 'FormCard',
 
   components: {
     Card,
-    LoginForm,
     LoadingOverlay,
+  },
+
+  props: {
+    title: {
+      type: String,
+      required: true,
+    },
+    submitLabel: {
+      type: String,
+      default: '',
+    },
   },
 
   data() {
     return {
-      logging: false,
+      loading: false,
     };
   },
 
   methods: {
     async submit() {
-      this.logging = true;
-      await this.$refs.form.submit();
-      this.logging = false;
+      this.loading = true;
+      await this.$slots.default[0].componentInstance.submit();
+      this.loading = false;
     },
   },
 };

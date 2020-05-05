@@ -1,39 +1,23 @@
 <template>
-  <card-dialog
-    v-model="model"
-    :title="title"
-  >
+  <dialog-box v-model="model">
     <template v-slot:activator="{ on }">
       <slot name="activator" :on="on"></slot>
     </template>
 
-    <loading-overlay :loading="loading"></loading-overlay>
-
-    <v-card-text>
+    <form-card
+      :title="title"
+      :submit-label="submitLabel"
+      @cancel="close"
+      @close="close"
+    >
       <slot v-if="model || !resetOnClose"></slot>
-    </v-card-text>
-
-    <template v-slot:card-actions>
-      <v-spacer></v-spacer>
-
-      <v-btn @click="close">
-        {{ $t('dialog.actions.cancel') }}
-      </v-btn>
-
-      <v-btn
-        color="primary"
-        @click="submit"
-      >
-        {{ submitLabel || $t('dialog.actions.submit') }}
-      </v-btn>
-    </template>
-  </card-dialog>
+    </form-card>
+  </dialog-box>
 </template>
 
 <script>
 import DialogMixin from '@/mixins/DialogMixin';
-import CardDialog from '@/components/layout/CardDialog.vue';
-import LoadingOverlay from '@/components/layout/LoadingOverlay.vue';
+import FormCard from '@/components/layout/FormCard.vue';
 
 export default {
   name: 'FormDialog',
@@ -41,8 +25,7 @@ export default {
   mixins: [DialogMixin],
 
   components: {
-    CardDialog,
-    LoadingOverlay,
+    FormCard,
   },
 
   props: {
@@ -57,20 +40,6 @@ export default {
     resetOnClose: {
       type: Boolean,
       default: false,
-    },
-  },
-
-  data() {
-    return {
-      loading: false,
-    };
-  },
-
-  methods: {
-    async submit() {
-      this.loading = true;
-      await this.$slots.default[0].componentInstance.submit();
-      this.loading = false;
     },
   },
 };
