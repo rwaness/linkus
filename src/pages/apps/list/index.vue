@@ -1,44 +1,56 @@
 <template>
   <default-layout>
-    <auth-view class="fill-height d-flex flex-column">
-      <template v-slot:unauthenticated>
-        <apps-list-toolbar
-          class="flex-grow"
-        ></apps-list-toolbar>
-
-        <apps-list></apps-list>
-      </template>
-
+    <auth-provider class="fill-height">
       <template v-slot="{ user }">
-        <apps-list-toolbar class="flex-grow-0">
-          <template v-slot:append>
-            <v-btn
-              icon
-              @click="addFormOpened = true"
+        <page-content
+          vuapix-entry="vuapix/apps/appsList"
+          :vuapix-params="{ user, lookup, filters }"
+        >
+          <template v-slot="{ data: apps }">
+            <apps-list-toolbar
+              class="flex-grow-0"
+              @apps:search="lookup = $event"
+              @apps:filter="filters = $event"
+            ></apps-list-toolbar>
+
+            <list
+              class="flex-grow-1"
+              :items="apps"
+              no-results-icon="mdi-toy-brick-outline"
+              :no-results-label="$t('pages.appsList.auth.noResults.label')"
+              :no-results-message="$t('pages.appsList.auth.noResults.message')"
+              :no-results-action-label="$t('pages.appsList.auth.noResults.action')"
+              @no-results-action:click="addFormOpened = true"
             >
-              <v-icon>mdi-toy-brick-plus-outline</v-icon>
-            </v-btn>
+              <template v-slot:list-item="{ item: app }">
+                <app-list-item
+                  :app="app"
+                  :user="user"
+                  @app:add="appToAdd = app"
+                ></app-list-item>
+              </template>
+            </list>
+
+            <add-app-dialog
+              v-if="appToAdd"
+              :value="true"
+              :app="appToAdd"
+              @input="appToAdd = null"
+            ></add-app-dialog>
           </template>
-        </apps-list-toolbar>
-
-        <user-apps-list
-          :user="user.customData"
-        ></user-apps-list>
-
-        <add-app-dialog
-          v-model="addFormOpened"
-        ></add-app-dialog>
+        </page-content>
       </template>
-    </auth-view>
+    </auth-provider>
   </default-layout>
 </template>
 
 <script>
 import DefaultLayout from '@/layouts/DefaultLayout.vue';
-import AuthView from '@/components/layout/AuthView.vue';
+import AuthProvider from '@/components/layout/AuthProvider.vue';
+import PageContent from '@/components/layout/PageContent.vue';
+import List from '@/components/layout/List.vue';
 import AppsListToolbar from '@/components/toolbar/AppsListToolbar.vue';
-import AppsList from '@/components/list/AppsList.vue';
-import UserAppsList from '@/components/list/UserAppsList.vue';
+import AppListItem from '@/components/list-item/AppListItem.vue';
 import AddAppDialog from '@/components/dialog/AddAppDialog.vue';
 
 export default {
@@ -46,16 +58,19 @@ export default {
 
   components: {
     DefaultLayout,
-    AuthView,
+    AuthProvider,
+    PageContent,
+    List,
     AppsListToolbar,
-    AppsList,
-    UserAppsList,
+    AppListItem,
     AddAppDialog,
   },
 
   data() {
     return {
-      addFormOpened: false,
+      lookup: '',
+      filters: {},
+      appToAdd: null,
     };
   },
 };

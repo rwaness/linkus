@@ -4,14 +4,15 @@
 
     <slot>
       <v-btn
-        v-if="enableBackBtn"
+        v-if="backRoute"
         icon
-        @click="$emit('click;back')"
+        :to="backRoute"
+        exact
       >
         <v-icon>mdi-chevron-left</v-icon>
       </v-btn>
 
-      <v-toolbar-title class="primary--text">
+      <v-toolbar-title :class="['primary--text', { 'px-0': backRoute }]">
         {{ title }}
       </v-toolbar-title>
 
@@ -31,9 +32,10 @@ export default {
       type: String,
       default: '',
     },
-    enableBackBtn: {
-      type: Boolean,
-      default: false,
+    backRoute: {
+      type: [Object, String],
+      default: null,
+      validator: (br) => (typeof br === 'object' ? !!br.name : typeof br === 'string'),
     },
   },
 };

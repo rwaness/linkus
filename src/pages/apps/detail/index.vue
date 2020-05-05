@@ -1,68 +1,61 @@
 <template>
   <default-layout>
-    <page-content
-      vuapix-entry="vuapix/apps/appDetail"
-      :vuapix-params="{ id: appId }"
-    >
-      <template v-slot="{ data: app }">
-        <auth-view class="fill-height">
-          <template v-slot="{ user }">
-            <toolbar
-              :title="app.name"
+    <auth-provider class="fill-height">
+      <template v-slot="{ user }">
+        <page-content
+          vuapix-entry="vuapix/apps/appDetail"
+          :vuapix-params="{ id: appId }"
+        >
+          <template v-slot="{ data: app }">
+            <app-toolbar
               class="flex-grow-0"
-            >
-            </toolbar>
-
-            <app-wrapper
               :app="app"
               :user="user"
-            ></app-wrapper>
-          </template>
-          <template v-slot:unauthenticated>
-            <toolbar
-              :title="app.name"
-              class="flex-grow-0"
-            >
-              <template v-slot:append>
-                <v-btn
-                  icon
-                  @click="loginOpened = true"
-                >
-                  <v-icon>mdi-toy-brick-plus-outline</v-icon>
-                </v-btn>
-              </template>
-            </toolbar>
+              @app:add="confirmAppAddingDialog = true"
+              @app:secure="confirmAppAddingDialog = true"
+            ></app-toolbar>
 
-            <pre>{{ app }}</pre>
+            <template v-if="user">
+              <app-wrapper
+                :app="app"
+                :user="user"
+                class="flex-grow-1"
+              ></app-wrapper>
+            </template>
 
-            <login-dialog
-              v-model="loginOpened"
-            ></login-dialog>
+            <template v-else>
+              <pre>{{ app }}</pre>
+            </template>
+
+            <add-app-dialog
+              v-model="confirmAppAddingDialog"
+              :app="app"
+            ></add-app-dialog>
           </template>
-        </auth-view>
+        </page-content>
       </template>
-    </page-content>
+    </auth-provider>
   </default-layout>
 </template>
 
 <script>
 import DefaultLayout from '@/layouts/DefaultLayout.vue';
 import PageContent from '@/components/layout/PageContent.vue';
-import AuthView from '@/components/layout/AuthView.vue';
+import AuthProvider from '@/components/layout/AuthProvider.vue';
 import AppWrapper from '@/components/layout/AppWrapper.vue';
-import Toolbar from '@/components/layout/Toolbar.vue';
-import LoginDialog from '@/components/dialog/LoginDialog.vue';
+import AppToolbar from '@/components/toolbar/AppToolbar.vue';
+import AddAppDialog from '@/components/dialog/AddAppDialog.vue';
 
 export default {
   name: 'AppDetailPage',
 
   components: {
     DefaultLayout,
-    AuthView,
+    AuthProvider,
     PageContent,
     AppWrapper,
-    Toolbar,
-    LoginDialog,
+    AppToolbar,
+    AddAppDialog,
   },
 
   props: {
@@ -74,7 +67,7 @@ export default {
 
   data() {
     return {
-      loginOpened: false,
+      confirmAppAddingDialog: false,
     };
   },
 };

@@ -1,12 +1,11 @@
 <template>
   <toolbar
+    class="apps-list-toolbar"
     :title="$t('pages.appsList.auth.title')"
-    class="flex-grow-0"
   >
     <search-field
       v-if="searchOpened"
-      v-model="searchModel"
-      @search="doSearch"
+      @search="$emit('apps:search', $event)"
     ></search-field>
 
     <template v-slot:append>
@@ -23,8 +22,6 @@
       >
         <v-icon>mdi-filter</v-icon>
       </v-btn>
-
-      <slot name="append"></slot>
     </template>
   </toolbar>
 </template>
@@ -44,15 +41,8 @@ export default {
   data() {
     return {
       searchOpened: false,
-      searchModel: '',
       filterOpened: false,
     };
-  },
-
-  methods: {
-    doSearch(search) {
-      console.log('=> SEARCH :', search);
-    },
   },
 };
 </script>

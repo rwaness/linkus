@@ -3,7 +3,9 @@ import * as userApi from '@/apis/stitch/users';
 
 export default ({ itemToKey }) => ({
   appsList: {
-    doQuery() {
+    doQuery({ user }) {
+      console.log('appsList', user);
+      // { ids: user.apps }
       return api.appsList();
     },
   },
@@ -12,12 +14,6 @@ export default ({ itemToKey }) => ({
     single: true,
     doQuery({ id }) {
       return api.appDetail({ id });
-    },
-  },
-
-  userAppsList: {
-    doQuery(user) {
-      return api.appsList({ ids: user.apps });
     },
   },
 

@@ -1,44 +1,40 @@
 <template>
-  <card-dialog
-    v-model="model"
-    :title="$t('dialog.addApp.title')"
-  >
-    <apps-list>
-      <template
-        v-if="true"
-        v-slot:list-item-action="{ app }"
+  <auth-dialog v-model="model">
+    <template v-slot="{ user }">
+      <form-card
+        :title="$t('dialog.addApp.title')"
+        @close="close"
       >
-        <v-list-item-action>
-          <v-btn
-            icon
-            @click.prevent="vuapixDoQuery(app)"
-          >
-            <v-icon>mdi-toy-brick-plus-outline</v-icon>
-          </v-btn>
-        </v-list-item-action>
-      </template>
-    </apps-list>
-  </card-dialog>
+        <add-app-form
+          :user="user"
+        ></add-app-form>
+      </form-card>
+    </template>
+  </auth-dialog>
 </template>
 
 <script>
-import { VuapixMixin } from '@/lib/vuapix';
 import DialogMixin from '@/mixins/DialogMixin';
-import CardDialog from '@/components/layout/CardDialog.vue';
-import AppsList from '@/components/list/AppsList.vue';
+import AuthDialog from '@/components/layout/AuthDialog.vue';
+import FormCard from '@/components/layout/FormCard.vue';
+import AddAppForm from '@/components/form/AddAppForm.vue';
 
 export default {
   name: 'AddAppDialog',
 
-  mixins: [DialogMixin, VuapixMixin],
+  mixins: [DialogMixin],
 
   components: {
-    CardDialog,
-    AppsList,
+    AuthDialog,
+    FormCard,
+    AddAppForm,
   },
 
-  vuapix: {
-    entry: 'vuapix/apps/userAddApp',
+  props: {
+    app: {
+      type: Object,
+      required: true,
+    },
   },
 };
 </script>

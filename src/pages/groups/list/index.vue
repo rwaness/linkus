@@ -3,35 +3,33 @@
     <auth-view class="fill-height" enable-login>
       <page-content vuapix-entry="vuapix/groups/groupsList">
         <template v-slot="{ data: groups }">
-          <div class="fill-height d-flex flex-column flex-nowrap">
-            <toolbar
-              :title="$t('pages.groupsList.title')"
-              class="flex-grow-0"
-            >
-              <template v-slot:append>
-                <v-btn
-                  icon
-                  @click="createFormOpened = true"
-                >
-                  <v-icon>mdi-account-multiple-plus</v-icon>
-                </v-btn>
-              </template>
-            </toolbar>
+          <toolbar
+            :title="$t('pages.groupsList.title')"
+            class="flex-grow-0"
+          >
+            <template v-slot:append>
+              <v-btn
+                icon
+                @click="createFormOpened = true"
+              >
+                <v-icon>mdi-account-multiple-plus</v-icon>
+              </v-btn>
+            </template>
+          </toolbar>
 
-            <list
-              class="flex-grow-1"
-              :items="groups"
-              no-results-icon="mdi-account-group"
-              :no-results-label="$t('pages.groupsList.noResults.label')"
-              :no-results-message="$t('pages.groupsList.noResults.message')"
-              :no-results-action-label="$t('pages.groupsList.noResults.action')"
-              @no-results-action:click="createFormOpened = true"
-            >
-              <template v-slot:list-item="{ item: group }">
-                <group-list-item :group="group" />
-              </template>
-            </list>
-          </div>
+          <list
+            class="flex-grow-1"
+            :items="groups"
+            no-results-icon="mdi-account-group"
+            :no-results-label="$t('pages.groupsList.noResults.label')"
+            :no-results-message="$t('pages.groupsList.noResults.message')"
+            :no-results-action-label="$t('pages.groupsList.noResults.action')"
+            @no-results-action:click="createFormOpened = true"
+          >
+            <template v-slot:list-item="{ item: group }">
+              <group-list-item :group="group" />
+            </template>
+          </list>
 
           <new-group-dialog
             v-model="createFormOpened"

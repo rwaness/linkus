@@ -1,5 +1,5 @@
 <template>
-  <vuapix-provider class="page-content fill-height"
+  <vuapix-provider class="page-content fill-height d-flex flex-column flex-nowrap"
     :entry="vuapixEntry"
     :params="vuapixParams"
     @vuapix:success="loaded = true"
