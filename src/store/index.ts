@@ -1,6 +1,6 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
-import vuapixStore from './vuapix';
+import vuapix from './vuapix';
 
 Vue.use(Vuex);
 
@@ -14,6 +14,6 @@ export default new Vuex.Store({
   mutations: {
   },
   modules: {
-    ...vuapixStore,
+    ...vuapix.toStore(),
   },
 });
