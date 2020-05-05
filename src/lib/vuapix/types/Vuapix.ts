@@ -1,16 +1,14 @@
-// import Vuex, { createNamespacedHelpers } from 'vuex'
-
-import VuapixOptions from './VuapixOptions.d';
-import Dictionnary from './Dictionnary.d';
-import Api from './Api.d';
+import { createNamespacedHelpers } from 'vuex';
 import VuexStore from './VuexStore.d';
-// import VuapixApi from './VuapixApi.d';
+import Dictionnary from './Dictionnary.d';
+import VuapixOptions from './VuapixOptions.d';
 import VuapixApiEntry from './VuapixApiEntry.d';
-
-// console.log(Vuex);
+import Api from './Api.d';
 
 export default class Vuapix {
   private ns = 'vuapix';
+
+  private helpers: Dictionnary<Function>;
 
   private store: VuexStore = {
     namespaced: true,
@@ -26,6 +24,9 @@ export default class Vuapix {
     if (namespace) {
       this.ns = namespace;
     }
+
+    this.helpers = createNamespacedHelpers(this.ns);
+
     this.addApiModules(apis);
   }
 
@@ -40,8 +41,9 @@ export default class Vuapix {
   }
 
   public addApiModule(dataType: string, { apiFactory, ...apiOptions }: Api<object>) {
-    const api = apiFactory({ dataType, ...apiOptions });
     const { itemToKey } = apiOptions;
+    const api = apiFactory({ dataType, ...apiOptions });
+    const entries = Object.keys(api);
 
     this.store.modules[dataType] = {
       namespaced: true,
@@ -50,7 +52,7 @@ export default class Vuapix {
         $items: (state) => state.items,
         $item: (_, getters) => (key) => getters.$items[key],
         ...(
-          Object.keys(api).reduce((gettersMap, entryName) => ({
+          entries.reduce((gettersMap, entryName) => ({
             ...gettersMap,
             [entryName]: (state, getters) => (api[entryName].single
               ? getters.$item(state[entryName].key) || null
@@ -59,7 +61,7 @@ export default class Vuapix {
           }), {})
         ),
       },
-      actions: Object.keys(api).reduce((actions, entryName) => ({
+      actions: entries.reduce((actions, entryName) => ({
         ...actions,
         [entryName]: async (storeCtx, params) => {
           let response;
@@ -95,7 +97,7 @@ export default class Vuapix {
           };
         },
       },
-      modules: Object.keys(api).reduce((modules: Dictionnary<VuexStore>, entryName: string) => ({
+      modules: entries.reduce((modules: Dictionnary<VuexStore>, entryName: string) => ({
         ...modules,
         [entryName]: (api[entryName].single
           ? Vuapix.singleDataEntryStoreFactory(`${this.ns}/${dataType}`, entryName, api[entryName])

@@ -2,14 +2,15 @@ import Dictionnary from './Dictionnary';
 
 type VuexState = Dictionnary<any>;
 type VuexGetters = Dictionnary<any>;
-type VuexStoreCtx = {
+
+export interface VuexStoreCtx {
   state: VuexState;
   rootState: VuexState;
   commit: (mutationName: string, payload: any) => void;
   dispatch: (actionName: string, payload: any, { root: boolean }) => Promise<any>;
   getters: VuexGetters;
   rootGetters: VuexGetters;
-};
+}
 
 export default interface VuexStore {
   namespaced: Boolean;
