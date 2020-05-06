@@ -2,10 +2,11 @@ import { createNamespacedHelpers, NamespacedMappers } from 'vuex';
 // todo use vuex type : https://github.com/vuejs/vuex/blob/9a9672050bcfee198c379069ec0e1b03ca6cb965/types/index.d.ts
 import {
   Dictionary,
-  Api,
+  VuapixPayload,
+  VuapixApi,
   VuapixApiEntry,
-  VuapixOptions,
   VuapixModule,
+  VuapixApiModule,
   VuapixEntryModule,
 } from './types.d';
 
@@ -24,14 +25,14 @@ export default class Vuapix {
   };
 
   // TODO pass a type alias (allow multiple signatures)
-  constructor({ namespace, apis }: VuapixOptions) {
+  constructor({ namespace, apis }: VuapixPayload) {
     if (namespace) {
       this.ns = namespace;
     }
 
     this.helpers = createNamespacedHelpers(this.ns);
 
-    this.addApiModules(apis);
+    this.addApis(apis);
   }
 
   public toStore(): Dictionary<VuapixModule> {
@@ -40,59 +41,77 @@ export default class Vuapix {
     };
   }
 
-  public addApiModules(apis: Dictionary<Api<object>>) {
-    Object.keys(apis).forEach((dataType) => this.addApiModule(dataType, apis[dataType]));
+  public addApis(apis: Dictionary<VuapixApi<any>>) {
+    Object.keys(apis).forEach((dataType) => this.addApi<any>(dataType, apis[dataType]));
   }
 
-  public addApiModule(dataType: string, { apiFactory, ...apiOptions }: Api<object>) {
-    const { itemToKey } = apiOptions;
-    const api = apiFactory({ dataType, ...apiOptions });
-    const entries = Object.keys(api);
+  public addApi<T>(dataType: string, api: VuapixApi<T>) {
+    this.store.modules[dataType] = this.apiToModule<T>(dataType, api);
+  }
 
-    this.store.modules[dataType] = {
+  private apiToModule<T>(
+    dataType: string,
+    { apiFactory, ...apiPayload }: VuapixApi<T>,
+  ): VuapixApiModule<T> {
+    const { itemToKey } = apiPayload;
+    const api = apiFactory({ dataType, ...apiPayload });
+
+    return Object.keys(api).reduce((store, entryName) => {
+      const entry = api[entryName];
+      const { doQuery, single } = entry;
+
+      return {
+        ...store,
+        getters: {
+          ...store.getters,
+          [entryName]: (state, getters) => (single
+            ? getters.$item(state[entryName].key) || null
+            : state[entryName].key.map(getters.$item)
+          ),
+        },
+        actions: {
+          ...store.actions,
+          [entryName]: async (storeCtx, params) => {
+            let response;
+            try {
+              storeCtx.commit(`${entryName}/startQuerying`);
+
+              response = await doQuery(params, storeCtx);
+
+              const itemsMap = (single ? [response] : response).reduce((map, item) => ({
+                ...map,
+                ...(item ? { [itemToKey(item)]: item } : {}),
+              }), {});
+              storeCtx.commit('addItems', { itemsMap });
+
+              const keys = Object.keys(itemsMap);
+              storeCtx.commit(`${entryName}/updateKey`, {
+                key: single ? keys[0] : keys,
+              });
+
+              storeCtx.commit(`${entryName}/endQuerying`);
+            } catch (error) {
+              storeCtx.commit(`${entryName}/catchError`, { error });
+            }
+            return response;
+          },
+        },
+        modules: {
+          ...store.modules,
+          [entryName]: (single
+            ? Vuapix.singleDataEntryStoreFactory(`${this.ns}/${dataType}`, entryName, entry)
+            : Vuapix.multipleDataEntryStoreFactory(`${this.ns}/${dataType}`, entryName, entry)
+          ),
+        },
+      };
+    }, {
       namespaced: true,
       state: () => ({ items: {} }),
       getters: {
         $items: (state) => state.items,
         $item: (_, getters) => (key) => getters.$items[key],
-        ...(
-          entries.reduce((gettersMap, entryName) => ({
-            ...gettersMap,
-            [entryName]: (state, getters) => (api[entryName].single
-              ? getters.$item(state[entryName].key) || null
-              : state[entryName].key.map(getters.$item)
-            ),
-          }), {})
-        ),
       },
-      actions: entries.reduce((actions, entryName) => ({
-        ...actions,
-        [entryName]: async (storeCtx, params) => {
-          let response;
-          try {
-            storeCtx.commit(`${entryName}/startQuerying`);
-
-            const { doQuery, single } = api[entryName];
-            response = await doQuery(params, storeCtx);
-
-            const itemsMap = (single ? [response] : response).reduce((map, item) => ({
-              ...map,
-              ...(item ? { [itemToKey(item)]: item } : {}),
-            }), {});
-            storeCtx.commit('addItems', { itemsMap });
-
-            const keys = Object.keys(itemsMap);
-            storeCtx.commit(`${entryName}/updateKey`, {
-              key: single ? keys[0] : keys,
-            });
-
-            storeCtx.commit(`${entryName}/endQuerying`);
-          } catch (error) {
-            storeCtx.commit(`${entryName}/catchError`, { error });
-          }
-          return response;
-        },
-      }), {}),
+      actions: {},
       mutations: {
         addItems(state, { itemsMap }) {
           state.items = {
@@ -101,17 +120,8 @@ export default class Vuapix {
           };
         },
       },
-      modules: entries.reduce((
-        modules: Dictionary<VuapixEntryModule>,
-        entryName: string,
-      ) => ({
-        ...modules,
-        [entryName]: (api[entryName].single
-          ? Vuapix.singleDataEntryStoreFactory(`${this.ns}/${dataType}`, entryName, api[entryName])
-          : Vuapix.multipleDataEntryStoreFactory(`${this.ns}/${dataType}`, entryName, api[entryName])
-        ),
-      }), {}),
-    };
+      modules: {},
+    });
   }
 
   // =====
@@ -171,7 +181,7 @@ export default class Vuapix {
   static multipleDataEntryStoreFactory(
     ns: string,
     entryName: string,
-    entry: VuapixApiEntry<object>,
+    entry: VuapixApiEntry<any>,
   ): VuapixEntryModule {
     return Vuapix.dataEntryStoreFactory(
       ns,

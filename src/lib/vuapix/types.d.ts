@@ -41,20 +41,23 @@ export interface VuapixEntryModule extends Module<VuapixEntryState, RootStore> {
 /*******************************************************
  * API
  */
-export interface ApiOptions {
+export interface VuapixPayload {
+  namespace?: string
+  apis: Dictionary<VuapixApi<object>>
+}
+
+export interface VuapixApi<T> extends VuapixApiPayload {
+  apiFactory: VuapixApiFactory<T>;
+}
+
+export interface VuapixApiPayload {
   itemToKey: Function;
 }
 
+export type VuapixApiFactory<T> = (payload: VuapixApiPayload & { dataType: string }) => Dictionary<VuapixApiEntry<T>>;
+
+
 export interface VuapixApiEntry<T> {
   single: Boolean;
-  doQuery: (arg: ApiOptions, storeCtx: ActionContext<VuapixApiState<T>, RootStore>) => Promise<T | T[]>;
-}
-
-export interface VuapixOptions {
-  namespace?: string
-  apis: Dictionary<Api<object>>
-}
-
-export interface Api<T> extends ApiOptions {
-  apiFactory: (options: ApiOptions & { dataType: string }) => Dictionary<VuapixApiEntry<T>>;
+  doQuery: (payload: any, storeCtx: ActionContext<VuapixApiState<T>, RootStore>) => Promise<T | T[]>;
 }
