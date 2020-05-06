@@ -1,3 +1,3 @@
-export { default } from './types/Vuapix';
+export { default } from './Vuapix';
 export * from './mixins';
 export * from './components';

@@ -1,16 +1,20 @@
-import { createNamespacedHelpers } from 'vuex';
-import VuexStore from './VuexStore.d';
-import Dictionnary from './Dictionnary.d';
-import VuapixOptions from './VuapixOptions.d';
-import VuapixApiEntry from './VuapixApiEntry.d';
-import Api from './Api.d';
+import { createNamespacedHelpers, NamespacedMappers } from 'vuex';
+// todo use vuex type : https://github.com/vuejs/vuex/blob/9a9672050bcfee198c379069ec0e1b03ca6cb965/types/index.d.ts
+import {
+  Dictionary,
+  Api,
+  VuapixApiEntry,
+  VuapixOptions,
+  VuapixModule,
+  VuapixEntryModule,
+} from './types.d';
 
 export default class Vuapix {
   private ns = 'vuapix';
 
-  private helpers: Dictionnary<Function>;
+  private helpers: NamespacedMappers;
 
-  private store: VuexStore = {
+  private store: VuapixModule = {
     namespaced: true,
     state: {},
     getters: {},
@@ -30,13 +34,13 @@ export default class Vuapix {
     this.addApiModules(apis);
   }
 
-  public toStore(): Dictionnary<VuexStore> {
+  public toStore(): Dictionary<VuapixModule> {
     return {
       [this.ns]: this.store,
     };
   }
 
-  public addApiModules(apis: Dictionnary<Api<object>>) {
+  public addApiModules(apis: Dictionary<Api<object>>) {
     Object.keys(apis).forEach((dataType) => this.addApiModule(dataType, apis[dataType]));
   }
 
@@ -97,7 +101,10 @@ export default class Vuapix {
           };
         },
       },
-      modules: entries.reduce((modules: Dictionnary<VuexStore>, entryName: string) => ({
+      modules: entries.reduce((
+        modules: Dictionary<VuapixEntryModule>,
+        entryName: string,
+      ) => ({
         ...modules,
         [entryName]: (api[entryName].single
           ? Vuapix.singleDataEntryStoreFactory(`${this.ns}/${dataType}`, entryName, api[entryName])
@@ -109,7 +116,12 @@ export default class Vuapix {
 
   // =====
 
-  static dataEntryStoreFactory(ns: string, entryName: string, _, options = {}): VuexStore {
+  static dataEntryStoreFactory(
+    ns: string,
+    entryName: string,
+    _,
+    options = {},
+  ): VuapixEntryModule {
     const intialState = {
       key: null,
       querying: false,
@@ -160,7 +172,7 @@ export default class Vuapix {
     ns: string,
     entryName: string,
     entry: VuapixApiEntry<object>,
-  ): VuexStore {
+  ): VuapixEntryModule {
     return Vuapix.dataEntryStoreFactory(
       ns,
       entryName,
