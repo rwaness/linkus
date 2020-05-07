@@ -50,30 +50,30 @@ export default class VuapixEntryModule implements Module<VuapixEntryState, RootS
     };
 
     this.mutations = {
-      reset(state) {
+      reset: (state) => {
         Object.keys(state).forEach((field) => {
           state[field] = this._initialState[field];
         });
       },
-      startQuerying(state) {
+      startQuerying: (state) => {
         state.querying = true;
         state.error = null;
       },
-      endQuerying(state) {
+      endQuerying: (state) => {
         state.querying = false;
       },
-      catchError(state, { error }) {
+      catchError: (state, { error }) => {
         state.error = error;
         state.querying = false;
       },
-      updateKey(state, { key }) {
+      updateKey: (state, { key }) => {
         state.key = key;
       },
       ...(entry.single ? {} : {
-        addKey(state, { key }) {
+        addKey: (state, { key }) => {
           state.key = [key, ...state.key];
         },
-        removeKey(state, { key }) {
+        removeKey: (state, { key }) => {
           state.key = state.key.filter((k) => k !== key);
         },
       }),
