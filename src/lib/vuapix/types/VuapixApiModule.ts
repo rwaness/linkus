@@ -44,13 +44,12 @@ export default class VuapixApiModule<T> implements Module<VuapixApiState<T>, Roo
   constructor(
     ns: string,
     dataType: string,
-    { apiFactory, ...apiPayload }: VuapixApi<T>,
+    { entries, ...apiPayload }: VuapixApi<T>,
   ) {
     this._itemToKey = apiPayload.itemToKey;
-    const api = apiFactory({ dataType, ...apiPayload });
 
-    Object.keys(api).forEach((entryName) => {
-      const entry = api[entryName];
+    Object.keys(entries).forEach((entryName) => {
+      const entry = entries[entryName];
 
       this.getters[entryName] = this.getterFactory(entryName, entry);
       this.actions[entryName] = this.actionFactory(entryName, entry);
@@ -81,7 +80,8 @@ export default class VuapixApiModule<T> implements Module<VuapixApiState<T>, Roo
         // const queryKey =
 
         console.log(entryName, params);
-        response = await entry.doQuery(params, storeCtx);
+        const vuapixCtx = { itemToKey: this._itemToKey };
+        response = await entry.doQuery(params, { vuapixCtx, storeCtx });
 
         const itemsMap = (entry.single ? [response] : response).reduce((map, item) => ({
           ...map,

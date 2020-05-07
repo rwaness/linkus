@@ -1,7 +1,7 @@
 import { getId as itemToKey } from '@/services/mongodbStitchService';
-import apiFactory from './factory';
+import * as entries from './entries';
 
 export default {
-  apiFactory,
+  entries,
   itemToKey,
 };

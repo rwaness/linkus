@@ -28,10 +28,15 @@ export interface VuapixApiPayload {
 }
 
 export interface VuapixApi<T> extends VuapixApiPayload {
-  apiFactory: (payload: VuapixApiPayload & { dataType: string }) => Dictionary<VuapixApiEntry<T>>;
+  entries: Dictionary<VuapixApiEntry<T>>;
 }
 
 export interface VuapixApiEntry<T> {
   single: Boolean;
-  doQuery: (payload: any, storeCtx: ActionContext<VuapixApiState<T>, RootStore>) => Promise<T | T[]>;
+  doQuery: (payload: any, context: VuapixApiEntryCtx<T>) => Promise<T | T[]>;
+}
+
+export interface VuapixApiEntryCtx<T> {
+  vuapixCtx: VuapixApiPayload;
+  storeCtx: ActionContext<VuapixApiState<T>, RootStore>;
 }
