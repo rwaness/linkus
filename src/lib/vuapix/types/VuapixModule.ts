@@ -1,8 +1,8 @@
 import { Module } from 'vuex';
-import { RootStore, Dictionary, VuapixApi } from './types';
-import VuapixApiModule from './VuapixApiModule';
+import { Store, HashMap, VuapixApi } from './types';
+import ApiModule from './ApiModule';
 
-export default class VuapixModule implements Module<{}, RootStore> {
+export default class VuapixModule implements Module<{}, Store> {
   namespaced = true;
 
   state = {};
@@ -13,11 +13,11 @@ export default class VuapixModule implements Module<{}, RootStore> {
 
   mutations = {};
 
-  modules: Dictionary<VuapixApiModule<any>> = {};
+  modules: HashMap<ApiModule<any>> = {};
 
-  constructor(ns: string, apis: Dictionary<VuapixApi<any>>) {
+  constructor(ns: string, apis: HashMap<VuapixApi<any>>) {
     Object.keys(apis).forEach((dataType) => {
-      this.modules[dataType] = new VuapixApiModule(ns, dataType, apis[dataType]);
+      this.modules[dataType] = new ApiModule(ns, dataType, apis[dataType]);
     });
   }
 }

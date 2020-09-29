@@ -1,6 +1,8 @@
 import * as api from '@/apis/stitch/apps';
 import * as userApi from '@/apis/stitch/users';
 
+/* eslint-disable no-underscore-dangle */
+
 export const appsList = {
   doQuery({ user }) {
     // { ids: user.apps }
@@ -17,9 +19,8 @@ export const appDetail = {
 
 export const userAddApp = {
   single: true,
-  doQuery({ id }, { vuapixCtx, storeCtx }) {
-    const { getters, commit } = storeCtx;
-    const { itemToKey } = vuapixCtx;
+  doQuery({ id }, { $store, itemToUid }) {
+    const { getters, commit } = $store;
     const updatedUser = userApi.addApp({ id });
 
     if (!updatedUser) {
@@ -27,9 +28,9 @@ export const userAddApp = {
     }
 
     commit('vuapix/users/setItems', {
-      [itemToKey(updatedUser)]: updatedUser,
+      [itemToUid(updatedUser)]: updatedUser,
     }, { root: true });
 
-    return getters.$item(id);
+    return getters._item(id);
   },
 };

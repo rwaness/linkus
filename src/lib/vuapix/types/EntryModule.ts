@@ -5,39 +5,34 @@ import {
   MutationTree,
 } from 'vuex';
 import {
-  RootStore,
-  VuapixApiEntry,
+  Store,
+  VuapixEntry,
+  EntryState,
 } from './types';
 
-interface VuapixEntryState {
-  key: string;
-  querying: boolean;
-  error: Error;
-}
 
 /* eslint-disable no-underscore-dangle */
-export default class VuapixEntryModule implements Module<VuapixEntryState, RootStore> {
-  private _initialState: VuapixEntryState;
+export default class EntryModule implements Module<EntryState, Store> {
+  private _initialState: EntryState;
 
   namespaced = true;
 
-  state: VuapixEntryState | (() => VuapixEntryState);
+  state: EntryState;
 
-  getters: GetterTree<VuapixEntryState, RootStore>;
+  getters: GetterTree<EntryState, Store>;
 
-  actions: ActionTree<VuapixEntryState, RootStore>;
+  actions: ActionTree<EntryState, Store>;
 
-  mutations: MutationTree<VuapixEntryState>;
+  mutations: MutationTree<EntryState>;
 
-  constructor(ns: string, entryName: string, entry: VuapixApiEntry<any>) {
+  constructor(ns: string, entryName: string, entry: VuapixEntry<any>) {
     this._initialState = {
-      key: null,
+      uIds: null,
       querying: false,
       error: null,
-      ...(entry.single ? {} : { key: [] }),
     };
 
-    this.state = () => ({ ...this._initialState });
+    this.state = { ...this._initialState };
 
     this.getters = {
       data: (__, ___, ____, rootGetters) => rootGetters[`${ns}/${entryName}`],
@@ -59,22 +54,20 @@ export default class VuapixEntryModule implements Module<VuapixEntryState, RootS
         state.querying = true;
         state.error = null;
       },
-      endQuerying: (state) => {
+      endQuerying: (state, { uIds }) => {
+        state.uIds = uIds;
         state.querying = false;
       },
       catchError: (state, { error }) => {
         state.error = error;
         state.querying = false;
       },
-      updateKey: (state, { key }) => {
-        state.key = key;
-      },
       ...(entry.single ? {} : {
-        addKey: (state, { key }) => {
-          state.key = [key, ...state.key];
+        addUid: (state, { uId }) => {
+          state.uIds = [uId, ...state.uIds];
         },
-        removeKey: (state, { key }) => {
-          state.key = state.key.filter((k) => k !== key);
+        removeUid: (state, { uId }) => {
+          state.uIds = state.uIds.filter((k) => k !== uId);
         },
       }),
     };

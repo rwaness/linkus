@@ -1,20 +1,12 @@
-import { Module, createNamespacedHelpers, NamespacedMappers } from 'vuex';
-import {
-  Dictionary,
-  VuapixApi,
-} from './types';
+// import { createNamespacedHelpers, NamespacedMappers } from 'vuex';
+import { HashMap, VuapixPayload } from './types';
 import VuapixModule from './VuapixModule';
-
-interface VuapixPayload {
-  namespace?: string;
-  apis: Dictionary<VuapixApi<object>>;
-}
 
 /* eslint-disable no-underscore-dangle */
 export default class Vuapix {
   private _ns = 'vuapix';
 
-  private _helpers: NamespacedMappers;
+  // private _helpers: NamespacedMappers;
 
   private _module: VuapixModule;
 
@@ -24,12 +16,12 @@ export default class Vuapix {
       this._ns = namespace;
     }
 
-    this._helpers = createNamespacedHelpers(this._ns);
+    // this._helpers = createNamespacedHelpers(this._ns);
 
     this._module = new VuapixModule(this._ns, apis);
   }
 
-  public toStore(): Dictionary<VuapixModule> {
+  public toStore(): HashMap<VuapixModule> {
     return {
       [this._ns]: this._module,
     };

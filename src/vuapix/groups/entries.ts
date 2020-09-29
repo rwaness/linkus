@@ -1,6 +1,9 @@
 import * as api from '@/apis/stitch/groups';
 
+/* eslint-disable no-underscore-dangle */
+
 export const groupsList = {
+  cache: 60 * 60, // 1h
   doQuery() {
     return api.groupsList();
   },
@@ -28,18 +31,17 @@ export const invitationsList = {
 
 export const acceptInvitation = {
   single: true,
-  async doQuery({ group }, { vuapixCtx, storeCtx }) {
-    const { commit } = storeCtx;
-    const { itemToKey } = vuapixCtx;
+  async doQuery({ group }, { $store, itemToUid }) {
+    const { commit } = $store;
     const joinedGroup = await api.acceptInvitation({ group });
 
     if (!joinedGroup) {
       throw new Error('No group updated');
     }
 
-    const key = itemToKey(joinedGroup);
-    commit('invitationsList/removeKey', { key });
-    commit('groupsList/addKey', { key });
+    const uId = itemToUid(joinedGroup);
+    commit('invitationsList/removeUid', { uId });
+    commit('groupsList/addUid', { uId });
 
     return joinedGroup;
   },
@@ -47,17 +49,16 @@ export const acceptInvitation = {
 
 export const rejectInvitation = {
   single: true,
-  async doQuery({ group }, { vuapixCtx, storeCtx }) {
-    const { commit } = storeCtx;
+  async doQuery({ group }, { $store, itemToUid }) {
+    const { commit } = $store;
     const rejectedGroup = await api.rejectInvitation({ group });
 
     if (!rejectedGroup) {
       throw new Error('No group updated');
     }
 
-    const { itemToKey } = vuapixCtx;
-    const key = itemToKey(rejectedGroup);
-    commit('invitationsList/removeKey', { key });
+    const uId = itemToUid(rejectedGroup);
+    commit('invitationsList/removeUid', { uId });
 
     return rejectedGroup;
   },
@@ -65,9 +66,9 @@ export const rejectInvitation = {
 
 export const groupDetail = {
   single: true,
-  async doQuery({ id }, { storeCtx }) {
-    const { getters } = storeCtx;
-    let group = getters.$item(id);
+  async doQuery({ id }, { $store }) {
+    const { getters } = $store;
+    let group = getters._item(id);
 
     if (!group) {
       group = await api.groupDetail({ id });
